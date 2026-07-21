@@ -1,0 +1,287 @@
+body {
+
+  margin: 0; /* Elimina el margen por defecto */
+
+  min-height: 100vh; /* 100% de la altura de la vista (viewport height) */
+
+  display: flex;
+
+  justify-content : center;
+
+  align-items: center;
+
+  font-family: Arial, sans-serif; /* Una fuente más limpia */
+
+}
+
+#menusuperior {
+  /* 1. Saca la barra del flujo normal y la "clava" en la pantalla */
+  position: fixed;  
+  /* 2. Pega la barra al borde superior e izquierdo de la ventana */
+  top: 0;
+  left: 0;
+  /* 3. Asegura que la barra cruce la pantalla de lado a lado */
+  width: 100%;
+  /* 4. Un color de fondo para que no se mezcle con el resto de la página */
+  background-color: #8bc600; 
+  /* 5. Flexbox para alinear los enlaces en fila */
+  display: flex;
+  /* 6. Distribuye el espacio vacío entre los enlaces para que no queden pegados */
+  justify-content: space-around; 
+  /* 7. Centra los elementos verticalmente dentro de la barra negra */
+  align-items: center;
+  /* 8. Da un margen interno (arriba y abajo) para que la barra no sea tan delgada */
+  padding: 4px 0;
+  /* 9. Evita que la barra quede oculta detrás de tu cuadro de inicio de sesión */
+  z-index: 1000;
+  justify-content: flex-start;
+}
+
+#menusuperior img {
+  margin-left: 2px; /* Crea el espacio entre los elementos */
+  margin-right: 0;   /* Limpiamos el margen derecho que pusimos antes */
+}
+#menusuperior a{
+  margin-left: 25px; /* Crea el espacio entre los elementos */
+  margin-right: 0;   /* Limpiamos el margen derecho que pusimos antes */
+}
+#menusuperior img{
+  height: 59px;
+}
+/* Nuevas reglas solo para los textos/enlaces que están dentro del menú superior */
+#menusuperior a {
+  /* 10. Cambia el color del texto para que contraste con el fondo de la barra */
+  color: white; 
+  
+  /* 11. Elimina la línea de subrayado típica de los enlaces */
+  text-decoration: none; 
+  
+  /* 12. Hace que la letra de los botones del menú sea un poco más gruesa */
+  font-weight: bold; 
+  
+  /* 13. Prepara una transición suave por si le agregas un efecto :hover luego */
+  transition: color 0.3s; 
+
+  padding: 8px 15px;
+}
+#menusuperior a:hover {
+  /* En el hover SOLO cambiamos el color. 
+     Como el padding ya existía, el link no cambia de tamaño y nada se mueve. */
+  background-color: #00a8c6; 
+  color: #ffffff; /* Cambiamos el texto a oscuro para que resalte */
+  border-radius: 21px;
+}
+#4ff0ff
+/* Usamos el ID exacto del botón para darle órdenes específicas */
+#menuhamburguesa {
+  /* 1. Le damos un color diferente (ej: el azul claro de tu fondo) */
+  color: rgb(86, 187, 255); 
+  
+  /* 2. Lo hacemos un poco más grande porque funciona como un ícono, no como texto */
+  font-size: 1.8em; 
+  
+  /* 3. Quitamos el 'margin-right: auto' porque ya no queremos 
+        empujar nada hacia la derecha */ 
+  font-weight: bold; 
+  margin-right: 0; 
+  font-size: 1.8em;
+}
+
+/* Efecto hover EXCLUSIVO para el menú hamburguesa */
+#menuhamburguesa:hover {
+  /* Que cambie a un azul más oscuro al pasar el mouse */
+  color: rgb(255, 0, 0);    
+  
+  /* Quitamos el subrayado que pusimos para los demás links, 
+     porque a los íconos no se les suele poner subrayado */
+  text-decoration: none; 
+}
+#menuhamburguesa {
+  /* 3. Quitamos el 'margin-right: auto' porque ya no queremos 
+        empujar nada hacia la derecha */
+  margin-right: 0; 
+  font-size: 1.8em;
+}
+
+header{
+
+  display: flex;
+
+  align-items: top;
+
+ 
+
+}
+
+.titulo{
+
+  margin-bottom: -4px; /*controla el espacio entre inicio de sesion y coloque su usuario modificando el margen inferior del primero*/
+
+}
+
+.iniciodesesion {
+
+  background-color: #35bfcb; /* El color del cuadro pequeño */
+
+  /* EXPLICACIÓN: Cómo hacemos que el cuadro no cubra toda la pantalla */
+
+  /* 1. Quitamos el height: 100vh (eso lo estiraba a toda la pantalla) */
+
+  /* 2. Usamos padding para darle aire por dentro */
+
+  padding: 2px;
+
+  padding-bottom: 38px;
+
+  padding-top: 20px;
+
+
+
+  /* 3. Definimos un ancho máximo para que no se desparrame en pantallas grandes */
+
+  width: 100%;
+
+  max-width: 350px;
+
+ 
+
+
+
+  /* Bordes redondeados */
+
+  border-radius: 15px;
+
+
+
+  /* Sombra para que parezca que flota sobre el fondo (efecto profundidad) */
+
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+
+
+
+  /* Centramos el texto e hijos dentro del cuadro */
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  text-align: center;
+
+  color: white; /* Letras blancas para que resalten en el azul */
+
+}
+
+
+
+.links-de-pie a {
+
+  color: rgb(255, 255, 255);
+
+  text-decoration: none;
+
+  font-size: 1em;
+
+  transition: 0.3s;
+
+}
+
+.links-de-pie a:hover {
+
+  font-weight: bold;
+
+  text-decoration: underline;
+
+}
+
+
+
+a:focus{
+
+/* 1. Quitamos el borde naranja predeterminado */
+
+    outline: none;
+
+    /* 2. Ponemos un borde de un color que combine con tu cuadro */
+
+  border: 2px solid rgb(170, 228, 255);
+
+/* 3. Opcional: Podemos añadir una pequeña sombra para que brille */
+
+    box-shadow: 0 0 10px rgba(170, 228, 255, 0.5)
+
+}
+
+
+/* Estilo rápido para los inputs para que se vean mejor dentro del cuadro */
+
+input {
+
+  margin: 3px 0; /* Espacio entre los inputs */
+
+  padding: 12px; /* Más espacio dentro del input para que sea más cómodo escribir */
+
+  border-radius: 5px; /* Bordes redondeados para que combine con el estilo del cuadro */
+
+  border: 2px solid #018ca5; /* Borde de los imputs */
+
+  width: 100%; /* Ancho de los imputs (En porcentajes para usar solo el espacio disponible) */
+
+  box-sizing: border-box; /* Evita que el padding ensanche el input más de la cuenta */
+
+}
+
+input:focus{
+
+  /* 1. Quitamos el borde naranja predeterminado */
+
+    outline: none;
+
+    /* 2. Ponemos un borde de un color que combine con tu cuadro */
+
+  border: 2px solid #04e3f7;
+
+/* 3. Opcional: Podemos añadir una pequeña sombra para que brille */
+
+    box-shadow: 0 0 19px  #194a4f;
+
+}
+
+
+button {
+
+  background-color: #ffffff;
+
+  color: #0196b0;
+
+  border: none;
+
+  padding: 10px 20px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-weight: bold;
+
+  margin-top: 10px;
+
+  margin-bottom: 10px;
+
+}
+button:focus{
+
+  /* 1. Quitamos el borde naranja predeterminado */
+
+    outline: none;
+
+  /* 2. Ponemos un borde de un color que combine con tu cuadro */
+
+  border: 2px solid  rgb(80, 200, 255);
+
+  /* 3. Opcional: Podemos añadir una pequeña sombra para que brille */
+
+    box-shadow: 0 0 10px rgba(170, 228, 255, 0.5)
+
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina principal</title>
+    
+    <!-- Hojas de estilo y Fuentes -->
+    <link rel="stylesheet" href="/css/style_pagina_principal.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+U:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- FullCalendar -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+</head>
+<body>
+    <header id="menusuperior">
+        <a id="menuhamburguesa" href="#">≡</a>
+        <img src="/imagenes/logo proyecto.png" alt="Logo">
+        <a id="nombreinsti" href="#">Instituto tecnologico de Tacuarembó</a>
+        <a href="#">Salones</a>
+        <a href="#">Novedades</a>
+        <a href="#">Sobre nosotros</a>
+    </header>
+
+    <main>
+        <div id="agenda">
+            <h3 id="titulo_agenda">AGENDA ESTUDIANTIL</h3>
+            <div class="seccion-agenda">
+                <div id="calendario-js"></div>
+                <!-- Movida aquí dentro para que funcione el Flexbox del CSS -->
+                <img id="imageninsti" src="/imagenes/imageninstituto.png" alt="aa" class="imagen-responsive">
+            </div>
+            <script src="/scripts/script.js"></script>
+        </div>
+    </main>
+</body>
+</html>

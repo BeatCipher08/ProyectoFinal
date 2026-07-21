@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="/css/style_inicio_de_sesion.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+U:wght@100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto</title>
+</head>
+    <body>
+        <header id="menusuperior">
+            <a id="menuhamburguesa" href="#">≡</a>
+            <img src="/imagenes/logo proyecto.png" alt="Logo">
+            <a id="nombreinsti" href="#">Instituto tecnologico de Tacuarembó</a>
+            <a href="#">Reservas</a>
+            <a href="#">Novedades</a>
+            <a href="#">Sobre nosotros</a>
+        </header>
+
+    <section class="iniciodesesion">
+        <h2 class="titulo">Inicio de sesión</h2>
+        <p>Coloque su usuario y contraseña.</p>
+
+        <section class="form_login">
+
+            <form class="inicio_sesion_imputs" action="/login" method="post">
+            
+                <div class="usuario">
+                    <input type="text" id="Usuario" name="usuario" required placeholder="Usuario o email">
+                </div>
+
+                <div class="contraseña">
+                    <input type="password" id="contraseña" name="contraseña" required placeholder="Contraseña">
+                </div>
+
+                <button type="submit">Iniciar Sesion</button>
+            
+            </form>
+
+            <div class="links-de-pie">
+                <a href="#">Crear una cuenta nueva </a>
+            </div>
+    </section>
+    </body>
+</html>

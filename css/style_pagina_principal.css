@@ -1,0 +1,129 @@
+/* ==========================================================================
+   BARRA DE NAVEGACIÓN SUPERIOR
+   ========================================================================== */
+#menusuperior {
+  position: fixed;  
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #AEE239; 
+  display: flex;                /* Corregido: antes decía flexbox */
+  justify-content: flex-start;  /* Unificado: evita conflictos con space-around */
+  align-items: center;
+  padding: 4px 0;
+  z-index: 1000;
+}
+
+#menusuperior img {
+  height: 59px;
+  margin-left: 2px; 
+  margin-right: 0;   
+}
+
+#menusuperior a {
+  color: white; 
+  text-decoration: none; 
+  font-weight: bold; 
+  transition: color 0.3s; 
+  padding: 8px 15px;
+  margin-left: 25px; 
+  margin-right: 0;   
+}
+
+#menusuperior a:hover {
+  background-color: #00a8c6; 
+  color: #ffffff; 
+  border-radius: 21px;
+}
+
+/* MENÚ HAMBURGUESA (Unificado en un solo bloque limpio) */
+#menuhamburguesa {
+  color: rgb(86, 187, 255); 
+  font-size: 1.8em; 
+  font-weight: bold; 
+  margin-right: 0; 
+}
+
+#menuhamburguesa:hover {
+  color: rgb(255, 0, 0);    
+  text-decoration: none; 
+}
+
+/* ==========================================================================
+   ESTRUCTURA CONTENIDO PRINCIPAL Y SECCIÓN AGENDA
+   ========================================================================== */
+#agenda {
+    padding-top: 80px;   /* Colchón superior para que no se esconda bajo el menú */
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+}
+
+#titulo_agenda {
+    margin-top: 0;       
+    margin-bottom: 5px; 
+    margin-left: 20px;    
+    font-family: inherit;
+}
+
+.seccion-agenda {
+  width: 100%;
+  display: flex;
+  flex-direction: row;      /* Mantiene ambos elementos en fila */
+  align-items: flex-start;  
+  justify-content: space-between; /* Empuja un elemento a cada extremo */
+ 
+  /* PADDINGS LATERALES: Aquí controlas la separación con los bordes de la pantalla */
+  padding: 0 20px;          /* 0 arriba/abajo, 20px de colchón a la izquierda y derecha */
+  box-sizing: border-box;   /* Asegura que los paddings no ensanchen la pantalla completa */
+  gap: 20px;                /* Espacio de separación por si las pantallas son muy chicas */
+}
+
+#calendario-js {
+    /* Ocupa la mitad de la pantalla restando una parte del espacio (gap) */
+    width: calc(50% - 10px);   
+    max-width: 800px;         /* Límite máximo opcional por si no quieres que estire al infinito */
+    margin: 0;                /* Eliminamos el margin-left viejo para usar el padding del padre */
+    
+    background-color: #018ca5;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    font-size: 0.65rem;
+}
+
+#imageninsti {
+    /* Ocupa la otra mitad exacta de la pantalla */
+    width: calc(50% - 10px);   
+    max-width: 800px;         
+    height: auto;             /* Mantiene la proporción de la foto sin deformarla */
+    border-radius: 8px;  
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   AJUSTES DE ADAPTABILIDAD INTERNA DE FULLCALENDAR
+   ========================================================================== */
+.fc .fc-view-harness {
+    min-height: 200px !important; 
+}
+
+.fc .fc-daygrid-body {
+    height: auto !important; 
+}
+
+.fc .fc-toolbar-title {
+    font-size: 1.1rem !important; 
+}
+
+.fc .fc-button {
+    padding: 0.2rem 0.4rem !important; 
+    font-size: 0.8rem !important;
+}
+
+.fc-event-title {
+    font-size: 0.7rem !important; 
+    white-space: nowrap;          
+    overflow: hidden;
+    text-overflow: ellipsis;      
+}
