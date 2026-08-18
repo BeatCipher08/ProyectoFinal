@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Espacios y Recursos</title>
+
+    <!-- Archivos CSS -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="style_pagina_principal.css">
+
+    <!-- Fuentes e Íconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+    <!-- ==========================================================
+       BARRA DE NAVEGACIÓN SUPERIOR (HEADER GLOBAL)
+       ========================================================== -->
+    <header id="menusuperior">
+        <a id="menuhamburguesa" href="#" aria-label="Menú de navegación">≡</a>
+        <img src="/imagenes/logo proyecto.png" alt="Logo del instituto">
+        <a id="nombreinsti" href="#">Instituto tecnológico de Tacuarembó</a>
+        <a href="#">Salones</a>
+        <a href="#">Novedades</a>
+        <a href="#">Sobre nosotros</a>
+        <button class="registro">Registrarse</button>
+        <button class="sesion">
+            <i class="fa-solid fa-user" aria-hidden="true"></i>
+            Iniciar sesion
+        </button>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main>
+        <!-- ======================================================
+           SECCIÓN PORTADA (HERO)
+           ====================================================== -->
+        <section class="hero">
+            <div class="contenido">
+                <h1>Sistema de Gestión de Espacios y Recursos</h1>
+                <p>Reserva laboratorios, salones, biblioteca y equipamiento de manera fácil y rápida.</p>
+                <div class="botones">
+                    <button class="reserva"><i class="fa-solid fa-calendar" aria-hidden="true"></i> Hacer una reserva</button>
+                    <button class="registro_portada">Registrarse</button>
+                </div>
+            </div>
+            <div class="foto">
+               <!-- Se mantiene sin lazy-loading por estar arriba del todo (Above the fold) -->
+               <img src="../imagenes/imageninstituto.png" alt="Vista exterior del instituto tecnológico">
+            </div>
+        </section>
+
+        <!-- ======================================================
+           SECCIÓN ESTADÍSTICAS
+           ====================================================== -->
+        <section class="estadisticas">
+            <div class="dato">
+                <h2>+1200</h2>
+                <p>Estudiantes</p>
+            </div>
+            <div class="dato">
+                <h2>15</h2>
+                <p>Laboratorios</p>
+            </div>
+            <div class="dato">
+                <h2>1</h2>
+                <p>Biblioteca</p>
+            </div>
+            <div class="dato">
+                <h2>+50</h2>
+                <p>Equipos disponibles</p>
+            </div>
+        </section>
+
+        <!-- ======================================================
+           SECCIÓN ANUNCIO IMPORTANTE
+           ====================================================== -->
+        <section class="seccion-anuncio">
+            <article class="articulo-noticia">
+                <header class="encabezado-noticia">
+                    <h2 class="titulo-noticia">¡Bienvenidos al nuevo portal institucional!</h2>
+                    <p class="subtitulo-noticia">Lanzamiento oficial de la plataforma web</p>
+                    <div class="metadatos-noticia">
+                        <span class="autor-noticia">Por: Administración Educativa</span> | 
+                        <time class="fecha-noticia" datetime="2026-08-05">5 de Agosto, 2026</time>
+                    </div>
+                </header>
+                <div class="contenido-noticia">
+                    <p>¡Hola a toda la comunidad educativa! Les damos la más cordial bienvenida a nuestro nuevo sitio web.</p>
+                    <p>La principal funcionalidad de esta página es permitir a estudiantes y docentes organizar, gestionar y reservar espacios físicos como laboratorios y salones, así como equipamiento tecnológico, de una forma mucho más ágil, rápida y centralizada.</p>
+                    <p>Queremos avisarles que, en un futuro cercano, <strong>este recuadro verde será utilizado exclusivamente para publicar noticias urgentes</strong>, anuncios institucionales de importancia y cambios de último minuto que deban conocer al instante.</p>
+                    <p>¡Esperamos que le saquen el máximo provecho a esta nueva herramienta! Saludos cordiales.</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- ======================================================
+           SECCIÓN TARJETAS DE RESERVA Y CARRUSEL
+           ====================================================== -->
+        <section class="reservas">
+            <h2>¿Qué puedes reservar?</h2>
+            <div class="carrusel-wrapper">
+                <!-- Botón Izquierdo con accesibilidad (Móvil) -->
+                <button class="btn-carrusel btn-prev" aria-label="Tarjeta anterior">
+                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                </button>
+
+                <div class="contenedor-tarjetas">
+                    <div class="tarjeta">
+                        <div class="icono" aria-hidden="true">🧪</div>
+                        <h3>Laboratorios</h3>
+                        <p>Reserva laboratorios totalmente equipados para prácticas y proyectos.</p>
+                        <button>Reservar</button>
+                    </div>
+                    <div class="tarjeta">
+                        <div class="icono" aria-hidden="true">🏫</div>
+                        <h3>Salones</h3>
+                        <p>Consulta la disponibilidad de aulas y realiza tu reserva fácilmente.</p>
+                        <button>Reservar</button>
+                    </div>
+                    <div class="tarjeta">
+                        <div class="icono" aria-hidden="true">📚</div>
+                        <h3>Biblioteca</h3>
+                        <p>Reserva espacios de estudio individuales o grupales.</p>
+                        <button>Reservar</button>
+                    </div>
+                    <div class="tarjeta">
+                        <div class="icono" aria-hidden="true">💻</div>
+                        <h3>Equipamiento</h3>
+                        <p>Solicita proyectores, notebooks y otros recursos tecnológicos.</p>
+                        <button>Reservar</button>
+                    </div>
+                </div>
+
+                <!-- Botón Derecho con accesibilidad (Móvil) -->
+                <button class="btn-carrusel btn-next" aria-label="Tarjeta siguiente">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ======================================================
+           SECCIÓN NOVEDADES MODERNAS
+           ====================================================== -->
+        <section class="novedades-modernas">
+            <div class="titulo-novedades">
+                <h2>Últimas novedades</h2>
+                <p>Mantente informado sobre cambios, eventos y anuncios del instituto.</p>
+            </div>
+            <div class="contenedor-novedades">
+                <div class="card-novedad">
+                    <!-- Optimización de carga con loading="lazy" -->
+                    <img src="../imagenes/imageninstituto.png" alt="Nuevos laboratorios de informática" loading="lazy">
+                    <div class="contenido-novedad">
+                       <h3>Nuevos laboratorios</h3>
+                       <p>Se incorporaron nuevos equipos para las prácticas de informática.</p>
+                       <a href="#">Leer más →</a>
+                    </div>
+                </div>
+                <div class="card-novedad">
+                    <!-- Optimización de carga con loading="lazy" -->
+                    <img src="../imagenes/imageninstituto.png" alt="Instalaciones de la biblioteca renovada" loading="lazy">
+                    <div class="contenido-novedad">
+                       <h3>Biblioteca renovada</h3>
+                       <p>Ahora puedes reservar salas de estudio desde el sistema.</p>
+                       <a href="#">Leer más →</a>
+                    </div>
+                </div>
+                <div class="card-novedad">
+                    <!-- Optimización de carga con loading="lazy" -->
+                    <img src="../imagenes/imageninstituto.png" alt="Participantes en la semana tecnológica" loading="lazy">
+                    <div class="contenido-novedad">
+                       <h3>Semana tecnológica</h3>
+                       <p>Inscripciones abiertas para talleres y conferencias.</p>
+                       <a href="#">Leer más →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==========================================================
+       PIE DE PÁGINA (FOOTER GLOBAL)
+       ========================================================== -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3>Instituto Tecnológico</h3>
+                <p>Sistema de Gestión de Espacios y Recursos.</p>
+            </div>
+            <div>
+                <h3>Enlaces</h3>
+                <ul>
+                    <li>Inicio</li>
+                    <li>Reservas</li>
+                    <li>Novedades</li>
+                    <li>Contacto</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Contacto</h3>
+                <p>📍 Tacuarembó</p>
+                <p>📞 4632-0000</p>
+                <p>✉ contacto@instituto.edu.uy</p>
+            </div>
+        </div>
+        <hr>
+        <p class="copy">
+            © 2026 Instituto Tecnológico de Tacuarembó - Todos los derechos reservados.
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts_pagina_principal.js"></script>
+</body>
+</html>

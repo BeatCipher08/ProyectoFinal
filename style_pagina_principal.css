@@ -1,0 +1,413 @@
+/* ==========================================================================
+   CONFIGURACIÓN GLOBAL Y RESETEO
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f5f7fa;
+    color: #222;
+}
+
+/* ==========================================================================
+   1. SECCIÓN PORTADA (HERO)
+   ========================================================================== */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 70px;
+    padding-top: 120px; /* Compensa el espacio de la barra fija superior */
+    background: white;
+}
+
+.contenido {
+    width: 48%;
+}
+
+.contenido h1 {
+    font-size: 56px;
+    margin-bottom: 25px;
+    line-height: 1.15;
+}
+
+.contenido p {
+    font-size: 21px;
+    color: #666;
+    margin-bottom: 35px;
+    line-height: 1.7;
+}
+
+.botones {
+    display: flex;
+    gap: 20px;
+}
+
+.reserva {
+    background: #8CB326;
+    color: white;
+    border: none;
+    padding: 16px 30px;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.registro_portada {
+    background: #8CB326;
+    color: white;
+    border: none;
+    padding: 16px 30px;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+.foto img {
+    width: 650px;
+    border-radius: 30px;
+}
+
+/* ==========================================================================
+   2. SECCIÓN ESTADÍSTICAS
+   ========================================================================== */
+.estadisticas {
+    display: flex;
+    justify-content: space-around;
+    background: white;
+    padding: 35px;
+    margin: 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+}
+
+.dato {
+    text-align: center;
+}
+
+.dato h2 {
+    color: #8CB326;
+    font-size: 36px;
+}
+
+.dato p {
+    margin-top: 10px;
+    color: #666;
+    font-size: 18px;
+}
+
+/* ==========================================================================
+   3. SECCIÓN ANUNCIO IMPORTANTE
+   ========================================================================== */
+.seccion-anuncio {
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.articulo-noticia {
+    background: #8CB326;
+    color: white;
+    padding: 40px 50px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.encabezado-noticia {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+}
+
+.titulo-noticia {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.subtitulo-noticia {
+    font-size: 20px;
+    font-weight: 500;
+    color: #f1f8e0;
+    margin-bottom: 15px;
+}
+
+.metadatos-noticia {
+    font-size: 14px;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.contenido-noticia p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.contenido-noticia p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   4. SECCIÓN TARJETAS DE RESERVA Y CARRUSEL
+   ========================================================================== */
+.reservas {
+    margin: 40px;
+}
+
+.reservas h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.carrusel-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.btn-carrusel {
+    display: none; /* Oculto en PC por defecto */
+}
+
+.contenedor-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.tarjeta {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+    transition: .3s;
+    text-align: center;
+}
+
+.tarjeta:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .15);
+}
+
+.icono {
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+.tarjeta h3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #8CB326;
+}
+
+.tarjeta p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.tarjeta button {
+    background: #8CB326;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.tarjeta button:hover {
+    background: #6b901d;
+}
+
+/* ==========================================================================
+   5. SECCIÓN NOVEDADES MODERNAS
+   ========================================================================== */
+.novedades-modernas {
+    margin: 60px 40px;
+}
+
+.titulo-novedades {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.titulo-novedades h2 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.titulo-novedades p {
+    color: #666;
+    font-size: 18px;
+}
+
+.contenedor-novedades {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.card-novedad {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    transition: .3s;
+}
+
+.card-novedad:hover {
+    transform: translateY(-10px);
+}
+
+.card-novedad img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.contenido-novedad {
+    padding: 25px;
+}
+
+.contenido-novedad h3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #8CB326;
+}
+
+.contenido-novedad p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.contenido-novedad a {
+    color: #8CB326;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   6. MEDIA QUERY - PÁGINA PRINCIPAL PARA CELULARES
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    
+    /* Portada en móvil */
+    .hero {
+        flex-direction: column;
+        padding: 100px 20px 40px;
+        text-align: center;
+    }
+    .contenido {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+    .contenido h1 { font-size: 38px; }
+    .botones { flex-direction: column; }
+    .foto img { width: 100%; }
+
+    /* Estadísticas en móvil */
+    .estadisticas {
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+    .dato {
+        width: 45%;
+        margin-bottom: 15px;
+    }
+
+    /* Anuncio en móvil */
+    .seccion-anuncio { margin: 20px; }
+    .articulo-noticia { padding: 30px 20px; }
+    .titulo-noticia { font-size: 26px; }
+
+    /* Carrusel de reservas 3D en móvil */
+    .carrusel-wrapper {
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .contenedor-tarjetas {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        margin-top: 0;
+    }
+
+    .btn-carrusel {
+        display: flex;
+        position: absolute;
+        z-index: 10;
+        background: #8CB326;
+        color: white;
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .btn-prev { left: 10px; }
+    .btn-next { right: 10px; }
+
+    .tarjeta {
+        position: absolute;
+        width: 65%;
+        transition: transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease, z-index 0.4s;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .tarjeta.activa {
+        transform: translateX(0) scale(1.05);
+        z-index: 3;
+        filter: blur(0);
+        opacity: 1;
+    }
+
+    .tarjeta.anterior {
+        transform: translateX(-65%) scale(0.9);
+        z-index: 2;
+        filter: blur(2px);
+        opacity: 0.6;
+    }
+
+    .tarjeta.siguiente {
+        transform: translateX(65%) scale(0.9);
+        z-index: 2;
+        filter: blur(2px);
+        opacity: 0.6;
+    }
+
+    .tarjeta.oculta {
+        transform: translateX(0) scale(0.8);
+        z-index: 1;
+        filter: blur(4px);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Novedades modernas en móvil */
+    .contenedor-novedades {
+        grid-template-columns: 1fr;
+    }
+}
