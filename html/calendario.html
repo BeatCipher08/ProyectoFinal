@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario</title>
+
+    <link rel="stylesheet" href="/css/calendario.css">
+</head>
+
+<body>
+
+<header>
+    <div>
+        <h1>Calendario</h1>
+        <p>Calendario general de reservas</p>
+    </div>
+
+    <button onclick="volver()">Volver</button>
+</header>
+
+<main>
+
+    <section class="barra-calendario">
+
+        <div class="navegacion">
+            <button onclick="mesAnterior()">‹</button>
+
+            <h2 id="mesAnio"></h2>
+
+            <button onclick="mesSiguiente()">›</button>
+        </div>
+
+        <button class="hoy" onclick="irHoy()">Hoy</button>
+
+    </section>
+
+    <section class="calendario">
+
+        <div class="dias-semana">
+            <div>Lun</div>
+            <div>Mar</div>
+            <div>Mié</div>
+            <div>Jue</div>
+            <div>Vie</div>
+            <div>Sáb</div>
+            <div>Dom</div>
+        </div>
+
+        <div id="dias" class="dias"></div>
+
+    </section>
+
+</main>
+
+<div id="ventanaReserva" class="modal">
+
+    <div class="modal-contenido">
+
+        <button class="cerrar" onclick="cerrarReserva()">×</button>
+
+        <h2 id="tituloReserva"></h2>
+
+        <p><strong>Fecha:</strong> <span id="fechaReserva"></span></p>
+        <p><strong>Horario:</strong> <span id="horaReserva"></span></p>
+        <p><strong>Aula:</strong> <span id="aulaReserva"></span></p>
+        <p><strong>Reservado por:</strong> <span id="personaReserva"></span></p>
+        <p><strong>Motivo:</strong> <span id="motivoReserva"></span></p>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="../css/calendario.css">
+<script src="../scripts/calendario.js"></script>
+</body>
+</html>

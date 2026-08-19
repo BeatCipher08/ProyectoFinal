@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador</title>
+   <link rel="stylesheet" href="../css/style_panel_admin.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <h2>Portal Educativo</h2>
+            <span>Administrador</span>
+        </div>
+
+        <nav>
+            <a href="#" class="activo">Inicio</a>
+            <a href="#">Usuarios</a>
+            <a href="#">Reservas</a>
+            <a href="#">Aulas</a>
+            <a href="#">Equipamiento</a>
+            <a href="#">Reportes</a>
+        </nav>
+
+        <div class="salir">
+            <a href="inicio.html">Cerrar sesión</a>
+        </div>
+    </aside>
+
+    <main class="contenido">
+
+        <header class="encabezado">
+            <div>
+                <h1>Panel de administrador</h1>
+                <p>Gestioná y supervisá el portal educativo.</p>
+            </div>
+
+            <div class="perfil">
+                <div class="avatar">A</div>
+                <div>
+                    <strong>Administrador</strong>
+                    <span>Administrador del sistema</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="estadisticas">
+
+            <div class="tarjeta">
+                <div class="icono">👥</div>
+                <div>
+                    <span>Usuarios registrados</span>
+                    <h2>128</h2>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">📅</div>
+                <div>
+                    <span>Reservas activas</span>
+                    <h2>24</h2>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">🏫</div>
+                <div>
+                    <span>Aulas disponibles</span>
+                    <h2>18</h2>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="icono">💻</div>
+                <div>
+                    <span>Equipos disponibles</span>
+                    <h2>42</h2>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="contenido-grid">
+
+            <div class="panel">
+                <div class="panel-titulo">
+                    <div>
+                        <h2>Reservas recientes</h2>
+                        <p>Últimas reservas realizadas en el sistema.</p>
+                    </div>
+                    <button>Ver todas</button>
+                </div>
+
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Recurso</th>
+                                <th>Fecha</th>
+                                <th>Horario</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Juan Pérez</td>
+                                <td>Aula 204</td>
+                                <td>10/08/2026</td>
+                                <td>10:00 - 12:00</td>
+                                <td><span class="estado confirmada">Confirmada</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>María Rodríguez</td>
+                                <td>Proyector 03</td>
+                                <td>10/08/2026</td>
+                                <td>14:00 - 16:00</td>
+                                <td><span class="estado pendiente">Pendiente</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Lucas Silva</td>
+                                <td>Laboratorio 1</td>
+                                <td>11/08/2026</td>
+                                <td>08:00 - 10:00</td>
+                                <td><span class="estado confirmada">Confirmada</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Agustina López</td>
+                                <td>Aula 105</td>
+                                <td>11/08/2026</td>
+                                <td>13:00 - 15:00</td>
+                                <td><span class="estado cancelada">Cancelada</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel acciones">
+                <div class="panel-titulo">
+                    <div>
+                        <h2>Acciones rápidas</h2>
+                        <p>Administrá los recursos del sistema.</p>
+                    </div>
+                </div>
+
+                <button class="accion">
+                    <span>👥</span>
+                    <div>
+                        <strong>Gestionar usuarios</strong>
+                        <small>Agregar, editar o eliminar usuarios</small>
+                    </div>
+                </button>
+
+                <button class="accion">
+                    <span>📅</span>
+                    <div>
+                        <strong>Gestionar reservas</strong>
+                        <small>Revisar y administrar reservas</small>
+                    </div>
+                </button>
+
+                <button class="accion">
+                    <span>🏫</span>
+                    <div>
+                        <strong>Gestionar aulas</strong>
+                        <small>Administrar aulas y espacios</small>
+                    </div>
+                </button>
+
+                <button class="accion">
+                    <span>💻</span>
+                    <div>
+                        <strong>Gestionar equipamiento</strong>
+                        <small>Administrar equipos disponibles</small>
+                    </div>
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
