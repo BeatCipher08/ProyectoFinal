@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nueva Reserva</title>
+
+    <link rel="stylesheet" href="../css/style_nueva_reserva.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>Portal Educativo</h2>
+            <span>Alumno</span>
+        </div>
+
+        <nav>
+            <a href="panel_alumno.html">Inicio</a>
+            <a href="calendario.html">Calendario</a>
+            <a href="aulas.html">Aulas</a>
+            <a href="mis_reservas.html">Mis reservas</a>
+            <a href="nueva_reserva.html" class="activo">Nueva reserva</a>
+        </nav>
+
+    </aside>
+
+    <main class="contenido">
+
+        <header class="encabezado">
+
+            <div>
+                <h1>Nueva reserva</h1>
+                <p>Completa los datos para realizar una reserva.</p>
+            </div>
+
+            <a href="mis_reservas.html" class="btn-volver">
+                Volver
+            </a>
+
+        </header>
+
+        <section class="formulario">
+
+            <div class="titulo">
+                <h2>Datos de la reserva</h2>
+                <p>Selecciona el aula, fecha y horario que deseas reservar.</p>
+            </div>
+
+            <form id="formReserva">
+
+                <div class="fila">
+
+                    <div class="campo">
+                        <label for="fecha">Fecha</label>
+
+                        <input
+                            type="date"
+                            id="fecha"
+                            required
+                        >
+                    </div>
+
+                    <div class="campo">
+                        <label for="aula">Aula</label>
+
+                        <select id="aula" required>
+
+                            <option value="">
+                                Seleccionar aula
+                            </option>
+
+                            <option value="Aula 101">
+                                Aula 101
+                            </option>
+
+                            <option value="Aula 102">
+                                Aula 102
+                            </option>
+
+                            <option value="Aula 204">
+                                Aula 204
+                            </option>
+
+                            <option value="Laboratorio 1">
+                                Laboratorio 1
+                            </option>
+
+                            <option value="Laboratorio 2">
+                                Laboratorio 2
+                            </option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="fila">
+
+                    <div class="campo">
+
+                        <label for="horaInicio">
+                            Hora de inicio
+                        </label>
+
+                        <input
+                            type="time"
+                            id="horaInicio"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="campo">
+
+                        <label for="horaFin">
+                            Hora de finalización
+                        </label>
+
+                        <input
+                            type="time"
+                            id="horaFin"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="equipamiento">
+                        Equipamiento
+                    </label>
+
+                    <select id="equipamiento">
+
+                        <option value="Ninguno">
+                            Ninguno
+                        </option>
+
+                        <option value="Proyector">
+                            Proyector
+                        </option>
+
+                        <option value="Computadoras">
+                            Computadoras
+                        </option>
+
+                        <option value="Proyector y computadoras">
+                            Proyector y computadoras
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="campo">
+
+                    <label for="motivo">
+                        Motivo de la reserva
+                    </label>
+
+                    <textarea
+                        id="motivo"
+                        placeholder="Escribe el motivo de la reserva..."
+                        required
+                    ></textarea>
+
+                </div>
+
+                <div class="informacion">
+
+                    <strong>Importante</strong>
+
+                    <p>
+                        Verifica que el aula y horario seleccionados
+                        estén disponibles antes de confirmar.
+                    </p>
+
+                </div>
+
+                <div class="acciones">
+
+                    <a
+                        href="mis_reservas.html"
+                        class="btn-cancelar"
+                    >
+                        Cancelar
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn-confirmar"
+                    >
+                        Confirmar reserva
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script>
+
+        document
+            .getElementById("formReserva")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const fecha =
+                    document.getElementById("fecha").value;
+
+                const horaInicio =
+                    document.getElementById("horaInicio").value;
+
+                const horaFin =
+                    document.getElementById("horaFin").value;
+
+                const aula =
+                    document.getElementById("aula").value;
+
+                if (horaFin <= horaInicio) {
+
+                    alert(
+                        "La hora de finalización debe ser posterior a la hora de inicio."
+                    );
+
+                    return;
+                }
+
+                alert(
+                    "Reserva realizada correctamente."
+                );
+
+                window.location.href =
+                    "mis_reservas.html";
+
+            });
+
+    </script>
+
+</body>
+
+</html>

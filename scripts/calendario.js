@@ -1,98 +1,78 @@
-let fechaActual = new Date();
+const dias = document.getElementById("dias");
+const mesActual = document.getElementById("mesActual");
+const mesAnterior = document.getElementById("mesAnterior");
+const mesSiguiente = document.getElementById("mesSiguiente");
 
-const reservas = [
-    {
-        fecha: "2026-08-10",
-        titulo: "Clase de Matemática",
-        hora: "08:00 - 10:00",
+let fechaActual = new Date(2026, 7, 1);
+
+const reservas = {
+    "2026-08-27": {
+        usuario: "Juan Pérez",
         aula: "Aula 101",
-        persona: "Juan Pérez",
+        horario: "08:00 - 10:00",
         motivo: "Clase"
     },
-    {
-        fecha: "2026-08-12",
-        titulo: "Laboratorio",
-        hora: "10:00 - 12:00",
-        aula: "Laboratorio 2",
-        persona: "María González",
-        motivo: "Práctica"
-    },
-    {
-        fecha: "2026-08-15",
-        titulo: "Reunión docente",
-        hora: "14:00 - 16:00",
-        aula: "Sala 3",
-        persona: "Carlos Rodríguez",
-        motivo: "Reunión"
-    },
-    {
-        fecha: "2026-08-18",
-        titulo: "Informática",
-        hora: "09:00 - 11:00",
-        aula: "Aula 204",
-        persona: "Ana Martínez",
-        motivo: "Clase"
-    },
-    {
-        fecha: "2026-08-20",
-        titulo: "Proyecto",
-        hora: "13:00 - 15:00",
+
+    "2026-08-29": {
+        usuario: "María González",
         aula: "Laboratorio 1",
-        persona: "Pedro Silva",
+        horario: "14:00 - 16:00",
         motivo: "Trabajo práctico"
+    },
+
+    "2026-09-02": {
+        usuario: "Ana López",
+        aula: "Aula 204",
+        horario: "10:00 - 12:00",
+        motivo: "Clase de informática"
     }
+};
+
+const meses = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre"
 ];
 
-function mostrarCalendario() {
+function generarCalendario() {
 
-    const contenedor = document.getElementById("dias");
-    const titulo = document.getElementById("mesAnio");
-
-    contenedor.innerHTML = "";
+    dias.innerHTML = "";
 
     const año = fechaActual.getFullYear();
     const mes = fechaActual.getMonth();
 
-    const meses = [
-        "Enero",
-        "Febrero",
-        "Marzo",
-        "Abril",
-        "Mayo",
-        "Junio",
-        "Julio",
-        "Agosto",
-        "Septiembre",
-        "Octubre",
-        "Noviembre",
-        "Diciembre"
-    ];
+    mesActual.textContent = meses[mes] + " " + año;
 
-    titulo.textContent = meses[mes] + " " + año;
+    const primerDia = new Date(año, mes, 1).getDay();
 
-    let primerDia = new Date(año, mes, 1).getDay();
+    const cantidadDias = new Date(
+        año,
+        mes + 1,
+        0
+    ).getDate();
 
-    if (primerDia === 0) {
-        primerDia = 7;
+    let inicio = primerDia - 1;
+
+    if (inicio < 0) {
+        inicio = 6;
     }
 
-    const cantidadDias = new Date(año, mes + 1, 0).getDate();
+    for (let i = 0; i < inicio; i++) {
 
-    const diasMesAnterior = new Date(año, mes, 0).getDate();
+        const espacio = document.createElement("div");
 
-    for (let i = primerDia - 1; i > 0; i--) {
+        espacio.className = "dia vacio";
 
-        const dia = document.createElement("div");
-
-        dia.className = "dia otro-mes";
-
-        dia.innerHTML = `
-            <div class="numero">
-                ${diasMesAnterior - i + 1}
-            </div>
-        `;
-
-        contenedor.appendChild(dia);
+        dias.appendChild(espacio);
     }
 
     for (let numero = 1; numero <= cantidadDias; numero++) {
@@ -101,119 +81,85 @@ function mostrarCalendario() {
 
         dia.className = "dia";
 
-        const fecha = año + "-" +
-            String(mes + 1).padStart(2, "0") + "-" +
-            String(numero).padStart(2, "0");
+        const numeroDia = document.createElement("span");
 
-        dia.innerHTML = `
-            <div class="numero">${numero}</div>
-        `;
+        numeroDia.className = "numero";
 
-        const reservasDelDia = reservas.filter(
-            reserva => reserva.fecha === fecha
-        );
+        numeroDia.textContent = numero;
 
-        reservasDelDia.forEach(reserva => {
+        dia.appendChild(numeroDia);
+
+        const mesTexto = String(mes + 1).padStart(2, "0");
+
+        const diaTexto = String(numero).padStart(2, "0");
+
+        const fecha =
+            año + "-" +
+            mesTexto + "-" +
+            diaTexto;
+
+        if (reservas[fecha]) {
+
+            dia.classList.add("reservado");
 
             const evento = document.createElement("div");
 
-            evento.className = "reserva";
+            evento.className = "evento";
 
-            evento.innerHTML = `
-                <strong>${reserva.titulo}</strong>
-                ${reserva.hora}
-            `;
-
-            evento.addEventListener("click", function () {
-                mostrarReserva(reserva);
-            });
+            evento.textContent =
+                reservas[fecha].aula;
 
             dia.appendChild(evento);
-        });
 
-        contenedor.appendChild(dia);
-    }
+            dia.addEventListener("click", function () {
 
-    const totalDias = primerDia - 1 + cantidadDias;
+                mostrarReserva(
+                    fecha,
+                    reservas[fecha]
+                );
 
-    const celdasRestantes = 42 - totalDias;
+            });
 
-    for (let numero = 1; numero <= celdasRestantes; numero++) {
+        } else {
 
-        const dia = document.createElement("div");
+            dia.classList.add("disponible");
 
-        dia.className = "dia otro-mes";
+        }
 
-        dia.innerHTML = `
-            <div class="numero">${numero}</div>
-        `;
-
-        contenedor.appendChild(dia);
+        dias.appendChild(dia);
     }
 }
 
-function mesAnterior() {
+function mostrarReserva(fecha, reserva) {
+
+    alert(
+        "Reserva\n\n" +
+        "Fecha: " + fecha + "\n" +
+        "Usuario: " + reserva.usuario + "\n" +
+        "Aula: " + reserva.aula + "\n" +
+        "Horario: " + reserva.horario + "\n" +
+        "Motivo: " + reserva.motivo
+    );
+}
+
+mesAnterior.addEventListener("click", function () {
 
     fechaActual.setMonth(
         fechaActual.getMonth() - 1
     );
 
-    mostrarCalendario();
-}
+    generarCalendario();
 
-function mesSiguiente() {
+});
+
+mesSiguiente.addEventListener("click", function () {
 
     fechaActual.setMonth(
         fechaActual.getMonth() + 1
     );
 
-    mostrarCalendario();
-}
-
-function irHoy() {
-
-    fechaActual = new Date();
-
-    mostrarCalendario();
-}
-
-function mostrarReserva(reserva) {
-
-    document.getElementById("tituloReserva").textContent =
-        reserva.titulo;
-
-    document.getElementById("fechaReserva").textContent =
-        reserva.fecha;
-
-    document.getElementById("horaReserva").textContent =
-        reserva.hora;
-
-    document.getElementById("aulaReserva").textContent =
-        reserva.aula;
-
-    document.getElementById("personaReserva").textContent =
-        reserva.persona;
-
-    document.getElementById("motivoReserva").textContent =
-        reserva.motivo;
-
-    document.getElementById("ventanaReserva").style.display =
-        "flex";
-}
-
-function cerrarReserva() {
-
-    document.getElementById("ventanaReserva").style.display =
-        "none";
-}
-
-function volver() {
-
-    window.history.back();
-}
-
-window.addEventListener("load", function () {
-
-    mostrarCalendario();
+    generarCalendario();
 
 });
+
+generarCalendario();
