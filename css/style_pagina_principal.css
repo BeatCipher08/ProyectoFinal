@@ -1,129 +1,174 @@
-/* ==========================================================================
-   BARRA DE NAVEGACIÓN SUPERIOR
-   ========================================================================== */
-#menusuperior {
-  position: fixed;  
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #AEE239; 
-  display: flex;                /* Corregido: antes decía flexbox */
-  justify-content: flex-start;  /* Unificado: evita conflictos con space-around */
-  align-items: center;
-  padding: 4px 0;
-  z-index: 1000;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
-#menusuperior img {
-  height: 59px;
-  margin-left: 2px; 
-  margin-right: 0;   
+body{
+    background:#f5f7fa;
+}
+nav a{
+    color:white;
+}
+nav a{
+    text-decoration:none;
+    color:#333;
+    margin:0 15px;
+    font-weight:bold;
 }
 
-#menusuperior a {
-  color: white; 
-  text-decoration: none; 
-  font-weight: bold; 
-  transition: color 0.3s; 
-  padding: 8px 15px;
-  margin-left: 25px; 
-  margin-right: 0;   
+header button{
+    background:white;
+    color:#333;
+    border:1px solid #ddd;
+    padding:10px 20px;
+    border-radius:10px;
+    cursor:pointer;
 }
 
-#menusuperior a:hover {
-  background-color: #00a8c6; 
-  color: #ffffff; 
-  border-radius: 21px;
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:70px;
+    background:white;
 }
 
-/* MENÚ HAMBURGUESA (Unificado en un solo bloque limpio) */
-#menuhamburguesa {
-  color: rgb(86, 187, 255); 
-  font-size: 1.8em; 
-  font-weight: bold; 
-  margin-right: 0; 
+.texto{
+    width:50%;
 }
 
-#menuhamburguesa:hover {
-  color: rgb(255, 0, 0);    
-  text-decoration: none; 
+.texto h1{
+    font-size:60px;
+    line-height:1.1;
+    color:#14213d;
 }
 
-/* ==========================================================================
-   ESTRUCTURA CONTENIDO PRINCIPAL Y SECCIÓN AGENDA
-   ========================================================================== */
-#agenda {
-    padding-top: 80px;   /* Colchón superior para que no se esconda bajo el menú */
-    display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
+.texto p{
+    font-size:20px;
+    margin-bottom:25px;
 }
 
-#titulo_agenda {
-    margin-top: 0;       
-    margin-bottom: 5px; 
-    margin-left: 20px;    
-    font-family: inherit;
+.texto button{
+    background:#99c221;
+    color:white;
+    border:none;
+    padding:15px 30px;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
 }
 
-.seccion-agenda {
-  width: 100%;
-  display: flex;
-  flex-direction: row;      /* Mantiene ambos elementos en fila */
-  align-items: flex-start;  
-  justify-content: space-between; /* Empuja un elemento a cada extremo */
- 
-  /* PADDINGS LATERALES: Aquí controlas la separación con los bordes de la pantalla */
-  padding: 0 20px;          /* 0 arriba/abajo, 20px de colchón a la izquierda y derecha */
-  box-sizing: border-box;   /* Asegura que los paddings no ensanchen la pantalla completa */
-  gap: 20px;                /* Espacio de separación por si las pantallas son muy chicas */
+.imagen img{
+    width:700px;
+    border-radius:25px;
+}.logo{
+display:flex;
+align-items:center;
+gap:15px;
 }
 
-#calendario-js {
-    /* Ocupa la mitad de la pantalla restando una parte del espacio (gap) */
-    width: calc(50% - 10px);   
-    max-width: 800px;         /* Límite máximo opcional por si no quieres que estire al infinito */
-    margin: 0;                /* Eliminamos el margin-left viejo para usar el padding del padre */
-    
-    background-color: #018ca5;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    font-size: 0.65rem;
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:80px;
+background:white;
 }
 
-#imageninsti {
-    /* Ocupa la otra mitad exacta de la pantalla */
-    width: calc(50% - 10px);   
-    max-width: 800px;         
-    height: auto;             /* Mantiene la proporción de la foto sin deformarla */
-    border-radius: 8px;  
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+.botones{
+display:flex;
+gap:15px;
+margin-top:20px;
 }
 
-/* ==========================================================================
-   AJUSTES DE ADAPTABILIDAD INTERNA DE FULLCALENDAR
-   ========================================================================== */
-.fc .fc-view-harness {
-    min-height: 200px !important; 
+.btn2{
+background:white;
+color:#333;
+border:1px solid #999;
 }
 
-.fc .fc-daygrid-body {
-    height: auto !important; 
+.estadisticas{
+display:flex;
+gap:50px;
+margin-top:50px;
 }
 
-.fc .fc-toolbar-title {
-    font-size: 1.1rem !important; 
+.estadisticas h2{
+color:#99c221;
+font-size:32px;
 }
 
-.fc .fc-button {
-    padding: 0.2rem 0.4rem !important; 
-    font-size: 0.8rem !important;
+.servicios{
+padding:80px;
+text-align:center;
+background:#f4f4f4;
 }
 
-.fc-event-title {
-    font-size: 0.7rem !important; 
-    white-space: nowrap;          
-    overflow: hidden;
-    text-overflow: ellipsis;      
+.cards{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+margin-top:40px;
+}
+
+.card{
+width:260px;
+background:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.card h3{
+margin-bottom:15px;
+color:#222;
+}
+
+.calendario{
+padding:80px;
+display:flex;
+justify-content:center;
+}
+
+.cal-box{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+table{
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:15px;
+text-align:center;
+width:50px;
+}
+
+.novedades{
+padding:80px;
+background:#99c221;
+text-align:center;
+}
+
+.novedades .card{
+background:white;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:25px;
+}
+
+footer p{
+margin:0;
 }
