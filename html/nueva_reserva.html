@@ -409,7 +409,6 @@
 
 
 <script>
-
 const formulario =
     document.getElementById("formReserva");
 
@@ -441,6 +440,41 @@ formulario.addEventListener(
             document.getElementById("cantidad").value;
 
 
+        const motivo =
+            document.getElementById("motivo").value;
+
+
+        const equipamiento =
+            [
+                ...document.querySelectorAll(
+                    'input[name="equipamiento"]:checked'
+                )
+            ]
+            .map(
+                elemento =>
+                    elemento.value
+            )
+            .join(", ");
+
+
+        if (
+            !fecha ||
+            !horaInicio ||
+            !horaFin ||
+            !recurso ||
+            !cantidad ||
+            !motivo
+        ) {
+
+            alert(
+                "Completá todos los campos obligatorios."
+            );
+
+            return;
+
+        }
+
+
         if (horaFin <= horaInicio) {
 
             alert(
@@ -452,26 +486,50 @@ formulario.addEventListener(
         }
 
 
-        if (!fecha) {
-
-            alert(
-                "Seleccioná una fecha."
-            );
-
-            return;
-
-        }
+        const reservas =
+            JSON.parse(
+                localStorage.getItem("reservas")
+            ) || [];
 
 
-        if (!recurso) {
+        const nuevaReserva = {
 
-            alert(
-                "Seleccioná un recurso."
-            );
+            id:
+                Date.now(),
 
-            return;
+            fecha:
+                fecha,
 
-        }
+            horaInicio:
+                horaInicio,
+
+            horaFin:
+                horaFin,
+
+            recurso:
+                recurso,
+
+            cantidad:
+                cantidad,
+
+            equipamiento:
+                equipamiento || "Ninguno",
+
+            motivo:
+                motivo
+
+        };
+
+
+        reservas.push(
+            nuevaReserva
+        );
+
+
+        localStorage.setItem(
+            "reservas",
+            JSON.stringify(reservas)
+        );
 
 
         alert(
@@ -484,7 +542,6 @@ formulario.addEventListener(
 
     }
 );
-
 </script>
 
 
