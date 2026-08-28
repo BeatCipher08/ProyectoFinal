@@ -281,3 +281,117 @@ nav a.activo {
         width: 100%;
     }
 }
+/* ETIQUETA */
+
+.etiqueta {
+    display: inline-block;
+    color: #c62828;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+
+/* USUARIO */
+
+.usuario {
+    position: absolute;
+    bottom: 25px;
+    left: 18px;
+    right: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 8px;
+}
+
+.usuario .avatar {
+    width: 38px;
+    height: 38px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.usuario strong {
+    display: block;
+    font-size: 13px;
+}
+
+.usuario span {
+    font-size: 12px;
+    color: #4f5f25;
+}
+
+
+/* EQUIPAMIENTO */
+
+.equipamiento {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.check {
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 8px;
+    padding: 13px;
+    border: 1px solid #d6d6d6;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: normal !important;
+}
+
+.check:hover {
+    border-color: #AEE239;
+    background: #f8fbf2;
+}
+
+.check input {
+    width: auto !important;
+    accent-color: #e53935;
+}
+
+.check span {
+    font-size: 14px;
+}
+
+
+/* ICONO INFORMACIÓN */
+
+.informacion {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.informacion-icono {
+    min-width: 28px;
+    height: 28px;
+    background: #e53935;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+
+/* RESPONSIVE EQUIPAMIENTO */
+
+@media (max-width: 700px) {
+
+    .equipamiento {
+        grid-template-columns: 1fr;
+    }
+
+}
