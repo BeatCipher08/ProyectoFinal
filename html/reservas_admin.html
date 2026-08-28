@@ -2,402 +2,158 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Gestión de Reservas</title>
+    <title>Gestión de reservas</title>
 
     <link rel="stylesheet" href="../css/style_reservas_admin.css">
-
 </head>
 
 <body>
 
-    <aside class="sidebar">
+    <header class="barra">
 
         <div class="logo">
-
-            <h2>Portal Educativo</h2>
-
-            <span>Administrador</span>
-
+            ReservaTech
         </div>
-
 
         <nav>
-
-            <a href="panel_admin.html">Inicio</a>
-
-            <a href="reservas_admin.html" class="activo">
-                Reservas
-            </a>
-
-            <a href="#">
-                Usuarios
-            </a>
-
-            <a href="aulas.html">
-                Aulas
-            </a>
-
-            <a href="#">
-                Equipamiento
-            </a>
-
-            <a href="#">
-                Reportes
-            </a>
-
+            <a href="panel_admin.html">Panel</a>
+            <a href="reservas_admin.html" class="activo">Reservas</a>
+            <a href="usuarios.html">Usuarios</a>
+            <a href="Inicio_sesion.html">Cerrar sesión</a>
         </nav>
 
-
-        <div class="salir">
-
-            <a href="Inicio_sesion.html">
-                Cerrar sesión
-            </a>
-
-        </div>
-
-    </aside>
+    </header>
 
 
-    <main class="contenido">
+    <main class="contenedor">
 
-
-        <header class="encabezado">
+        <section class="encabezado">
 
             <div>
-
                 <h1>Gestión de reservas</h1>
-
-                <p>
-                    Consultá y administrá todas las reservas del sistema.
-                </p>
-
+                <p>Consultá y administrá todas las reservas del sistema.</p>
             </div>
-
-
-            <div class="perfil">
-
-                <div class="avatar">
-                    A
-                </div>
-
-                <div>
-
-                    <strong>Administrador</strong>
-
-                    <span>
-                        Administrador del sistema
-                    </span>
-
-                </div>
-
-            </div>
-
-        </header>
-
-
-
-        <!-- TARJETAS -->
-
-        <section class="resumen">
-
-
-            <button
-                class="resumen-card verde"
-                onclick="mostrarReservas('todas')"
-            >
-
-                <span>
-                    Reservas totales
-                </span>
-
-                <strong>
-                    48
-                </strong>
-
-                <small>
-                    Ver todas las reservas
-                </small>
-
-            </button>
-
-
-
-            <button
-                class="resumen-card rojo"
-                onclick="mostrarReservas('confirmadas')"
-            >
-
-                <span>
-                    Confirmadas
-                </span>
-
-                <strong>
-                    32
-                </strong>
-
-                <small>
-                    Ver reservas confirmadas
-                </small>
-
-            </button>
-
-
-
-            <button
-                class="resumen-card amarillo"
-                onclick="mostrarReservas('pendientes')"
-            >
-
-                <span>
-                    Pendientes
-                </span>
-
-                <strong>
-                    10
-                </strong>
-
-                <small>
-                    Ver reservas pendientes
-                </small>
-
-            </button>
-
-
-
-            <button
-                class="resumen-card gris"
-                onclick="mostrarReservas('canceladas')"
-            >
-
-                <span>
-                    Canceladas
-                </span>
-
-                <strong>
-                    6
-                </strong>
-
-                <small>
-                    Ver reservas canceladas
-                </small>
-
-            </button>
-
 
         </section>
 
 
+        <section class="estadisticas">
 
-        <!-- DETALLE DE RESERVAS -->
-
-        <section
-            class="detalle-reservas"
-            id="detalleReservas"
-        >
-
-
-            <div class="detalle-cabecera">
-
-
-                <div>
-
-                    <h2 id="tituloDetalle">
-                        Reservas
-                    </h2>
-
-                    <p id="descripcionDetalle">
-                        Seleccioná una categoría para consultar sus reservas.
-                    </p>
-
-                </div>
-
-
-                <button
-                    class="boton-cerrar"
-                    onclick="cerrarDetalle()"
-                >
-                    Cerrar
-                </button>
-
-
+            <div class="tarjeta">
+                <span class="numero" id="totalReservas">6</span>
+                <span>Total de reservas</span>
             </div>
 
+            <div class="tarjeta confirmada">
+                <span class="numero" id="reservasConfirmadas">3</span>
+                <span>Confirmadas</span>
+            </div>
 
-            <div id="contenidoDetalle"></div>
+            <div class="tarjeta pendiente">
+                <span class="numero" id="reservasPendientes">2</span>
+                <span>Pendientes</span>
+            </div>
 
+            <div class="tarjeta cancelada">
+                <span class="numero" id="reservasCanceladas">1</span>
+                <span>Canceladas</span>
+            </div>
 
         </section>
 
-
-
-        <!-- TABLA GENERAL -->
 
         <section class="panel">
 
+            <div class="herramientas">
 
-            <div class="panel-superior">
-
-
-                <div>
-
-                    <h2>
-                        Reservas recientes
-                    </h2>
-
-                    <p>
-                        Últimas reservas realizadas en el sistema.
-                    </p>
-
-                </div>
-
-
-                <a
-                    href="reservas_admin.html"
-                    class="boton-nueva"
+                <input
+                    type="text"
+                    id="buscarReserva"
+                    placeholder="Buscar reserva, usuario o aula..."
+                    onkeyup="buscarReservas()"
                 >
-                    Ver todas
-                </a>
 
+                <select id="filtroEstado" onchange="filtrarReservas()">
+
+                    <option value="todos">
+                        Todos los estados
+                    </option>
+
+                    <option value="Confirmada">
+                        Confirmadas
+                    </option>
+
+                    <option value="Pendiente">
+                        Pendientes
+                    </option>
+
+                    <option value="Cancelada">
+                        Canceladas
+                    </option>
+
+                </select>
+
+                <select id="filtroRecurso" onchange="filtrarReservas()">
+
+                    <option value="todos">
+                        Todos los recursos
+                    </option>
+
+                    <option value="Aula">
+                        Aulas
+                    </option>
+
+                    <option value="Laboratorio">
+                        Laboratorios
+                    </option>
+
+                    <option value="Proyector">
+                        Proyectores
+                    </option>
+
+                </select>
 
             </div>
-
 
 
             <div class="tabla-contenedor">
 
-
                 <table>
-
 
                     <thead>
 
                         <tr>
-
-                            <th>
-                                Usuario
-                            </th>
-
-                            <th>
-                                Recurso
-                            </th>
-
-                            <th>
-                                Fecha
-                            </th>
-
-                            <th>
-                                Horario
-                            </th>
-
-                            <th>
-                                Estado
-                            </th>
-
+                            <th>Usuario</th>
+                            <th>Recurso</th>
+                            <th>Fecha</th>
+                            <th>Horario</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
 
                     </thead>
 
 
+                    <tbody id="tablaReservas">
 
-                    <tbody>
 
-
-                        <tr>
+                        <tr data-recurso="Aula">
 
                             <td>
-                                <strong>
-                                    Juan Pérez
-                                </strong>
-
-                                <small>
-                                    Profesor
-                                </small>
+                                <strong>Juan Pérez</strong>
+                                <small>juanperez</small>
                             </td>
 
                             <td>
-                                Aula 204
+                                <strong>Aula 101</strong>
+                                <small>Aula</small>
                             </td>
 
                             <td>
-                                10/08/2026
-                            </td>
-
-                            <td>
-                                10:00 - 12:00
-                            </td>
-
-                            <td>
-
-                                <span class="estado confirmada">
-                                    Confirmada
-                                </span>
-
-                            </td>
-
-                        </tr>
-
-
-
-                        <tr>
-
-                            <td>
-                                <strong>
-                                    María Rodríguez
-                                </strong>
-
-                                <small>
-                                    Profesor
-                                </small>
-                            </td>
-
-                            <td>
-                                Proyector 03
-                            </td>
-
-                            <td>
-                                10/08/2026
-                            </td>
-
-                            <td>
-                                14:00 - 16:00
-                            </td>
-
-                            <td>
-
-                                <span class="estado pendiente">
-                                    Pendiente
-                                </span>
-
-                            </td>
-
-                        </tr>
-
-
-
-                        <tr>
-
-                            <td>
-                                <strong>
-                                    Lucas Silva
-                                </strong>
-
-                                <small>
-                                    Profesor
-                                </small>
-                            </td>
-
-                            <td>
-                                Laboratorio 1
-                            </td>
-
-                            <td>
-                                11/08/2026
+                                27/08/2026
                             </td>
 
                             <td>
@@ -405,35 +161,140 @@
                             </td>
 
                             <td>
-
                                 <span class="estado confirmada">
                                     Confirmada
                                 </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="btn-detalles"
+                                    onclick="verDetalles(this)"
+                                >
+                                    Ver
+                                </button>
+
+                                <button
+                                    class="btn-cancelar"
+                                    onclick="cancelarReserva(this)"
+                                >
+                                    Cancelar
+                                </button>
 
                             </td>
 
                         </tr>
 
 
-
-                        <tr>
+                        <tr data-recurso="Laboratorio">
 
                             <td>
-                                <strong>
-                                    Agustina López
-                                </strong>
-
-                                <small>
-                                    Profesor
-                                </small>
+                                <strong>María Rodríguez</strong>
+                                <small>mrodriguez</small>
                             </td>
 
                             <td>
-                                Aula 105
+                                <strong>Laboratorio 2</strong>
+                                <small>Laboratorio</small>
                             </td>
 
                             <td>
-                                11/08/2026
+                                27/08/2026
+                            </td>
+
+                            <td>
+                                10:00 - 12:00
+                            </td>
+
+                            <td>
+                                <span class="estado pendiente">
+                                    Pendiente
+                                </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="btn-detalles"
+                                    onclick="verDetalles(this)"
+                                >
+                                    Ver
+                                </button>
+
+                                <button
+                                    class="btn-cancelar"
+                                    onclick="cancelarReserva(this)"
+                                >
+                                    Cancelar
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr data-recurso="Proyector">
+
+                            <td>
+                                <strong>Carlos Silva</strong>
+                                <small>csilva</small>
+                            </td>
+
+                            <td>
+                                <strong>Proyector 1</strong>
+                                <small>Proyector</small>
+                            </td>
+
+                            <td>
+                                28/08/2026
+                            </td>
+
+                            <td>
+                                09:00 - 11:00
+                            </td>
+
+                            <td>
+                                <span class="estado confirmada">
+                                    Confirmada
+                                </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="btn-detalles"
+                                    onclick="verDetalles(this)"
+                                >
+                                    Ver
+                                </button>
+
+                                <button
+                                    class="btn-cancelar"
+                                    onclick="cancelarReserva(this)"
+                                >
+                                    Cancelar
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr data-recurso="Aula">
+
+                            <td>
+                                <strong>Lucía Gómez</strong>
+                                <small>lgomez</small>
+                            </td>
+
+                            <td>
+                                <strong>Aula 204</strong>
+                                <small>Aula</small>
+                            </td>
+
+                            <td>
+                                28/08/2026
                             </td>
 
                             <td>
@@ -441,10 +302,120 @@
                             </td>
 
                             <td>
+                                <span class="estado pendiente">
+                                    Pendiente
+                                </span>
+                            </td>
 
+                            <td class="acciones">
+
+                                <button
+                                    class="btn-detalles"
+                                    onclick="verDetalles(this)"
+                                >
+                                    Ver
+                                </button>
+
+                                <button
+                                    class="btn-cancelar"
+                                    onclick="cancelarReserva(this)"
+                                >
+                                    Cancelar
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr data-recurso="Laboratorio">
+
+                            <td>
+                                <strong>Ana Martínez</strong>
+                                <small>amartinez</small>
+                            </td>
+
+                            <td>
+                                <strong>Laboratorio 1</strong>
+                                <small>Laboratorio</small>
+                            </td>
+
+                            <td>
+                                29/08/2026
+                            </td>
+
+                            <td>
+                                08:00 - 10:00
+                            </td>
+
+                            <td>
+                                <span class="estado confirmada">
+                                    Confirmada
+                                </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="btn-detalles"
+                                    onclick="verDetalles(this)"
+                                >
+                                    Ver
+                                </button>
+
+                                <button
+                                    class="btn-cancelar"
+                                    onclick="cancelarReserva(this)"
+                                >
+                                    Cancelar
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr data-recurso="Aula">
+
+                            <td>
+                                <strong>Pedro Fernández</strong>
+                                <small>pfernandez</small>
+                            </td>
+
+                            <td>
+                                <strong>Aula 305</strong>
+                                <small>Aula</small>
+                            </td>
+
+                            <td>
+                                30/08/2026
+                            </td>
+
+                            <td>
+                                15:00 - 17:00
+                            </td>
+
+                            <td>
                                 <span class="estado cancelada">
                                     Cancelada
                                 </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="btn-detalles"
+                                    onclick="verDetalles(this)"
+                                >
+                                    Ver
+                                </button>
+
+                                <button
+                                    class="btn-cancelar"
+                                    onclick="cancelarReserva(this)"
+                                >
+                                    Cancelar
+                                </button>
 
                             </td>
 
@@ -453,18 +424,33 @@
 
                     </tbody>
 
-
                 </table>
-
 
             </div>
 
-
         </section>
-
 
     </main>
 
+
+    <div id="modalDetalles" class="modal">
+
+        <div class="modal-contenido">
+
+            <span
+                class="cerrar"
+                onclick="cerrarDetalles()"
+            >
+                ×
+            </span>
+
+            <h2>Detalles de la reserva</h2>
+
+            <div id="informacionReserva"></div>
+
+        </div>
+
+    </div>
 
 
     <script src="../scripts/reservas_admin.js"></script>
