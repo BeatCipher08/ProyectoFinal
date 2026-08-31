@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. BARRA DE NAVEGACIÓN SUPERIOR (GLOBAL)
+   1. ESTILOS GLOBALES Y BARRA DE NAVEGACIÓN SUPERIOR (HEADER)
    ========================================================================== */
 #menusuperior {
   position: fixed;  
@@ -16,8 +16,8 @@
 }
 
 #menusuperior img {
-  height: 59px;
-  margin-left: 2px; 
+  height: 62px;
+  margin-left: 20px; 
 }
 
 #menusuperior a {
@@ -36,6 +36,7 @@
 }
 
 #menuhamburguesa {
+  display: none; /* Oculto por defecto en computadoras */
   color: rgb(86, 187, 255); 
   font-size: 1.8em; 
   font-weight: bold; 
@@ -47,70 +48,105 @@
   text-decoration: none; 
 }
 
-/* ==========================================================================
-   2. REGLAS RESPONSIVAS (MEDIA QUERIES)
-   ========================================================================== */
-
-/* 
-   Todo lo que esté dentro de este bloque @media solo se activará 
-   cuando la pantalla mida 768 píxeles de ancho o menos (teléfonos y tablets).
-*/
-@media screen and (max-width: 768px) {
-    
-    /* --- Ajustes del Menú Superior en Móviles --- */
-    #menusuperior {
-        flex-wrap: wrap;             /* Permite que los enlaces bajen si no hay espacio */
-        justify-content: space-between; 
-        padding: 10px;
-    }
-
-    #menusuperior a {
-        margin-left: 10px;           /* Achicamos los márgenes entre botones */
-        font-size: 0.9rem;           /* Letra ligeramente más pequeña */
-        padding: 5px 10px;
-    }
-
-    #menusuperior img {
-        height: 45px;                /* Achicamos el logo un poco */
-    }
-
-    /* --- Ajustes de la Estructura Principal (Agenda e Imagen) --- */
-    #agenda {
-        padding-top: 120px;          /* Damos más espacio porque el menú ocupará dos renglones */
-    }
-
-    .seccion-agenda {
-        flex-direction: column;      /* ¡Clave! Cambia la fila a columna (uno abajo del otro) */
-        align-items: center;         /* Centra los elementos en la pantalla */
-        padding: 0 15px;             
-        gap: 30px;                   /* Separación vertical entre calendario e imagen */
-    }
-
-    /* --- El Calendario y la Imagen pasan a ocupar todo el ancho --- */
-    #calendario-js {
-        width: 100%;                 /* Ocupa todo el espacio disponible del celular */
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    #imageninsti {
-        width: 100%;                 /* La imagen también ocupa todo el ancho */
-    }
+.registro {
+    color: #ffffff;
+    background: #00a8c6;
+    border: 2px solid #00a8c6;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    margin-left: 70px;
+    margin-right: 12px;
 }
 
-/* 
-   Opcional: Para pantallas extremadamente pequeñas (teléfonos muy angostos)
-*/
-@media screen and (max-width: 480px) {
-    #menusuperior a {
-        display: none;               /* Oculta los enlaces de texto */
+.sesion {
+    color: #ffffff;
+    background: #8CB326;
+    border: 2px solid #8CB326;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 12px;
+}
+
+/* ==========================================================================
+   2. PIE DE PÁGINA (FOOTER)
+   ========================================================================== */
+footer {
+    margin-top: 70px;
+    background: #222;
+    color: white;
+    padding: 60px 50px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.footer-grid h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.footer-grid ul {
+    list-style: none;
+}
+
+.footer-grid li {
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.footer-grid li:hover {
+    color: #8CB326;
+}
+
+footer hr {
+    margin: 35px 0;
+    border: 1px solid rgba(255, 255, 255, .15);
+}
+
+.copy {
+    text-align: center;
+    opacity: .8;
+}
+
+/* ==========================================================================
+   3. MEDIA QUERIES (ESTILOS RESPONSIVOS GLOBALES)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    #menusuperior {
+        padding: 15px 20px;
     }
-    
+
+    #menusuperior a:not(#menuhamburguesa):not(#nombreinsti),
+    #menusuperior .sesion {
+        display: none; 
+    }
+
     #menuhamburguesa {
-        display: block;              /* Muestra solo el menú hamburguesa */
-        margin-left: 15px;
+        display: block;
+        font-size: 28px;
+        color: #333;
+        text-decoration: none;
     }
-    
-    /* Nota: Para que el menú hamburguesa despliegue los enlaces necesitarás JavaScript. 
-       Por ahora, esto deja la interfaz limpia en pantallas muy chicas. */
+
+    #nombreinsti {
+        font-size: 16px;
+    }
+
+    footer {
+        padding: 40px 20px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
 }
