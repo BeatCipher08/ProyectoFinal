@@ -1,0 +1,318 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+    color: #333;
+}
+
+
+/* ENCABEZADO */
+
+.encabezado {
+    height: 80px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    border-bottom: 4px solid #AEE239;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+    margin-right: 60px;
+}
+
+.logo h2 {
+    font-size: 20px;
+    color: #333;
+}
+
+.logo span {
+    font-size: 12px;
+    color: #e53935;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+}
+
+nav a {
+    text-decoration: none;
+    color: #444;
+    padding: 12px 16px;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+nav a:hover {
+    background: #AEE239;
+}
+
+nav .activo {
+    background: #e53935;
+    color: #ffffff;
+}
+
+.cerrar {
+    text-decoration: none;
+    background: #e53935;
+    color: #ffffff;
+    padding: 11px 17px;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.cerrar:hover {
+    background: #AEE239;
+    color: #333;
+}
+
+
+/* CONTENIDO */
+
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px 30px;
+}
+
+
+/* PRESENTACION */
+
+.presentacion {
+    background: #AEE239;
+    border-left: 7px solid #e53935;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.presentacion h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.presentacion p {
+    color: #444;
+    max-width: 650px;
+    line-height: 1.5;
+}
+
+
+/* FILTROS */
+
+.filtros {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.filtros input,
+.filtros select {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 13px 15px;
+    font-size: 14px;
+}
+
+.filtros input {
+    flex: 1;
+}
+
+.filtros select {
+    width: 220px;
+}
+
+.filtros input:focus,
+.filtros select:focus {
+    outline: none;
+    border-color: #AEE239;
+}
+
+
+/* AULAS */
+
+.aulas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.aula {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    border-top: 5px solid #AEE239;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: 0.2s;
+}
+
+.aula:nth-child(even) {
+    border-top-color: #e53935;
+}
+
+.aula:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.aula img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.aula-contenido {
+    padding: 22px;
+}
+
+.titulo-aula {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.titulo-aula h2 {
+    font-size: 21px;
+}
+
+.disponible,
+.ocupada {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.disponible {
+    background: #AEE239;
+    color: #333;
+}
+
+.ocupada {
+    background: #e53935;
+    color: #ffffff;
+}
+
+.aula-contenido > p {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 17px;
+}
+
+.datos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-bottom: 20px;
+}
+
+.datos span {
+    background: #f7f7f7;
+    padding: 9px;
+    border-radius: 6px;
+    font-size: 11px;
+    color: #555;
+}
+
+.aula button {
+    width: 100%;
+    border: none;
+    background: #e53935;
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.aula button:hover {
+    background: #AEE239;
+    color: #333;
+}
+
+
+/* FOOTER */
+
+footer {
+    background: #333;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+footer p {
+    font-size: 12px;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    .encabezado {
+        padding: 0 20px;
+    }
+
+    .logo {
+        margin-right: 20px;
+    }
+
+    .aulas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .encabezado {
+        height: auto;
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .logo {
+        width: 100%;
+    }
+
+    nav {
+        overflow-x: auto;
+    }
+
+    .cerrar {
+        display: none;
+    }
+
+    main {
+        padding: 25px 15px;
+    }
+
+    .filtros {
+        flex-direction: column;
+    }
+
+    .filtros select {
+        width: 100%;
+    }
+
+    .datos {
+        grid-template-columns: 1fr;
+    }
+}

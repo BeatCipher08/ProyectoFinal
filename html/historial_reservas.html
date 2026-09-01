@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Historial de Reservas</title>
+
+    <link rel="stylesheet" href="../css/style_historial_reservas.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>Portal Educativo</h2>
+            <span>Administrador</span>
+        </div>
+
+        <nav>
+            <a href="panel_admin.html">Inicio</a>
+            <a href="reservas_admin.html">Gestión de reservas</a>
+            <a href="calendario.html">Calendario</a>
+            <a href="aulas.html">Aulas</a>
+            <a href="historial_reservas.html" class="activo">Historial</a>
+        </nav>
+
+    </aside>
+
+    <main class="contenido">
+
+        <header class="encabezado">
+
+            <div>
+                <h1>Historial de reservas</h1>
+                <p>Consulta todas las reservas realizadas en el sistema.</p>
+            </div>
+
+            <a href="reservas_admin.html" class="btn-volver">
+                Volver
+            </a>
+
+        </header>
+
+        <section class="filtros">
+
+            <input
+                type="text"
+                id="buscar"
+                placeholder="Buscar usuario, aula o motivo..."
+            >
+
+            <select id="filtroEstado">
+
+                <option value="todos">
+                    Todos los estados
+                </option>
+
+                <option value="confirmada">
+                    Confirmadas
+                </option>
+
+                <option value="cancelada">
+                    Canceladas
+                </option>
+
+                <option value="finalizada">
+                    Finalizadas
+                </option>
+
+            </select>
+
+        </section>
+
+        <section class="tabla-contenedor">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Horario</th>
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Aula</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="tablaReservas">
+
+                    <tr>
+                        <td>27/08/2026</td>
+                        <td>08:00 - 10:00</td>
+                        <td>Juan Pérez</td>
+                        <td>Alumno</td>
+                        <td>Aula 101</td>
+                        <td>Clase</td>
+                        <td>
+                            <span class="estado confirmada">
+                                Confirmada
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>26/08/2026</td>
+                        <td>10:00 - 12:00</td>
+                        <td>Ana López</td>
+                        <td>Profesor</td>
+                        <td>Aula 204</td>
+                        <td>Clase</td>
+                        <td>
+                            <span class="estado finalizada">
+                                Finalizada
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>25/08/2026</td>
+                        <td>14:00 - 16:00</td>
+                        <td>Pedro Silva</td>
+                        <td>Alumno</td>
+                        <td>Laboratorio 1</td>
+                        <td>Proyecto</td>
+                        <td>
+                            <span class="estado cancelada">
+                                Cancelada
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>23/08/2026</td>
+                        <td>09:00 - 11:00</td>
+                        <td>María González</td>
+                        <td>Profesor</td>
+                        <td>Aula 102</td>
+                        <td>Reunión</td>
+                        <td>
+                            <span class="estado finalizada">
+                                Finalizada
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>21/08/2026</td>
+                        <td>13:00 - 15:00</td>
+                        <td>Lucas Martínez</td>
+                        <td>Alumno</td>
+                        <td>Laboratorio 2</td>
+                        <td>Trabajo práctico</td>
+                        <td>
+                            <span class="estado cancelada">
+                                Cancelada
+                            </span>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+    <script>
+
+        const buscar = document.getElementById("buscar");
+        const filtroEstado = document.getElementById("filtroEstado");
+        const filas = document.querySelectorAll("#tablaReservas tr");
+
+        function filtrarReservas() {
+
+            const texto = buscar.value.toLowerCase();
+            const estado = filtroEstado.value;
+
+            filas.forEach(fila => {
+
+                const contenido =
+                    fila.textContent.toLowerCase();
+
+                const estadoFila =
+                    fila.querySelector(".estado").textContent
+                    .trim()
+                    .toLowerCase();
+
+                const coincideTexto =
+                    contenido.includes(texto);
+
+                const coincideEstado =
+                    estado === "todos" ||
+                    estadoFila === estado;
+
+                fila.style.display =
+                    coincideTexto && coincideEstado
+                    ? ""
+                    : "none";
+
+            });
+        }
+
+        buscar.addEventListener(
+            "input",
+            filtrarReservas
+        );
+
+        filtroEstado.addEventListener(
+            "change",
+            filtrarReservas
+        );
+
+    </script>
+
+</body>
+
+</html>

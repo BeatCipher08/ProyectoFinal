@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestión de Usuarios</title>
+
+    <link rel="stylesheet" href="../css/style_usuarios.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>Portal Educativo</h2>
+            <span>Administrador</span>
+        </div>
+
+        <nav>
+            <a href="panel_admin.html">Inicio</a>
+            <a href="reservas_admin.html">Gestión de reservas</a>
+            <a href="calendario.html">Calendario</a>
+            <a href="aulas.html">Aulas</a>
+            <a href="historial_reservas.html">Historial</a>
+            <a href="usuarios.html" class="activo">Usuarios</a>
+        </nav>
+
+    </aside>
+
+    <main class="contenido">
+
+        <header class="encabezado">
+
+            <div>
+                <h1>Gestión de usuarios</h1>
+                <p>Administra los usuarios registrados en el sistema.</p>
+            </div>
+
+            <button class="btn-nuevo" onclick="abrirModal()">
+                + Nuevo usuario
+            </button>
+
+        </header>
+
+        <section class="resumen">
+
+            <div class="tarjeta">
+                <span>Total de usuarios</span>
+                <strong id="totalUsuarios">6</strong>
+            </div>
+
+            <div class="tarjeta">
+                <span>Alumnos</span>
+                <strong>4</strong>
+            </div>
+
+            <div class="tarjeta">
+                <span>Profesores</span>
+                <strong>2</strong>
+            </div>
+
+            <div class="tarjeta">
+                <span>Administradores</span>
+                <strong>1</strong>
+            </div>
+
+        </section>
+
+        <section class="usuarios">
+
+            <div class="barra">
+
+                <input
+                    type="text"
+                    id="buscarUsuario"
+                    placeholder="Buscar por nombre o correo..."
+                >
+
+                <select id="filtroRol">
+
+                    <option value="todos">
+                        Todos los roles
+                    </option>
+
+                    <option value="Alumno">
+                        Alumnos
+                    </option>
+
+                    <option value="Profesor">
+                        Profesores
+                    </option>
+
+                    <option value="Administrador">
+                        Administradores
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="tabla-contenedor">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tablaUsuarios">
+
+                        <tr>
+
+                            <td>
+                                <strong>Juan Pérez</strong>
+                            </td>
+
+                            <td>
+                                juan.perez@email.com
+                            </td>
+
+                            <td>
+                                <span class="rol alumno">
+                                    Alumno
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="estado activo">
+                                    Activo
+                                </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="editar"
+                                    onclick="editarUsuario(this)"
+                                >
+                                    Editar
+                                </button>
+
+                                <button
+                                    class="eliminar"
+                                    onclick="eliminarUsuario(this)"
+                                >
+                                    Eliminar
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <strong>María González</strong>
+                            </td>
+
+                            <td>
+                                maria.gonzalez@email.com
+                            </td>
+
+                            <td>
+                                <span class="rol profesor">
+                                    Profesor
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="estado activo">
+                                    Activo
+                                </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="editar"
+                                    onclick="editarUsuario(this)"
+                                >
+                                    Editar
+                                </button>
+
+                                <button
+                                    class="eliminar"
+                                    onclick="eliminarUsuario(this)"
+                                >
+                                    Eliminar
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <strong>Pedro Silva</strong>
+                            </td>
+
+                            <td>
+                                pedro.silva@email.com
+                            </td>
+
+                            <td>
+                                <span class="rol alumno">
+                                    Alumno
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="estado inactivo">
+                                    Inactivo
+                                </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="editar"
+                                    onclick="editarUsuario(this)"
+                                >
+                                    Editar
+                                </button>
+
+                                <button
+                                    class="eliminar"
+                                    onclick="eliminarUsuario(this)"
+                                >
+                                    Eliminar
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <strong>Ana López</strong>
+                            </td>
+
+                            <td>
+                                ana.lopez@email.com
+                            </td>
+
+                            <td>
+                                <span class="rol profesor">
+                                    Profesor
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="estado activo">
+                                    Activo
+                                </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="editar"
+                                    onclick="editarUsuario(this)"
+                                >
+                                    Editar
+                                </button>
+
+                                <button
+                                    class="eliminar"
+                                    onclick="eliminarUsuario(this)"
+                                >
+                                    Eliminar
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <strong>Lucas Martínez</strong>
+                            </td>
+
+                            <td>
+                                lucas.martinez@email.com
+                            </td>
+
+                            <td>
+                                <span class="rol alumno">
+                                    Alumno
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="estado activo">
+                                    Activo
+                                </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="editar"
+                                    onclick="editarUsuario(this)"
+                                >
+                                    Editar
+                                </button>
+
+                                <button
+                                    class="eliminar"
+                                    onclick="eliminarUsuario(this)"
+                                >
+                                    Eliminar
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>
+                                <strong>Sofía Rodríguez</strong>
+                            </td>
+
+                            <td>
+                                sofia.rodriguez@email.com
+                            </td>
+
+                            <td>
+                                <span class="rol alumno">
+                                    Alumno
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="estado activo">
+                                    Activo
+                                </span>
+                            </td>
+
+                            <td class="acciones">
+
+                                <button
+                                    class="editar"
+                                    onclick="editarUsuario(this)"
+                                >
+                                    Editar
+                                </button>
+
+                                <button
+                                    class="eliminar"
+                                    onclick="eliminarUsuario(this)"
+                                >
+                                    Eliminar
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- MODAL -->
+
+    <div class="modal" id="modalUsuario">
+
+        <div class="modal-contenido">
+
+            <button
+                class="cerrar"
+                onclick="cerrarModal()"
+            >
+                ×
+            </button>
+
+            <h2>Nuevo usuario</h2>
+
+            <form id="formUsuario">
+
+                <label>
+                    Nombre completo
+                </label>
+
+                <input
+                    type="text"
+                    id="nombre"
+                    required
+                >
+
+                <label>
+                    Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="correo"
+                    required
+                >
+
+                <label>
+                    Rol
+                </label>
+
+                <select id="rol" required>
+
+                    <option value="">
+                        Seleccionar rol
+                    </option>
+
+                    <option value="Alumno">
+                        Alumno
+                    </option>
+
+                    <option value="Profesor">
+                        Profesor
+                    </option>
+
+                    <option value="Administrador">
+                        Administrador
+                    </option>
+
+                </select>
+
+                <label>
+                    Estado
+                </label>
+
+                <select id="estado">
+
+                    <option value="Activo">
+                        Activo
+                    </option>
+
+                    <option value="Inactivo">
+                        Inactivo
+                    </option>
+
+                </select>
+
+                <button
+                    type="submit"
+                    class="btn-guardar"
+                >
+                    Guardar usuario
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const buscarUsuario =
+            document.getElementById("buscarUsuario");
+
+        const filtroRol =
+            document.getElementById("filtroRol");
+
+        const filas =
+            document.querySelectorAll("#tablaUsuarios tr");
+
+        function filtrarUsuarios() {
+
+            const texto =
+                buscarUsuario.value.toLowerCase();
+
+            const rol =
+                filtroRol.value;
+
+            filas.forEach(fila => {
+
+                const contenido =
+                    fila.textContent.toLowerCase();
+
+                const rolFila =
+                    fila.querySelector(".rol")
+                    .textContent
+                    .trim();
+
+                const coincideTexto =
+                    contenido.includes(texto);
+
+                const coincideRol =
+                    rol === "todos" ||
+                    rolFila === rol;
+
+                fila.style.display =
+                    coincideTexto && coincideRol
+                    ? ""
+                    : "none";
+
+            });
+
+        }
+
+        buscarUsuario.addEventListener(
+            "input",
+            filtrarUsuarios
+        );
+
+        filtroRol.addEventListener(
+            "change",
+            filtrarUsuarios
+        );
+
+        function abrirModal() {
+
+            document.getElementById(
+                "modalUsuario"
+            ).style.display = "flex";
+
+        }
+
+        function cerrarModal() {
+
+            document.getElementById(
+                "modalUsuario"
+            ).style.display = "none";
+
+        }
+
+        document
+            .getElementById("formUsuario")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const nombre =
+                    document.getElementById("nombre").value;
+
+                const correo =
+                    document.getElementById("correo").value;
+
+                const rol =
+                    document.getElementById("rol").value;
+
+                const estado =
+                    document.getElementById("estado").value;
+
+                const fila =
+                    document.createElement("tr");
+
+                let claseRol =
+                    rol.toLowerCase();
+
+                let claseEstado =
+                    estado.toLowerCase();
+
+                fila.innerHTML = `
+
+                    <td>
+                        <strong>${nombre}</strong>
+                    </td>
+
+                    <td>
+                        ${correo}
+                    </td>
+
+                    <td>
+                        <span class="rol ${claseRol}">
+                            ${rol}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="estado ${claseEstado}">
+                            ${estado}
+                        </span>
+                    </td>
+
+                    <td class="acciones">
+
+                        <button
+                            class="editar"
+                            onclick="editarUsuario(this)"
+                        >
+                            Editar
+                        </button>
+
+                        <button
+                            class="eliminar"
+                            onclick="eliminarUsuario(this)"
+                        >
+                            Eliminar
+                        </button>
+
+                    </td>
+
+                `;
+
+                document
+                    .getElementById("tablaUsuarios")
+                    .appendChild(fila);
+
+                cerrarModal();
+
+                this.reset();
+
+                actualizarTotal();
+
+                alert(
+                    "Usuario creado correctamente."
+                );
+
+            });
+
+        function eliminarUsuario(boton) {
+
+            const confirmar =
+                confirm(
+                    "¿Seguro que deseas eliminar este usuario?"
+                );
+
+            if (confirmar) {
+
+                boton
+                    .closest("tr")
+                    .remove();
+
+                actualizarTotal();
+
+                alert(
+                    "Usuario eliminado correctamente."
+                );
+
+            }
+
+        }
+
+        function editarUsuario(boton) {
+
+            const fila =
+                boton.closest("tr");
+
+            const nombre =
+                fila.querySelector("strong").textContent;
+
+            alert(
+                "Aquí podremos editar los datos de " +
+                nombre +
+                " cuando conectemos la base de datos."
+            );
+
+        }
+
+        function actualizarTotal() {
+
+            const cantidad =
+                document.querySelectorAll(
+                    "#tablaUsuarios tr"
+                ).length;
+
+            document.getElementById(
+                "totalUsuarios"
+            ).textContent = cantidad;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

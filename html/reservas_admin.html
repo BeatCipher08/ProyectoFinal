@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestión de Reservas</title>
+
+    <link rel="stylesheet" href="../css/style_reservas_admin.css">
+
+</head>
+
+<body>
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <h2>Portal Educativo</h2>
+
+            <span>Administrador</span>
+
+        </div>
+
+
+        <nav>
+
+            <a href="panel_admin.html">Inicio</a>
+
+            <a href="reservas_admin.html" class="activo">
+                Reservas
+            </a>
+
+            <a href="#">
+                Usuarios
+            </a>
+
+            <a href="aulas.html">
+                Aulas
+            </a>
+
+            <a href="#">
+                Equipamiento
+            </a>
+
+            <a href="#">
+                Reportes
+            </a>
+
+        </nav>
+
+
+        <div class="salir">
+
+            <a href="Inicio_sesion.html">
+                Cerrar sesión
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="contenido">
+
+
+        <header class="encabezado">
+
+            <div>
+
+                <h1>Gestión de reservas</h1>
+
+                <p>
+                    Consultá y administrá todas las reservas del sistema.
+                </p>
+
+            </div>
+
+
+            <div class="perfil">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div>
+
+                    <strong>Administrador</strong>
+
+                    <span>
+                        Administrador del sistema
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- TARJETAS -->
+
+        <section class="resumen">
+
+
+            <button
+                class="resumen-card verde"
+                onclick="mostrarReservas('todas')"
+            >
+
+                <span>
+                    Reservas totales
+                </span>
+
+                <strong>
+                    48
+                </strong>
+
+                <small>
+                    Ver todas las reservas
+                </small>
+
+            </button>
+
+
+
+            <button
+                class="resumen-card rojo"
+                onclick="mostrarReservas('confirmadas')"
+            >
+
+                <span>
+                    Confirmadas
+                </span>
+
+                <strong>
+                    32
+                </strong>
+
+                <small>
+                    Ver reservas confirmadas
+                </small>
+
+            </button>
+
+
+
+            <button
+                class="resumen-card amarillo"
+                onclick="mostrarReservas('pendientes')"
+            >
+
+                <span>
+                    Pendientes
+                </span>
+
+                <strong>
+                    10
+                </strong>
+
+                <small>
+                    Ver reservas pendientes
+                </small>
+
+            </button>
+
+
+
+            <button
+                class="resumen-card gris"
+                onclick="mostrarReservas('canceladas')"
+            >
+
+                <span>
+                    Canceladas
+                </span>
+
+                <strong>
+                    6
+                </strong>
+
+                <small>
+                    Ver reservas canceladas
+                </small>
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- DETALLE DE RESERVAS -->
+
+        <section
+            class="detalle-reservas"
+            id="detalleReservas"
+        >
+
+
+            <div class="detalle-cabecera">
+
+
+                <div>
+
+                    <h2 id="tituloDetalle">
+                        Reservas
+                    </h2>
+
+                    <p id="descripcionDetalle">
+                        Seleccioná una categoría para consultar sus reservas.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="boton-cerrar"
+                    onclick="cerrarDetalle()"
+                >
+                    Cerrar
+                </button>
+
+
+            </div>
+
+
+            <div id="contenidoDetalle"></div>
+
+
+        </section>
+
+
+
+        <!-- TABLA GENERAL -->
+
+        <section class="panel">
+
+
+            <div class="panel-superior">
+
+
+                <div>
+
+                    <h2>
+                        Reservas recientes
+                    </h2>
+
+                    <p>
+                        Últimas reservas realizadas en el sistema.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="reservas_admin.html"
+                    class="boton-nueva"
+                >
+                    Ver todas
+                </a>
+
+
+            </div>
+
+
+
+            <div class="tabla-contenedor">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Usuario
+                            </th>
+
+                            <th>
+                                Recurso
+                            </th>
+
+                            <th>
+                                Fecha
+                            </th>
+
+                            <th>
+                                Horario
+                            </th>
+
+                            <th>
+                                Estado
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Juan Pérez
+                                </strong>
+
+                                <small>
+                                    Profesor
+                                </small>
+                            </td>
+
+                            <td>
+                                Aula 204
+                            </td>
+
+                            <td>
+                                10/08/2026
+                            </td>
+
+                            <td>
+                                10:00 - 12:00
+                            </td>
+
+                            <td>
+
+                                <span class="estado confirmada">
+                                    Confirmada
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    María Rodríguez
+                                </strong>
+
+                                <small>
+                                    Profesor
+                                </small>
+                            </td>
+
+                            <td>
+                                Proyector 03
+                            </td>
+
+                            <td>
+                                10/08/2026
+                            </td>
+
+                            <td>
+                                14:00 - 16:00
+                            </td>
+
+                            <td>
+
+                                <span class="estado pendiente">
+                                    Pendiente
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Lucas Silva
+                                </strong>
+
+                                <small>
+                                    Profesor
+                                </small>
+                            </td>
+
+                            <td>
+                                Laboratorio 1
+                            </td>
+
+                            <td>
+                                11/08/2026
+                            </td>
+
+                            <td>
+                                08:00 - 10:00
+                            </td>
+
+                            <td>
+
+                                <span class="estado confirmada">
+                                    Confirmada
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    Agustina López
+                                </strong>
+
+                                <small>
+                                    Profesor
+                                </small>
+                            </td>
+
+                            <td>
+                                Aula 105
+                            </td>
+
+                            <td>
+                                11/08/2026
+                            </td>
+
+                            <td>
+                                13:00 - 15:00
+                            </td>
+
+                            <td>
+
+                                <span class="estado cancelada">
+                                    Cancelada
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <script src="../scripts/reservas_admin.js"></script>
+
+</body>
+
+</html>
