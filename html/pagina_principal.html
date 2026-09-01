@@ -7,8 +7,8 @@
     <title>Sistema de Gestión de Espacios y Recursos</title>
 
     <!-- Archivos CSS -->
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="style_pagina_principal.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/style_pagina_principal.css">
 
     <!-- Fuentes e Íconos -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,15 +22,15 @@
     <header id="menusuperior">
         <a id="menuhamburguesa" href="#" aria-label="Menú de navegación">≡</a>
         <img src="/imagenes/logo proyecto.png" alt="Logo del instituto">
-        <a id="nombreinsti" href="#">Instituto tecnológico de Tacuarembó</a>
+        <a id="nombreinsti" href="#">
+            <span class="nombre">Instituto tecnológico de Tacuarembó</span>
+            <span class="siglas">ITT</span>
+        </a>
         <a href="#">Salones</a>
         <a href="#">Novedades</a>
         <a href="#">Sobre nosotros</a>
         <button class="registro">Registrarse</button>
-        <button class="sesion">
-            <i class="fa-solid fa-user" aria-hidden="true"></i>
-            Iniciar sesion
-        </button>
+        <button class="sesion">Iniciar sesion</button>
     </header>
 
     <!-- CONTENEDOR PRINCIPAL -->
@@ -204,7 +204,7 @@
                 <h3>Contacto</h3>
                 <p>📍 Tacuarembó</p>
                 <p>📞 4632-0000</p>
-                <p>✉ contacto@instituto.edu.uy</p>
+                <p>📧 contacto@instituto.edu.uy</p>
             </div>
         </div>
         <hr>
@@ -214,6 +214,6 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="scripts_pagina_principal.js"></script>
+    <script src="../scripts/scripts_pagina_principal.js"></script>
 </body>
 </html>
