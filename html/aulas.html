@@ -2,224 +2,941 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aulas - Portal Educativo</title>
+
+    <title>Recursos y aulas</title>
+
     <link rel="stylesheet" href="../css/style_aulas.css">
+
 </head>
+
 
 <body>
 
-    <header class="encabezado">
 
-        <div class="logo">
-            <h2>Portal Educativo</h2>
-            <span>Espacios y recursos</span>
+<header class="barra">
+
+    <div class="logo">
+        ReservaTech
+    </div>
+
+
+    <nav>
+
+        <a href="panel_admin.html">
+            Panel
+        </a>
+
+        <a href="reservas_admin.html">
+            Reservas
+        </a>
+
+        <a href="usuarios.html">
+            Usuarios
+        </a>
+
+        <a href="aulas.html" class="activo">
+            Recursos
+        </a>
+
+        <a href="Inicio_sesion.html">
+            Cerrar sesión
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="contenedor">
+
+
+    <section class="encabezado">
+
+        <div>
+
+            <h1>
+                Recursos y aulas
+            </h1>
+
+            <p>
+                Administrá los espacios y equipos disponibles para reservar.
+            </p>
+
         </div>
 
-        <nav>
-            <a href="panel_alumno.html">Inicio</a>
-            <a href="aulas.html" class="activo">Aulas</a>
-            <a href="#">Equipamiento</a>
-            <a href="#">Calendario</a>
-        </nav>
 
-        <a href="inicio_sesion.html" class="cerrar">Cerrar sesión</a>
+        <button
+            class="btn-agregar"
+            onclick="abrirFormulario()"
+        >
+            + Agregar recurso
+        </button>
 
-    </header>
-
-
-    <main>
-
-        <section class="presentacion">
-
-            <div>
-                <h1>Aulas disponibles</h1>
-
-                <p>
-                    Consultá la información, características y disponibilidad
-                    de los diferentes espacios educativos.
-                </p>
-            </div>
-
-        </section>
+    </section>
 
 
-        <section class="filtros">
 
-            <input type="text" placeholder="Buscar un aula...">
+    <!-- ESTADÍSTICAS -->
 
-            <select>
-                <option>Todas las aulas</option>
-                <option>Aulas comunes</option>
-                <option>Laboratorios</option>
-                <option>Salas especiales</option>
+    <section class="estadisticas">
+
+
+        <div class="tarjeta">
+
+            <span
+                class="numero"
+                id="totalRecursos"
+            >
+                8
+            </span>
+
+            <span>
+                Recursos totales
+            </span>
+
+        </div>
+
+
+
+        <div class="tarjeta">
+
+            <span
+                class="numero"
+                id="recursosDisponibles"
+            >
+                6
+            </span>
+
+            <span>
+                Disponibles
+            </span>
+
+        </div>
+
+
+
+        <div class="tarjeta">
+
+            <span
+                class="numero ocupado"
+                id="recursosOcupados"
+            >
+                1
+            </span>
+
+            <span>
+                Ocupados
+            </span>
+
+        </div>
+
+
+
+        <div class="tarjeta">
+
+            <span
+                class="numero mantenimiento"
+                id="recursosMantenimiento"
+            >
+                1
+            </span>
+
+            <span>
+                En mantenimiento
+            </span>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- FILTROS -->
+
+    <section class="panel">
+
+
+        <div class="herramientas">
+
+            <input
+                type="text"
+                id="buscar"
+                placeholder="Buscar recurso..."
+                onkeyup="buscarRecursos()"
+            >
+
+
+            <select
+                id="filtroTipo"
+                onchange="filtrarRecursos()"
+            >
+
+                <option value="todos">
+                    Todos los tipos
+                </option>
+
+                <option value="Espacio">
+                    Espacios
+                </option>
+
+                <option value="Laboratorio">
+                    Laboratorios
+                </option>
+
+                <option value="Equipamiento">
+                    Equipamiento
+                </option>
+
             </select>
 
-        </section>
 
+            <select
+                id="filtroEstado"
+                onchange="filtrarRecursos()"
+            >
 
-        <section class="aulas">
+                <option value="todos">
+                    Todos los estados
+                </option>
 
+                <option value="Disponible">
+                    Disponibles
+                </option>
 
-            <article class="aula">
+                <option value="Ocupado">
+                    Ocupados
+                </option>
 
-                <img src="../img/aula1.jpg" alt="Aula 101">
+                <option value="Mantenimiento">
+                    Mantenimiento
+                </option>
 
-                <div class="aula-contenido">
+            </select>
 
-                    <div class="titulo-aula">
-                        <h2>Aula 101</h2>
-                        <span class="disponible">Disponible</span>
-                    </div>
+        </div>
 
-                    <p>
-                        Aula destinada a clases teóricas y actividades
-                        educativas generales.
-                    </p>
 
-                    <div class="datos">
 
-                        <span>👥 Capacidad: 30 personas</span>
+        <!-- TABLA -->
 
-                        <span>📍 Planta baja</span>
+        <div class="tabla-contenedor">
 
-                        <span>📽️ Proyector</span>
+            <table>
 
-                        <span>🖥️ Computadoras</span>
+                <thead>
 
-                    </div>
+                    <tr>
 
-                    <button>
-                        Ver información
-                    </button>
+                        <th>
+                            Recurso
+                        </th>
 
-                </div>
+                        <th>
+                            Tipo
+                        </th>
 
-            </article>
+                        <th>
+                            Capacidad
+                        </th>
 
+                        <th>
+                            Estado
+                        </th>
 
-            <article class="aula">
+                        <th>
+                            Acciones
+                        </th>
 
-                <img src="../img/aula2.jpg" alt="Aula 204">
+                    </tr>
 
-                <div class="aula-contenido">
+                </thead>
 
-                    <div class="titulo-aula">
-                        <h2>Aula 204</h2>
-                        <span class="ocupada">Ocupada</span>
-                    </div>
 
-                    <p>
-                        Espacio equipado para clases y trabajos grupales
-                        con recursos multimedia.
-                    </p>
+                <tbody id="tablaRecursos">
 
-                    <div class="datos">
 
-                        <span>👥 Capacidad: 35 personas</span>
+                    <!-- BIBLIOTECA -->
 
-                        <span>📍 Segundo piso</span>
+                    <tr
+                        data-tipo="Espacio"
+                        data-estado="Disponible"
+                    >
 
-                        <span>📽️ Proyector</span>
+                        <td>
 
-                        <span>🔊 Audio</span>
+                            <strong>
+                                Biblioteca
+                            </strong>
 
-                    </div>
+                            <small>
+                                ESP-001
+                            </small>
 
-                    <button>
-                        Ver información
-                    </button>
+                        </td>
 
-                </div>
+                        <td>
+                            <span class="tipo espacio">
+                                Espacio
+                            </span>
+                        </td>
 
-            </article>
+                        <td>
+                            40 personas
+                        </td>
 
+                        <td>
 
-            <article class="aula">
+                            <span class="estado disponible">
+                                Disponible
+                            </span>
 
-                <img src="../img/laboratorio1.jpg" alt="Laboratorio 1">
+                        </td>
 
-                <div class="aula-contenido">
+                        <td class="acciones">
 
-                    <div class="titulo-aula">
-                        <h2>Laboratorio 1</h2>
-                        <span class="disponible">Disponible</span>
-                    </div>
+                            <button
+                                class="btn-editar"
+                                onclick="editarRecurso(this)"
+                            >
+                                Editar
+                            </button>
 
-                    <p>
-                        Laboratorio equipado para actividades prácticas,
-                        científicas y tecnológicas.
-                    </p>
+                            <button
+                                class="btn-eliminar"
+                                onclick="eliminarRecurso(this)"
+                            >
+                                Eliminar
+                            </button>
 
-                    <div class="datos">
+                        </td>
 
-                        <span>👥 Capacidad: 25 personas</span>
+                    </tr>
 
-                        <span>📍 Primer piso</span>
 
-                        <span>💻 Computadoras</span>
 
-                        <span>🔬 Equipamiento práctico</span>
+                    <!-- SALA INFORMÁTICA -->
 
-                    </div>
+                    <tr
+                        data-tipo="Espacio"
+                        data-estado="Ocupado"
+                    >
 
-                    <button>
-                        Ver información
-                    </button>
+                        <td>
 
-                </div>
+                            <strong>
+                                Sala de Informática
+                            </strong>
 
-            </article>
+                            <small>
+                                ESP-002
+                            </small>
 
+                        </td>
 
-            <article class="aula">
+                        <td>
+                            <span class="tipo espacio">
+                                Espacio
+                            </span>
+                        </td>
 
-                <img src="../img/aula3.jpg" alt="Aula 305">
+                        <td>
+                            30 personas
+                        </td>
 
-                <div class="aula-contenido">
+                        <td>
 
-                    <div class="titulo-aula">
-                        <h2>Aula 305</h2>
-                        <span class="disponible">Disponible</span>
-                    </div>
+                            <span class="estado ocupado">
+                                Ocupado
+                            </span>
 
-                    <p>
-                        Aula amplia para clases, exposiciones y actividades
-                        de grupos numerosos.
-                    </p>
+                        </td>
 
-                    <div class="datos">
+                        <td class="acciones">
 
-                        <span>👥 Capacidad: 40 personas</span>
+                            <button
+                                class="btn-editar"
+                                onclick="editarRecurso(this)"
+                            >
+                                Editar
+                            </button>
 
-                        <span>📍 Tercer piso</span>
+                            <button
+                                class="btn-eliminar"
+                                onclick="eliminarRecurso(this)"
+                            >
+                                Eliminar
+                            </button>
 
-                        <span>📽️ Proyector</span>
+                        </td>
 
-                        <span>❄️ Aire acondicionado</span>
+                    </tr>
 
-                    </div>
 
-                    <button>
-                        Ver información
-                    </button>
 
-                </div>
+                    <!-- SALA CONFERENCIAS -->
 
-            </article>
+                    <tr
+                        data-tipo="Espacio"
+                        data-estado="Disponible"
+                    >
 
+                        <td>
 
-        </section>
+                            <strong>
+                                Sala de Conferencias
+                            </strong>
 
-    </main>
+                            <small>
+                                ESP-003
+                            </small>
 
+                        </td>
 
-    <footer>
+                        <td>
+                            <span class="tipo espacio">
+                                Espacio
+                            </span>
+                        </td>
 
-        <p>Portal Educativo © 2026</p>
+                        <td>
+                            80 personas
+                        </td>
 
-    </footer>
+                        <td>
+
+                            <span class="estado disponible">
+                                Disponible
+                            </span>
+
+                        </td>
+
+                        <td class="acciones">
+
+                            <button
+                                class="btn-editar"
+                                onclick="editarRecurso(this)"
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                class="btn-eliminar"
+                                onclick="eliminarRecurso(this)"
+                            >
+                                Eliminar
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- FISICA -->
+
+                    <tr
+                        data-tipo="Laboratorio"
+                        data-estado="Disponible"
+                    >
+
+                        <td>
+
+                            <strong>
+                                Laboratorio de Física
+                            </strong>
+
+                            <small>
+                                LAB-001
+                            </small>
+
+                        </td>
+
+                        <td>
+                            <span class="tipo laboratorio">
+                                Laboratorio
+                            </span>
+                        </td>
+
+                        <td>
+                            25 personas
+                        </td>
+
+                        <td>
+
+                            <span class="estado disponible">
+                                Disponible
+                            </span>
+
+                        </td>
+
+                        <td class="acciones">
+
+                            <button
+                                class="btn-editar"
+                                onclick="editarRecurso(this)"
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                class="btn-eliminar"
+                                onclick="eliminarRecurso(this)"
+                            >
+                                Eliminar
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- QUIMICA -->
+
+                    <tr
+                        data-tipo="Laboratorio"
+                        data-estado="Mantenimiento"
+                    >
+
+                        <td>
+
+                            <strong>
+                                Laboratorio de Química
+                            </strong>
+
+                            <small>
+                                LAB-002
+                            </small>
+
+                        </td>
+
+                        <td>
+                            <span class="tipo laboratorio">
+                                Laboratorio
+                            </span>
+                        </td>
+
+                        <td>
+                            25 personas
+                        </td>
+
+                        <td>
+
+                            <span class="estado mantenimiento">
+                                Mantenimiento
+                            </span>
+
+                        </td>
+
+                        <td class="acciones">
+
+                            <button
+                                class="btn-editar"
+                                onclick="editarRecurso(this)"
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                class="btn-eliminar"
+                                onclick="eliminarRecurso(this)"
+                            >
+                                Eliminar
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- CIENCIAS -->
+
+                    <tr
+                        data-tipo="Laboratorio"
+                        data-estado="Disponible"
+                    >
+
+                        <td>
+
+                            <strong>
+                                Laboratorio de Ciencias
+                            </strong>
+
+                            <small>
+                                LAB-003
+                            </small>
+
+                        </td>
+
+                        <td>
+                            <span class="tipo laboratorio">
+                                Laboratorio
+                            </span>
+                        </td>
+
+                        <td>
+                            25 personas
+                        </td>
+
+                        <td>
+
+                            <span class="estado disponible">
+                                Disponible
+                            </span>
+
+                        </td>
+
+                        <td class="acciones">
+
+                            <button
+                                class="btn-editar"
+                                onclick="editarRecurso(this)"
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                class="btn-eliminar"
+                                onclick="eliminarRecurso(this)"
+                            >
+                                Eliminar
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- PROYECTOR 1 -->
+
+                    <tr
+                        data-tipo="Equipamiento"
+                        data-estado="Disponible"
+                    >
+
+                        <td>
+
+                            <strong>
+                                Proyector 1
+                            </strong>
+
+                            <small>
+                                EQ-001
+                            </small>
+
+                        </td>
+
+                        <td>
+                            <span class="tipo equipamiento">
+                                Equipamiento
+                            </span>
+                        </td>
+
+                        <td>
+                            Portátil
+                        </td>
+
+                        <td>
+
+                            <span class="estado disponible">
+                                Disponible
+                            </span>
+
+                        </td>
+
+                        <td class="acciones">
+
+                            <button
+                                class="btn-editar"
+                                onclick="editarRecurso(this)"
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                class="btn-eliminar"
+                                onclick="eliminarRecurso(this)"
+                            >
+                                Eliminar
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- PROYECTOR 2 -->
+
+                    <tr
+                        data-tipo="Equipamiento"
+                        data-estado="Disponible"
+                    >
+
+                        <td>
+
+                            <strong>
+                                Proyector 2
+                            </strong>
+
+                            <small>
+                                EQ-002
+                            </small>
+
+                        </td>
+
+                        <td>
+                            <span class="tipo equipamiento">
+                                Equipamiento
+                            </span>
+                        </td>
+
+                        <td>
+                            Portátil
+                        </td>
+
+                        <td>
+
+                            <span class="estado disponible">
+                                Disponible
+                            </span>
+
+                        </td>
+
+                        <td class="acciones">
+
+                            <button
+                                class="btn-editar"
+                                onclick="editarRecurso(this)"
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                class="btn-eliminar"
+                                onclick="eliminarRecurso(this)"
+                            >
+                                Eliminar
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <!-- TELEVISION -->
+
+                    <tr
+                        data-tipo="Equipamiento"
+                        data-estado="Disponible"
+                    >
+
+                        <td>
+
+                            <strong>
+                                Televisión
+                            </strong>
+
+                            <small>
+                                EQ-003
+                            </small>
+
+                        </td>
+
+                        <td>
+                            <span class="tipo equipamiento">
+                                Equipamiento
+                            </span>
+                        </td>
+
+                        <td>
+                            Móvil
+                        </td>
+
+                        <td>
+
+                            <span class="estado disponible">
+                                Disponible
+                            </span>
+
+                        </td>
+
+                        <td class="acciones">
+
+                            <button
+                                class="btn-editar"
+                                onclick="editarRecurso(this)"
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                class="btn-eliminar"
+                                onclick="eliminarRecurso(this)"
+                            >
+                                Eliminar
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- MODAL -->
+
+<div
+    id="modalRecurso"
+    class="modal"
+>
+
+    <div class="modal-contenido">
+
+
+        <span
+            class="cerrar"
+            onclick="cerrarFormulario()"
+        >
+            ×
+        </span>
+
+
+        <h2 id="tituloFormulario">
+            Agregar recurso
+        </h2>
+
+
+        <form
+            onsubmit="guardarRecurso(event)"
+        >
+
+
+            <label>
+                Nombre del recurso
+            </label>
+
+            <input
+                type="text"
+                id="nombre"
+                placeholder="Ej. Sala de Música"
+                required
+            >
+
+
+
+            <label>
+                Código
+            </label>
+
+            <input
+                type="text"
+                id="codigo"
+                placeholder="Ej. ESP-004"
+                required
+            >
+
+
+
+            <label>
+                Tipo
+            </label>
+
+            <select
+                id="tipo"
+                required
+            >
+
+                <option value="Espacio">
+                    Espacio
+                </option>
+
+                <option value="Laboratorio">
+                    Laboratorio
+                </option>
+
+                <option value="Equipamiento">
+                    Equipamiento
+                </option>
+
+            </select>
+
+
+
+            <label>
+                Capacidad / descripción
+            </label>
+
+            <input
+                type="text"
+                id="capacidad"
+                placeholder="Ej. 30 personas"
+                required
+            >
+
+
+
+            <label>
+                Estado
+            </label>
+
+            <select
+                id="estado"
+                required
+            >
+
+                <option value="Disponible">
+                    Disponible
+                </option>
+
+                <option value="Ocupado">
+                    Ocupado
+                </option>
+
+                <option value="Mantenimiento">
+                    Mantenimiento
+                </option>
+
+            </select>
+
+
+
+            <button
+                type="submit"
+                class="btn-guardar"
+            >
+                Guardar recurso
+            </button>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<script src="../scripts/aulas.js"></script>
 
 </body>
 

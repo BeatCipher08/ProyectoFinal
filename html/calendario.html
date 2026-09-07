@@ -1,77 +1,192 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Calendario</title>
 
-    <link rel="stylesheet" href="/css/calendario.css">
+    <link rel="stylesheet" href="../css/calendario.css">
 </head>
 
 <body>
 
-<header>
-    <div>
-        <h1>Calendario</h1>
-        <p>Calendario general de reservas</p>
-    </div>
+    <aside class="sidebar">
 
-    <button onclick="volver()">Volver</button>
-</header>
-
-<main>
-
-    <section class="barra-calendario">
-
-        <div class="navegacion">
-            <button onclick="mesAnterior()">‹</button>
-
-            <h2 id="mesAnio"></h2>
-
-            <button onclick="mesSiguiente()">›</button>
+        <div class="logo">
+            <h2>Portal Educativo</h2>
+            <span>Calendario</span>
         </div>
 
-        <button class="hoy" onclick="irHoy()">Hoy</button>
+        <nav>
 
-    </section>
+            <a href="panel_alumno.html">
+                Inicio
+            </a>
 
-    <section class="calendario">
+            <a href="calendario.html" class="activo">
+                Calendario
+            </a>
 
-        <div class="dias-semana">
-            <div>Lun</div>
-            <div>Mar</div>
-            <div>Mié</div>
-            <div>Jue</div>
-            <div>Vie</div>
-            <div>Sáb</div>
-            <div>Dom</div>
+            <a href="aulas.html">
+                Aulas
+            </a>
+
+            <a href="mis_reservas.html">
+                Mis reservas
+            </a>
+
+            <a href="nueva_reserva.html">
+                Nueva reserva
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="contenido">
+
+        <header class="encabezado">
+
+            <div>
+
+                <h1>Calendario de reservas</h1>
+
+                <p>
+                    Consulta las reservas y disponibilidad de las aulas.
+                </p>
+
+            </div>
+
+            <a
+                href="nueva_reserva.html"
+                class="btn-reserva"
+            >
+                + Nueva reserva
+            </a>
+
+        </header>
+
+
+        <section class="calendario-contenedor">
+
+            <div class="calendario-header">
+
+                <button id="mesAnterior">
+                    ‹
+                </button>
+
+                <h2 id="mesActual">
+                    Agosto 2026
+                </h2>
+
+                <button id="mesSiguiente">
+                    ›
+                </button>
+
+            </div>
+
+
+            <div class="dias-semana">
+
+                <div>Lun</div>
+                <div>Mar</div>
+                <div>Mié</div>
+                <div>Jue</div>
+                <div>Vie</div>
+                <div>Sáb</div>
+                <div>Dom</div>
+
+            </div>
+
+
+            <div
+                class="dias"
+                id="dias"
+            ></div>
+
+
+            <div class="leyenda">
+
+                <div>
+                    <span class="color disponible"></span>
+                    Disponible
+                </div>
+
+                <div>
+                    <span class="color reservado"></span>
+                    Reservado
+                </div>
+
+                <div>
+                    <span class="color hoy"></span>
+                    Hoy
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <div
+        class="modal"
+        id="modalReserva"
+    >
+
+        <div class="modal-contenido">
+
+            <button
+                class="cerrar"
+                id="cerrarModal"
+            >
+                ×
+            </button>
+
+            <h2 id="tituloReserva">
+                Reserva
+            </h2>
+
+            <div class="detalle">
+
+                <p>
+                    <strong>Fecha:</strong>
+                    <span id="detalleFecha"></span>
+                </p>
+
+                <p>
+                    <strong>Usuario:</strong>
+                    <span id="detalleUsuario"></span>
+                </p>
+
+                <p>
+                    <strong>Aula:</strong>
+                    <span id="detalleAula"></span>
+                </p>
+
+                <p>
+                    <strong>Horario:</strong>
+                    <span id="detalleHorario"></span>
+                </p>
+
+                <p>
+                    <strong>Motivo:</strong>
+                    <span id="detalleMotivo"></span>
+                </p>
+
+            </div>
+
         </div>
-
-        <div id="dias" class="dias"></div>
-
-    </section>
-
-</main>
-
-<div id="ventanaReserva" class="modal">
-
-    <div class="modal-contenido">
-
-        <button class="cerrar" onclick="cerrarReserva()">×</button>
-
-        <h2 id="tituloReserva"></h2>
-
-        <p><strong>Fecha:</strong> <span id="fechaReserva"></span></p>
-        <p><strong>Horario:</strong> <span id="horaReserva"></span></p>
-        <p><strong>Aula:</strong> <span id="aulaReserva"></span></p>
-        <p><strong>Reservado por:</strong> <span id="personaReserva"></span></p>
-        <p><strong>Motivo:</strong> <span id="motivoReserva"></span></p>
 
     </div>
 
-</div>
 
-<link rel="stylesheet" href="../css/calendario.css">
-<script src="../scripts/calendario.js"></script>
+    <script src="../scripts/calendario.js"></script>
+
 </body>
+
 </html>

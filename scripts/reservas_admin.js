@@ -1,252 +1,235 @@
-function mostrarReservas(tipo) {
+function buscarReservas() {
 
-    const detalle = document.getElementById("detalleReservas");
+    const texto =
+        document.getElementById("buscarReserva")
+        .value
+        .toLowerCase();
 
-    const contenido = document.getElementById("contenidoDetalle");
+    const filas =
+        document.querySelectorAll("#tablaReservas tr");
 
-    const titulo = document.getElementById("tituloDetalle");
+    filas.forEach(function(fila) {
 
-    const descripcion = document.getElementById("descripcionDetalle");
+        const contenido =
+            fila.textContent.toLowerCase();
 
-
-    let datos = [];
-
-
-    if (tipo === "todas") {
-
-        titulo.textContent = "Todas las reservas";
-
-        descripcion.textContent =
-            "Listado completo de las reservas del sistema.";
-
-        datos = [
-
-            ["Juan Pérez", "Aula 204", "10/08/2026", "10:00 - 12:00", "Confirmada"],
-
-            ["María Rodríguez", "Proyector 03", "10/08/2026", "14:00 - 16:00", "Pendiente"],
-
-            ["Lucas Silva", "Laboratorio 1", "11/08/2026", "08:00 - 10:00", "Confirmada"],
-
-            ["Agustina López", "Aula 105", "11/08/2026", "13:00 - 15:00", "Cancelada"],
-
-            ["Pedro Martínez", "Aula 305", "12/08/2026", "09:00 - 11:00", "Pendiente"]
-
-        ];
-
-    }
-
-
-    if (tipo === "confirmadas") {
-
-        titulo.textContent = "Reservas confirmadas";
-
-        descripcion.textContent =
-            "Personas que tienen reservas confirmadas.";
-
-        datos = [
-
-            ["Juan Pérez", "Aula 204", "10/08/2026", "10:00 - 12:00", "Confirmada"],
-
-            ["Lucas Silva", "Laboratorio 1", "11/08/2026", "08:00 - 10:00", "Confirmada"],
-
-            ["Sofía Fernández", "Aula 203", "12/08/2026", "11:00 - 13:00", "Confirmada"],
-
-            ["Carlos Gómez", "Aula 301", "13/08/2026", "14:00 - 16:00", "Confirmada"]
-
-        ];
-
-    }
-
-
-    if (tipo === "pendientes") {
-
-        titulo.textContent = "Reservas pendientes";
-
-        descripcion.textContent =
-            "Personas que tienen reservas esperando confirmación.";
-
-        datos = [
-
-            ["María Rodríguez", "Proyector 03", "10/08/2026", "14:00 - 16:00", "Pendiente"],
-
-            ["Pedro Martínez", "Aula 305", "12/08/2026", "09:00 - 11:00", "Pendiente"],
-
-            ["Carlos Gómez", "Laboratorio 2", "13/08/2026", "08:00 - 10:00", "Pendiente"]
-
-        ];
-
-    }
-
-
-    if (tipo === "canceladas") {
-
-        titulo.textContent = "Reservas canceladas";
-
-        descripcion.textContent =
-            "Personas que cancelaron una reserva y el momento en que lo hicieron.";
-
-        datos = [
-
-            ["Agustina López", "Aula 105", "11/08/2026", "13:00 - 15:00", "Cancelada", "10/08/2026 - 09:17"],
-
-            ["Martín Silva", "Laboratorio 1", "12/08/2026", "08:00 - 10:00", "Cancelada", "10/08/2026 - 11:36"],
-
-            ["Laura Pérez", "Aula 202", "13/08/2026", "14:00 - 16:00", "Cancelada", "10/08/2026 - 15:42"],
-
-            ["Federico Díaz", "Aula 302", "14/08/2026", "10:00 - 12:00", "Cancelada", "10/08/2026 - 17:08"]
-
-        ];
-
-    }
-
-
-    contenido.innerHTML = "";
-
-
-    datos.forEach(function(reserva) {
-
-
-        let informacionCancelacion = "";
-
-
-        if (tipo === "canceladas") {
-
-            informacionCancelacion = `
-
-                <div>
-
-                    <small>
-                        Cancelada el
-                    </small>
-
-                    <strong>
-                        ${reserva[5]}
-                    </strong>
-
-                </div>
-
-            `;
-
+        if (contenido.includes(texto)) {
+            fila.style.display = "";
+        } else {
+            fila.style.display = "none";
         }
 
-
-        contenido.innerHTML += `
-
-            <div class="reserva-detalle">
+    });
+}
 
 
-                <div class="usuario">
+function filtrarReservas() {
 
-                    <div class="avatar-detalle">
+    const estado =
+        document.getElementById("filtroEstado").value;
 
-                        ${reserva[0].substring(0, 2).toUpperCase()}
+    const recurso =
+        document.getElementById("filtroRecurso").value;
 
-                    </div>
+    const filas =
+        document.querySelectorAll("#tablaReservas tr");
 
+    filas.forEach(function(fila) {
 
-                    <div>
+        const estadoFila =
+            fila.cells[4].textContent.trim();
 
-                        <strong>
-                            ${reserva[0]}
-                        </strong>
+        const recursoFila =
+            fila.dataset.recurso;
 
-                        <small>
-                            Profesor
-                        </small>
+        const coincideEstado =
+            estado === "todos" ||
+            estadoFila === estado;
 
-                    </div>
+        const coincideRecurso =
+            recurso === "todos" ||
+            recursoFila === recurso;
 
-                </div>
-
-
-
-                <div>
-
-                    <small>
-                        Recurso
-                    </small>
-
-                    <strong>
-                        ${reserva[1]}
-                    </strong>
-
-                </div>
-
-
-
-                <div>
-
-                    <small>
-                        Fecha
-                    </small>
-
-                    <strong>
-                        ${reserva[2]}
-                    </strong>
-
-                </div>
-
-
-
-                <div>
-
-                    <small>
-                        Horario
-                    </small>
-
-                    <strong>
-                        ${reserva[3]}
-                    </strong>
-
-                </div>
-
-
-
-                <div>
-
-                    <small>
-                        Estado
-                    </small>
-
-                    <span class="estado ${reserva[4].toLowerCase()}">
-
-                        ${reserva[4]}
-
-                    </span>
-
-                </div>
-
-
-                ${informacionCancelacion}
-
-
-            </div>
-
-        `;
+        if (coincideEstado && coincideRecurso) {
+            fila.style.display = "";
+        } else {
+            fila.style.display = "none";
+        }
 
     });
+}
 
 
-    detalle.classList.add("mostrar");
+function verDetalles(boton) {
+
+    const fila =
+        boton.closest("tr");
+
+    const usuario =
+        fila.cells[0].querySelector("strong").textContent;
+
+    const nombreUsuario =
+        fila.cells[0].querySelector("small").textContent;
+
+    const recurso =
+        fila.cells[1].querySelector("strong").textContent;
+
+    const tipoRecurso =
+        fila.cells[1].querySelector("small").textContent;
+
+    const fecha =
+        fila.cells[2].textContent.trim();
+
+    const horario =
+        fila.cells[3].textContent.trim();
+
+    const estado =
+        fila.cells[4].textContent.trim();
 
 
-    detalle.scrollIntoView({
+    document.getElementById("informacionReserva").innerHTML =
 
-        behavior: "smooth",
+        '<div class="detalle">' +
+            '<strong>Usuario</strong>' +
+            '<span>' + usuario + '</span>' +
+        '</div>' +
 
-        block: "start"
+        '<div class="detalle">' +
+            '<strong>Nombre de usuario</strong>' +
+            '<span>' + nombreUsuario + '</span>' +
+        '</div>' +
 
-    });
+        '<div class="detalle">' +
+            '<strong>Recurso</strong>' +
+            '<span>' + recurso + '</span>' +
+        '</div>' +
+
+        '<div class="detalle">' +
+            '<strong>Tipo</strong>' +
+            '<span>' + tipoRecurso + '</span>' +
+        '</div>' +
+
+        '<div class="detalle">' +
+            '<strong>Fecha</strong>' +
+            '<span>' + fecha + '</span>' +
+        '</div>' +
+
+        '<div class="detalle">' +
+            '<strong>Horario</strong>' +
+            '<span>' + horario + '</span>' +
+        '</div>' +
+
+        '<div class="detalle">' +
+            '<strong>Estado</strong>' +
+            '<span>' + estado + '</span>' +
+        '</div>';
+
+
+    document.getElementById("modalDetalles").style.display =
+        "flex";
+}
+
+
+function cerrarDetalles() {
+
+    document.getElementById("modalDetalles").style.display =
+        "none";
+}
+
+
+function cancelarReserva(boton) {
+
+    const fila =
+        boton.closest("tr");
+
+    const usuario =
+        fila.cells[0].querySelector("strong").textContent;
+
+    const recurso =
+        fila.cells[1].querySelector("strong").textContent;
+
+
+    const confirmar = confirm(
+        "¿Seguro que querés cancelar la reserva de " +
+        usuario +
+        " para " +
+        recurso +
+        "?"
+    );
+
+
+    if (confirmar) {
+
+        fila.cells[4].innerHTML =
+            '<span class="estado cancelada">' +
+            'Cancelada' +
+            '</span>';
+
+        alert(
+            "La reserva fue cancelada correctamente."
+        );
+
+        actualizarEstadisticas();
+    }
 
 }
 
 
+function actualizarEstadisticas() {
 
-function cerrarDetalle() {
+    const filas =
+        document.querySelectorAll("#tablaReservas tr");
 
-    const detalle =
-        document.getElementById("detalleReservas");
+    let confirmadas = 0;
+    let pendientes = 0;
+    let canceladas = 0;
 
-    detalle.classList.remove("mostrar");
+
+    filas.forEach(function(fila) {
+
+        const estado =
+            fila.cells[4].textContent.trim();
+
+        if (estado === "Confirmada") {
+            confirmadas++;
+        }
+
+        if (estado === "Pendiente") {
+            pendientes++;
+        }
+
+        if (estado === "Cancelada") {
+            canceladas++;
+        }
+
+    });
+
+
+    document.getElementById("totalReservas").textContent =
+        filas.length;
+
+    document.getElementById("reservasConfirmadas").textContent =
+        confirmadas;
+
+    document.getElementById("reservasPendientes").textContent =
+        pendientes;
+
+    document.getElementById("reservasCanceladas").textContent =
+        canceladas;
 
 }
+
+
+window.onclick = function(evento) {
+
+    const modal =
+        document.getElementById("modalDetalles");
+
+    if (evento.target === modal) {
+        cerrarDetalles();
+    }
+
+};
+
+
+actualizarEstadisticas();
