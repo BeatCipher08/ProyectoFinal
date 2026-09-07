@@ -196,3 +196,9 @@ button:focus{
     box-shadow: 0 0 10px rgba(170, 228, 255, 0.5)
 
 }
+
+.form_login {
+    width: 100%; /* Obliga al formulario a tomar todo el ancho del cuadro */
+    padding: 0 35px; /* Le damos un poco de espacio a los lados para que los inputs no toquen el borde */
+    box-sizing: border-box; /* Evita que el padding haga desbordar el cuadro */
+}

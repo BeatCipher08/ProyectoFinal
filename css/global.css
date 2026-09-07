@@ -54,7 +54,7 @@
     border: 2px solid #00a8c6;
     padding: 12px 24px;
     border-radius: 10px;
-    font-size: 17px;
+    font-size: 12px;
     cursor: pointer;
     margin-left: auto;
     margin-right: 1px;
@@ -65,7 +65,7 @@
     border: 2px solid #8CB326;
     padding: 12px 24px;
     border-radius: 10px;
-    font-size: 17px;
+    font-size: 12px;
     cursor: pointer;
     margin-left: 12px;
     margin-right: 12px;
@@ -146,7 +146,7 @@ footer hr {
         font-size: 16px;
     }
 
-    .nombre {
+    .nombre_insti {
         display: none; /* Oculta el nombre largo */
     }
 
