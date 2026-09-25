@@ -50,20 +50,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <header id="menusuperior">
         <a id="menuhamburguesa" href="#" aria-label="Menú de navegación">≡</a>
         <img src="../imagenes/logo_proyecto.png" alt="Logo del instituto">
-        <a id="nombreinsti" href="#">
-            <span class="nombre_insti">Instituto tecnológico de Tacuarembó</span>
-            <span class="siglas">ITT</span>
-        </a>
+        <a id="nombreinsti" href="#">Instituto tecnológico de Tacuarembó</a>
         <a href="#">Salones</a>
         <a href="#">Novedades</a>
         <a href="#">Sobre nosotros</a>
-        <button class="registro">Registrarse</button>
-        <button class="sesion">Iniciar sesion</button>
+        <button class="registro" onclick="window.location.href='registro.php'">Registrarse</button>
+        <button class="sesion" onclick="window.location.href='Inicio_sesion.php'">Iniciar sesion</button>
+        </button>
         </header>
 
     <section class="iniciodesesion">
         <h2 class="titulo">Inicio de sesión</h2>
         <p>Coloque su usuario y contraseña.</p>
+        <!-- Imprime el error solo si la variable no está vacía -->
+<?php if (!empty($error)): ?>
+    <p style="color: #ff4d4d; font-weight: bold; margin-bottom: 10px;">
+        <?php echo $error; ?>
+    </p>
+<?php endif; ?>
 
         <section class="form_login">
 
@@ -77,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="password" id="contraseña" name="contraseña" required placeholder="Contraseña">
                 </div>
 
-                <button type="submit">Iniciar Sesion</button>
+                <button class="enviar" type="submit">Iniciar Sesion</button>
             
             </form>
 
