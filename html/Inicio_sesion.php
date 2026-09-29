@@ -14,22 +14,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($email) || empty($password)) {
         $error = "Por favor, completa todos los campos.";
     } else {
-        // Consultar si el usuario existe y está activo
-        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ? AND activo = 1");
+        // Primero buscamos al usuario solo por email, sin importar si está activo o no
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
         $stmt->execute([$email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Validar contraseña (usando MD5 porque así están tus datos de prueba)
         if ($usuario && $usuario['password'] === md5($password)) {
-            // Guardar datos en la sesión
-            $_SESSION['usuario_id'] = $usuario['id'];
-            $_SESSION['nombre'] = $usuario['nombre'];
-            $_SESSION['rol'] = $usuario['rol'];
-
-            // Redirigir al sistema
-            redirigir('pagina_principal.html'); 
+            // Si la contraseña es correcta, verificamos si está aprobado
+            if ($usuario['activo'] == 1) {
+                // Cuenta aprobada: iniciamos sesión
+                $_SESSION['usuario_id'] = $usuario['id'];
+                $_SESSION['nombre'] = $usuario['nombre'];
+                $_SESSION['rol'] = $usuario['rol'];
+                redirigir('pagina_principal.php'); 
+            } else {
+                // Cuenta pendiente de aprobación
+                $error = "Tu cuenta está pendiente de aprobación por un administrador.";
+            }
         } else {
-            $error = "Usuario o contraseña incorrectos.";
+            $error = "Correo o contraseña incorrectos.";
         }
     }
 }
@@ -73,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <form class="inicio_sesion_imputs" action="Inicio_sesion.php" method="post">
             
-                <div class="usuario">
-                    <input type="text" id="Usuario" name="usuario" required placeholder="Usuario o email">
+                <div class="correo">
+                    <input type="email" id="correo" name="usuario" required placeholder="Correo electrónico">
                 </div>
 
                 <div class="contraseña">

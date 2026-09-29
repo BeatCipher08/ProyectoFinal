@@ -1,3 +1,11 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,19 +26,7 @@
     <!-- ==========================================================
        BARRA DE NAVEGACIÓN SUPERIOR (HEADER GLOBAL)
        ========================================================== -->
-    <header id="menusuperior">
-        <a id="menuhamburguesa" href="#" aria-label="Menú de navegación">≡</a>
-        <img src="../imagenes/logo_proyecto.png" alt="Logo del instituto">
-        <a id="nombreinsti" href="#">
-            <span class="nombre_insti">Instituto tecnológico de Tacuarembó</span>
-            <span class="siglas">ITT</span>
-        </a>
-        <a href="#">Salones</a>
-        <a href="#">Novedades</a>
-        <a href="#">Sobre nosotros</a>
-        <button class="registro" onclick="window.location.href='registro.php'">Registrarse</button>
-        <button class="sesion" onclick="window.location.href='Inicio_sesion.php'">Iniciar sesion</button>
-    </header>
+    <?php require_once __DIR__ . '/../includes/barra_superior.php'; ?>
 
     <!-- CONTENEDOR PRINCIPAL -->
     <main>

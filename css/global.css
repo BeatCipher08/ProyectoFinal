@@ -26,13 +26,23 @@
   font-weight: bold; 
   transition: color 0.3s, background-color 0.3s; 
   padding: 8px 15px;
-  margin-left: 25px; 
+  margin-left: 25px;
+  font-size: 10pt; 
 }
 
 #menusuperior a:hover {
   background-color: #00a8c6; 
   color: #ffffff; 
   border-radius: 21px;
+}
+
+.nombre-usuario {
+  color: white; 
+  text-decoration: none; 
+  font-weight: bold; 
+  transition: color 0.3s, background-color 0.3s; 
+  padding: 8px 15px;
+  margin-left: 25px;
 }
 
 #menuhamburguesa {

@@ -18,8 +18,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <?php if (isset($_SESSION['usuario_id'])): ?>
         <!-- VISTA: USUARIO CON SESIÓN INICIADA -->
-        <span class="nombre-usuario" style="margin-right: 15px; font-weight: bold; color: #5f9f5f;">
-            Hola, <?php echo htmlspecialchars($_SESSION['nombre']); ?>
+        <span class="nombre-usuario">
+            <?php echo htmlspecialchars($_SESSION['nombre']); ?>
         </span>
 
         <?php if ($_SESSION['rol'] === 'admin'): ?>

@@ -1,0 +1,220 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'admin') {
+    header("Location: Inicio_sesion.php");
+    exit();
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de reservas</title>
+    <link rel="stylesheet" href="../css/style_reservas_admin.css">
+</head>
+<body>
+
+    <?php require_once __DIR__ . '/../includes/barra_admin.php'; ?>
+
+    <main class="contenedor">
+        <section class="encabezado">
+            <div>
+                <h1>Gestión de reservas</h1>
+                <p>Consultá y administrá todas las reservas del sistema.</p>
+            </div>
+        </section>
+
+        <section class="estadisticas">
+            <div class="tarjeta">
+                <span class="numero" id="totalReservas">6</span>
+                <span>Total de reservas</span>
+            </div>
+
+            <div class="tarjeta confirmada">
+                <span class="numero" id="reservasConfirmadas">3</span>
+                <span>Confirmadas</span>
+            </div>
+
+            <div class="tarjeta pendiente">
+                <span class="numero" id="reservasPendientes">2</span>
+                <span>Pendientes</span>
+            </div>
+
+            <div class="tarjeta cancelada">
+                <span class="numero" id="reservasCanceladas">1</span>
+                <span>Canceladas</span>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="herramientas">
+                <input type="text" id="buscarReserva" placeholder="Buscar reserva, usuario o aula..." onkeyup="buscarReservas()">
+
+                <select id="filtroEstado" onchange="filtrarReservas()">
+                    <option value="todos">Todos los estados</option>
+                    <option value="Confirmada">Confirmadas</option>
+                    <option value="Pendiente">Pendientes</option>
+                    <option value="Cancelada">Canceladas</option>
+                </select>
+
+                <select id="filtroRecurso" onchange="filtrarReservas()">
+                    <option value="todos">Todos los recursos</option>
+                    <option value="Aula">Aulas</option>
+                    <option value="Laboratorio">Laboratorios</option>
+                    <option value="Proyector">Proyectores</option>
+                </select>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Recurso</th>
+                            <th>Fecha</th>
+                            <th>Horario</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaReservas">
+                        <tr data-recurso="Aula">
+                            <td>
+                                <strong>Juan Pérez</strong>
+                                <small>juanperez</small>
+                            </td>
+                            <td>
+                                <strong>Aula 101</strong>
+                                <small>Aula</small>
+                            </td>
+                            <td>27/08/2026</td>
+                            <td>08:00 - 10:00</td>
+                            <td>
+                                <span class="estado confirmada">Confirmada</span>
+                            </td>
+                            <td class="acciones">
+                                <button class="btn-detalles" onclick="verDetalles(this)">Ver</button>
+                                <button class="btn-cancelar" onclick="cancelarReserva(this)">Cancelar</button>
+                            </td>
+                        </tr>
+
+                        <tr data-recurso="Laboratorio">
+                            <td>
+                                <strong>María Rodríguez</strong>
+                                <small>mrodriguez</small>
+                            </td>
+                            <td>
+                                <strong>Laboratorio 2</strong>
+                                <small>Laboratorio</small>
+                            </td>
+                            <td>27/08/2026</td>
+                            <td>10:00 - 12:00</td>
+                            <td>
+                                <span class="estado pendiente">Pendiente</span>
+                            </td>
+                            <td class="acciones">
+                                <button class="btn-detalles" onclick="verDetalles(this)">Ver</button>
+                                <button class="btn-cancelar" onclick="cancelarReserva(this)">Cancelar</button>
+                            </td>
+                        </tr>
+
+                        <tr data-recurso="Proyector">
+                            <td>
+                                <strong>Carlos Silva</strong>
+                                <small>csilva</small>
+                            </td>
+                            <td>
+                                <strong>Proyector 1</strong>
+                                <small>Proyector</small>
+                            </td>
+                            <td>28/08/2026</td>
+                            <td>09:00 - 11:00</td>
+                            <td>
+                                <span class="estado confirmada">Confirmada</span>
+                            </td>
+                            <td class="acciones">
+                                <button class="btn-detalles" onclick="verDetalles(this)">Ver</button>
+                                <button class="btn-cancelar" onclick="cancelarReserva(this)">Cancelar</button>
+                            </td>
+                        </tr>
+
+                        <tr data-recurso="Aula">
+                            <td>
+                                <strong>Lucía Gómez</strong>
+                                <small>lgomez</small>
+                            </td>
+                            <td>
+                                <strong>Aula 204</strong>
+                                <small>Aula</small>
+                            </td>
+                            <td>28/08/2026</td>
+                            <td>13:00 - 15:00</td>
+                            <td>
+                                <span class="estado pendiente">Pendiente</span>
+                            </td>
+                            <td class="acciones">
+                                <button class="btn-detalles" onclick="verDetalles(this)">Ver</button>
+                                <button class="btn-cancelar" onclick="cancelarReserva(this)">Cancelar</button>
+                            </td>
+                        </tr>
+
+                        <tr data-recurso="Laboratorio">
+                            <td>
+                                <strong>Ana Martínez</strong>
+                                <small>amartinez</small>
+                            </td>
+                            <td>
+                                <strong>Laboratorio 1</strong>
+                                <small>Laboratorio</small>
+                            </td>
+                            <td>29/08/2026</td>
+                            <td>08:00 - 10:00</td>
+                            <td>
+                                <span class="estado confirmada">Confirmada</span>
+                            </td>
+                            <td class="acciones">
+                                <button class="btn-detalles" onclick="verDetalles(this)">Ver</button>
+                                <button class="btn-cancelar" onclick="cancelarReserva(this)">Cancelar</button>
+                            </td>
+                        </tr>
+
+                        <tr data-recurso="Aula">
+                            <td>
+                                <strong>Pedro Fernández</strong>
+                                <small>pfernandez</small>
+                            </td>
+                            <td>
+                                <strong>Aula 305</strong>
+                                <small>Aula</small>
+                            </td>
+                            <td>30/08/2026</td>
+                            <td>15:00 - 17:00</td>
+                            <td>
+                                <span class="estado cancelada">Cancelada</span>
+                            </td>
+                            <td class="acciones">
+                                <button class="btn-detalles" onclick="verDetalles(this)">Ver</button>
+                                <button class="btn-cancelar" onclick="cancelarReserva(this)">Cancelar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <div id="modalDetalles" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar" onclick="cerrarDetalles()">×</span>
+            <h2>Detalles de la reserva</h2>
+            <div id="informacionReserva"></div>
+        </div>
+    </div>
+
+    <script src="../scripts/reservas_admin.js"></script>
+</body>
+</html>

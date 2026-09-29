@@ -14,14 +14,27 @@ function abrirFormulario() {
     document.getElementById("password").required = true; 
     
     document.getElementById("rol").value = "alumno";
+    
+    // Ocultamos el selector de estado al crear y lo forzamos a Activo
+    document.getElementById("grupo-estado").style.display = "none";
     document.getElementById("estado").value = "Activo";
 }
 
+// Función para cerrar el modal
 function cerrarFormulario() {
     document.getElementById("modalUsuario").style.display = "none";
 }
 
-// LA FUNCIÓN guardarUsuario() FUE ELIMINADA PORQUE AHORA PHP HACE EL GUARDADO (POST)
+// Función exclusiva para el botón "Aprobar"
+function aprobarUsuario(boton, id) {
+    // Primero cargamos los datos como si fuéramos a editar
+    editarUsuario(boton, id);
+    
+    // Luego modificamos la interfaz para que parezca una aprobación
+    document.getElementById("tituloFormulario").textContent = "Aprobar usuario";
+    document.getElementById("grupo-estado").style.display = "none"; // Ocultamos el estado
+    document.getElementById("estado").value = "Activo"; // Lo forzamos a Activo
+}
 
 // Modificado para recibir el ID de la base de datos
 function editarUsuario(boton, id) {
@@ -30,11 +43,15 @@ function editarUsuario(boton, id) {
     // Extraer datos de la fila de la tabla
     const nombre = fila.cells[0].querySelector("strong").textContent;
     const correo = fila.cells[1].textContent;
-    // Pasamos el rol a minúscula para que coincida con el 'value' del select (alumno, profesor, admin)
+    // Pasamos el rol a minúscula para que coincida con el 'value' del select
     const rol = fila.cells[2].textContent.trim().toLowerCase(); 
     const estado = fila.cells[3].textContent.trim();
 
     document.getElementById("tituloFormulario").textContent = "Editar usuario";
+    
+    // Mostramos el selector de estado al editar
+    document.getElementById("grupo-estado").style.display = "flex";
+    document.getElementById("grupo-estado").style.flexDirection = "column";
     
     // Llenamos los campos y los inputs ocultos
     document.getElementById("id_usuario").value = id;
@@ -42,7 +59,7 @@ function editarUsuario(boton, id) {
     document.getElementById("nombre").value = nombre;
     document.getElementById("correo").value = correo;
     
-    // Al editar, la contraseña NO es obligatoria (se deja en blanco si no se quiere cambiar)
+    // Al editar, la contraseña NO es obligatoria
     document.getElementById("password").value = "";
     document.getElementById("password").required = false; 
 
@@ -65,67 +82,60 @@ function eliminarUsuario(boton, id) {
     }
 }
 
-// Búsqueda en tiempo real (Queda igual)
-function buscarUsuario() {
-    const texto = document.getElementById("buscar").value.toLowerCase();
-    const filas = document.querySelectorAll("#tablaUsuarios tr");
+// --- NUEVA LÓGICA DE PESTAÑAS Y FILTROS ---
+let pestanaActual = 1; // 1 = Activos, 0 = Pendientes
 
-    filas.forEach(function(fila) {
-        const contenido = fila.textContent.toLowerCase();
-        if (contenido.includes(texto)) {
-            fila.style.display = "";
-        } else {
-            fila.style.display = "none";
-        }
-    });
+function cambiarPestana(estado, botonElement) {
+    pestanaActual = estado;
+    
+    // Cambiar el estilo visual de los botones
+    document.querySelectorAll('.btn-pestana').forEach(btn => btn.classList.remove('activa'));
+    botonElement.classList.add('activa');
+    
+    // Volver a filtrar la tabla
+    aplicarFiltros();
 }
 
-// Filtros (Se ajustaron un poco para coincidir con mayúsculas/minúsculas)
-function filtrarUsuarios() {
+function aplicarFiltros() {
+    const textoBusqueda = document.getElementById("buscar").value.toLowerCase();
     const rolFiltro = document.getElementById("filtroRol").value.toLowerCase();
-    const estadoFiltro = document.getElementById("filtroEstado").value;
     const filas = document.querySelectorAll("#tablaUsuarios tr");
 
+    let alumnos = 0, profesores = 0, administradores = 0, totalVisibles = 0;
+
     filas.forEach(function(fila) {
+        const contenidoFila = fila.textContent.toLowerCase();
         const rolFila = fila.cells[2].textContent.trim().toLowerCase();
-        const estadoFila = fila.cells[3].textContent.trim();
+        const estadoFila = parseInt(fila.getAttribute("data-activo")); // Lee el 1 o 0
 
-        const coincideRol = rolFiltro === "todos" || rolFila === rolFiltro;
-        const coincideEstado = estadoFiltro === "todos" || estadoFila === estadoFiltro;
+        // Condiciones para mostrar la fila
+        const coincidePestana = (estadoFila === pestanaActual);
+        const coincideTexto = contenidoFila.includes(textoBusqueda);
+        const coincideRol = (rolFiltro === "todos" || rolFila === rolFiltro);
 
-        if (coincideRol && coincideEstado) {
-            fila.style.display = "";
+        if (coincidePestana && coincideTexto && coincideRol) {
+            fila.style.display = ""; // Mostrar
+            
+            // Sumar a las estadísticas solo a los que estamos viendo
+            totalVisibles++;
+            if (rolFila === "alumno") alumnos++;
+            if (rolFila === "profesor") profesores++;
+            if (rolFila === "administrador" || rolFila === "admin") administradores++;
         } else {
-            fila.style.display = "none";
+            fila.style.display = "none"; // Ocultar
         }
     });
-}
 
-// Estadísticas dinámicas (Se ajustaron los textos a minúsculas para el conteo)
-function actualizarEstadisticas() {
-    const filas = document.querySelectorAll("#tablaUsuarios tr");
-
-    let alumnos = 0;
-    let profesores = 0;
-    let administradores = 0;
-
-    filas.forEach(function(fila) {
-        const rol = fila.cells[2].textContent.trim().toLowerCase();
-
-        if (rol === "alumno") alumnos++;
-        if (rol === "profesor") profesores++;
-        if (rol === "administrador" || rol === "admin") administradores++;
-    });
-
-    document.getElementById("totalUsuarios").textContent = filas.length;
+    // Actualizar las tarjetas de números con lo que se está viendo en pantalla
+    document.getElementById("totalUsuarios").textContent = totalVisibles;
     document.getElementById("alumnos").textContent = alumnos;
     document.getElementById("profesores").textContent = profesores;
     document.getElementById("administradores").textContent = administradores;
 }
 
-// Asegurarse de que las estadísticas se calculen apenas carga la página
+// Asegurarse de que se aplique la pestaña "Activos" apenas carga la página
 document.addEventListener("DOMContentLoaded", function() {
-    actualizarEstadisticas();
+    aplicarFiltros();
 });
 
 // Cerrar modal al hacer clic afuera
