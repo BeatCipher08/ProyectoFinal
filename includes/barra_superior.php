@@ -27,6 +27,11 @@ if (session_status() === PHP_SESSION_NONE) {
             <button class="registro" onclick="window.location.href='panel_admin.php'" style="background: #397039;">
                 Panel Admin
             </button>
+        <?php elseif ($_SESSION['rol'] === 'profesor'): ?>
+            <!-- VISTA: SOLO PARA PROFESORES -->
+            <button class="registro" onclick="window.location.href='panel_profesor.php'" style="background: #397039;">
+                Panel Profesor
+            </button>
         <?php endif; ?>
 
         <!-- BOTÓN CERRAR SESIÓN -->

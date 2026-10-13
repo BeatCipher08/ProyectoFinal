@@ -4,7 +4,7 @@ $pagina_actual = basename($_SERVER['PHP_SELF']);
 ?>
 <header class="barra">
     <div class="logo">
-        ReservaTech
+        ReservaTech <span>| Admin</span>
     </div>
     <nav>
         <a href="panel_admin.php" class="<?php echo ($pagina_actual == 'panel_admin.php') ? 'activo' : ''; ?>">Panel</a>
