@@ -1,0 +1,263 @@
+/* ==========================================================================
+   ESTILOS ESPECÍFICOS - SALÓN GRANDE / AUDITORIO
+   ========================================================================== */
+
+/* Variación sutil en el fondo o borde del hero grande */
+.hero-grande {
+    background: linear-gradient(135deg, #ffffff 0%, #f7fbf0 100%);
+    border-bottom: 2px solid #eef3de;
+}
+
+.foto-salon img {
+    border-radius: 60px;
+}
+
+.hero-grande .contenido-salon p {
+    font-size: 24px;
+}
+
+/* Ficha de datos técnicos con la misma plantilla de los salones */
+.datos-rapidos {
+    display: flex;
+    justify-content: space-around;
+    background: #ffffff;
+    padding: 35px;
+    margin: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.dato-item {
+    text-align: center;
+}
+
+.dato-item h2 {
+    color: #8CB326;
+    font-size: 36px;
+}
+
+.dato-item p {
+    margin-top: 10px;
+    color: #666;
+    font-size: 18px;
+}
+
+/* Sub-características rápidas dentro del hero */
+.hero-badge-info {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.hero-badge-info span {
+    background: #e7edd7;
+    color: #6b901d;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Expansión de cuadrícula para 6 tarjetas de equipamiento */
+.grid-equipamiento-amplio {
+    grid-template-columns: repeat(3, 1fr) !important;
+}
+
+/* Caja de distribución de zonas */
+.seccion-distribucion {
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.caja-distribucion {
+    background: #ffffff;
+    padding: 40px 50px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border-left: 6px solid #8CB326;
+}
+
+.caja-distribucion h2 {
+    font-size: 28px;
+    color: #222;
+    margin-bottom: 12px;
+}
+
+.caja-distribucion p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.lista-sectores {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.lista-sectores li {
+    padding: 20px;
+    border: 1px solid #e4ead8;
+    border-radius: 12px;
+    background: #f8faf4;
+    color: #444;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.lista-sectores strong {
+    color: #8CB326;
+}
+
+/* Ajustes responsive para móviles */
+@media screen and (max-width: 1000px) {
+    .lista-sectores {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .grid-equipamiento-amplio {
+        grid-template-columns: 1fr !important;
+    }
+
+    .datos-rapidos {
+        flex-wrap: wrap;
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .dato-item {
+        width: 45%;
+        margin-bottom: 15px;
+    }
+
+    .lista-sectores {
+        grid-template-columns: 1fr;
+    }
+
+    .caja-distribucion {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+}
+
+/* ==========================================================================
+   ESTILOS DE TARJETAS HORIZONTALES PARA EL EQUIPAMIENTO
+   ========================================================================== */
+
+.contenedor-tarjetas-horizontales {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas de tarjetas horizontales en PC */
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.tarjeta-equipo-horizontal {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.tarjeta-equipo-horizontal:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.icono-equipo-horizontal {
+    font-size: 45px;
+    background: #eef3de;
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.texto-equipo-horizontal h3 {
+    margin-bottom: 8px;
+    font-size: 20px;
+    color: #8CB326;
+}
+
+.texto-equipo-horizontal p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Ajuste responsive para celulares */
+@media screen and (max-width: 768px) {
+    .contenedor-tarjetas-horizontales {
+        grid-template-columns: 1fr; /* Pasa a una sola columna en pantallas móviles */
+    }
+}
+
+/* Placa institucional de normas, igual a la de los salones normales */
+.seccion-normas {
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.articulo-normas {
+    background: #5F8618;
+    color: #ffffff;
+    padding: 40px 50px;
+    border: 6px solid #8CB326;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.encabezado-normas {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+}
+
+.encabezado-normas h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.encabezado-normas p {
+    font-size: 20px;
+    font-weight: 500;
+    color: #f1f8e0;
+}
+
+.contenido-normas p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+@media screen and (max-width: 768px) {
+    .seccion-normas {
+        margin: 20px;
+    }
+
+    .articulo-normas {
+        padding: 30px 20px;
+    }
+}

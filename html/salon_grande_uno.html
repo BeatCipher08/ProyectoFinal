@@ -1,0 +1,158 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salon Grande 1 - Detalles de Espacio</title>
+
+    <!-- Archivos CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/style_salon_detalle.css">
+    <link rel="stylesheet" href="../css/style_salon_grande_uno.css">
+
+    <!-- Fuentes e Íconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <?php require_once __DIR__ . '/../includes/barra_superior.php'; ?>
+
+    <main>
+        <!-- ==========================================================
+           PORTADA (HERO)
+           ========================================================== -->
+        <section class="hero-salon hero-grande">
+            <div class="contenido-salon">
+                <h1>Salones Grandes</h1>
+                <p>Espacio polivalente de gran capacidad diseñado para conferencias magistrales, eventos institucionales, graduaciones y proyecciones especiales.</p>
+            </div>
+            <div class="foto-salon">
+                <img src="../imagenes/imageninstituto.png" alt="Vista interior del Auditorio Principal">
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           FICHA DE DATOS TÉCNICOS AMPLIADOS
+           ========================================================== -->
+        <section class="datos-rapidos">
+            <div class="dato-item">
+                <h2>5</h2>
+                <p>Cantidad de Salones</p>
+            </div>
+            <div class="dato-item">
+                <h2>Planta Alta-Baja</h2>
+                <p>Ubicación (Ala Central)</p>
+            </div>
+            <div class="dato-item">
+                <h2>150</h2>
+                <p>Capacidad de Personas</p>
+            </div>
+            <div class="dato-item">
+                <h2>07:00 - 23:00</h2>
+                <p>Horario Extendido</p>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           SECCIÓN DE EQUIPAMIENTO CON TARJETAS HORIZONTALES
+           ========================================================== -->
+        <section class="seccion-equipamiento">
+            <h2>Equipamiento Integral del los Salónes</h2>
+            
+            <!-- Contenedor con tarjetas horizontales -->
+            <div class="contenedor-tarjetas-horizontales">
+                
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">📽️</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Proyector Láser 4K</h3>
+                        <p>Pantalla gigante retráctil automatizada para presentaciones de alto nivel.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🎙️</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Sistema de Audio Profesional</h3>
+                        <p>Micrófonos inalámbricos de solapa y mano, consola de sonido y retornos.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🎭</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Escenario y Tarima</h3>
+                        <p>Espacio elevado con iluminación ambiental graduable y telón ajustable.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">💺</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Butacas Numeradas</h3>
+                        <p>150 asientos ergonómicos fijos con tablilla rebatible incorporada.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🌡️</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Climatización Central</h3>
+                        <p>Dos sistemas de aire acondicionado industrial de alta potencia.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🔌</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Conectividad Dedicada</h3>
+                        <p>Punto de red ethernet exclusivo en cabina y Wi-Fi de alta densidad.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           SECCIÓN DE DISTRIBUCIÓN Y ZONAS
+           ========================================================== -->
+        <section class="seccion-distribucion">
+            <div class="caja-distribucion">
+                <h2><i class="fa-solid fa-map-location-dot"></i> Distribución del Salón</h2>
+                <p>El salón se divide en tres sectores estratégicos para facilitar el flujo de asistentes:</p>
+                <ul class="lista-sectores">
+                    <li><strong>Platea Baja (Sector A):</strong> 90 butacas con acceso directo desde las puertas principales.</li>
+                    <li><strong>Balcón / Mezzanine (Sector B):</strong> 60 butacas elevadas con visibilidad panorámica completa hacia la pantalla.</li>
+                    <li><strong>Cabina Técnica:</strong> Espacio cerrado en la parte posterior para control de luces, sonido y transmisiones en streaming.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           NORMAS DE USO INSTITUCIONALES
+           ========================================================== -->
+        <section class="seccion-normas">
+            <article class="articulo-normas">
+                <header class="encabezado-normas">
+                    <h2>Protocolo y Normas de Uso del Salón</h2>
+                    <p>Reglas generales para mantener el salón en óptimas condiciones</p>
+                </header>
+                <div class="contenido-normas">
+                    <p>• <strong>Coordinación técnica:</strong> Toda reserva de este espacio requiere un pre-soporte técnico obligatorio con 48 horas de anticipación.</p>
+                    <p>• <strong>Alimentación y bebidas:</strong> Está terminantemente prohibido el ingreso con alimentos o bebidas dentro de la zona de butacas.</p>
+                    <p>• <strong>Capacidad máxima:</strong> Por normativas de seguridad e higiene, no se permite exceder el aforo de 150 personas bajo ninguna circunstancia.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>

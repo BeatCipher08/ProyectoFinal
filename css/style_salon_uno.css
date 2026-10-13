@@ -1,0 +1,261 @@
+/* ==========================================================================
+   HOJA DE ESTILOS - DETALLE DE SALÓN (MISMA LÍNEA GRÁFICA)
+   ========================================================================== */
+
+/* 1. HERO / PORTADA DEL SALÓN */
+.hero-salon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 70px;
+    padding-top: 120px;
+    background: #ffffff;
+}
+
+.contenido-salon {
+    width: 48%;
+}
+
+.etiqueta-estado {
+    display: inline-block;
+    background: #8CB326;
+    color: #ffffff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.contenido-salon h1 {
+    font-size: 56px;
+    margin-bottom: 25px;
+    line-height: 1.15;
+}
+
+.contenido-salon p {
+    font-size: 21px;
+    color: #666;
+    margin-bottom: 35px;
+    line-height: 1.7;
+}
+
+.botones-salon {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-reserva {
+    background: #8CB326;
+    color: #ffffff;
+    border: none;
+    padding: 16px 30px;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.btn-reserva:hover {
+    background: #6b901d;
+}
+
+.btn-secundario {
+    background: #eef3de;
+    color: #8CB326;
+    border: none;
+    padding: 16px 30px;
+    border-radius: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-secundario:hover {
+    background: #e1ebc7;
+}
+
+
+/* 2. DATOS RÁPIDOS / ESTADÍSTICAS DEL SALÓN */
+.datos-rapidos {
+    display: flex;
+    justify-content: space-around;
+    background: #ffffff;
+    padding: 35px;
+    margin: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.dato-item {
+    text-align: center;
+}
+
+.dato-item h2 {
+    color: #8CB326;
+    font-size: 36px;
+}
+
+.dato-item p {
+    margin-top: 10px;
+    color: #666;
+    font-size: 18px;
+}
+
+/* 3. SECCIÓN EQUIPAMIENTO (ESTILO TARJETAS CON HOVER) */
+.seccion-equipamiento {
+    margin: 40px;
+}
+
+.seccion-equipamiento h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.grid-equipamiento {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 260px));
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.tarjeta-equipo {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+}
+
+.tarjeta-equipo:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.icono-equipo {
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+.tarjeta-equipo h3 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #8CB326;
+}
+
+.tarjeta-equipo p {
+    color: #666;
+    line-height: 1.7;
+}
+
+/* 4. SECCIÓN NORMAS (ESTILO ANUNCIO INSTITUCIONAL) */
+.seccion-normas {
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.articulo-normas {
+    background: #627d20;
+    color: #ffffff;
+    padding: 40px 50px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.encabezado-normas {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+}
+
+.encabezado-normas h2 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.encabezado-normas p {
+    font-size: 20px;
+    font-weight: 500;
+    color: #f1f8e0;
+}
+
+.contenido-normas p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+@media screen and (max-width: 1200px) {
+    .grid-equipamiento {
+        grid-template-columns: repeat(2, minmax(0, 260px));
+    }
+}
+
+/* 5. ADAPTABILIDAD A MÓVILES (MEDIA QUERY) */
+@media screen and (max-width: 768px) {
+    .hero-salon {
+        flex-direction: column;
+        padding: 100px 20px 40px;
+        text-align: center;
+    }
+
+    .contenido-salon {
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .contenido-salon h1 {
+        font-size: 38px;
+    }
+
+    .botones-salon {
+        flex-direction: column;
+    }
+
+    .datos-rapidos {
+        flex-wrap: wrap;
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .dato-item {
+        width: 45%;
+        margin-bottom: 15px;
+    }
+
+    .grid-equipamiento {
+        grid-template-columns: 1fr;
+    }
+
+    .seccion-normas {
+        margin: 20px;
+    }
+
+    .articulo-normas {
+        padding: 30px 20px;
+    }
+
+    .hero-salon {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       gap: 40px;
+    }
+
+    .foto-salon img {
+      width: 560px;
+      height: auto;
+      border-radius: 40px;
+      object-fit: cover;
+      transform: translateX(50px);
+    }
+
+}
