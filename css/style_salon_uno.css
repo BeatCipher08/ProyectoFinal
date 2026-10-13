@@ -2,6 +2,10 @@
    HOJA DE ESTILOS - DETALLE DE SALÓN (MISMA LÍNEA GRÁFICA)
    ========================================================================== */
 
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
 /* 1. HERO / PORTADA DEL SALÓN */
 .hero-salon {
     display: flex;

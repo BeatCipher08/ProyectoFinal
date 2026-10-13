@@ -2,6 +2,10 @@
    ESTILOS ESPECÍFICOS - SALÓN GRANDE / AUDITORIO
    ========================================================================== */
 
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
 /* Variación sutil en el fondo o borde del hero grande */
 .hero-grande {
     background: linear-gradient(135deg, #ffffff 0%, #f7fbf0 100%);
