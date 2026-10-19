@@ -1,0 +1,158 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio de Física - Detalles del Espacio</title>
+
+    <!-- Archivos CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/style_salon_detalle.css">
+    <link rel="stylesheet" href="../css/style_salon_grande_uno.css">
+
+    <!-- Fuentes e Íconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <?php require_once __DIR__ . '/../includes/barra_superior.php'; ?>
+
+    <main>
+        <!-- ==========================================================
+           PORTADA (HERO)
+           ========================================================== -->
+        <section class="hero-salon hero-grande">
+            <div class="contenido-salon">
+                <h1>Laboratorios de Física</h1>
+                <p>Espacio destinado a la experimentación y el aprendizaje práctico de los principios de la física mediante actividades guiadas y uso de instrumentos de medición.</p>
+            </div>
+            <div class="foto-salon">
+                <img src="../imagenes/imageninstituto.png" alt="Vista interior del Laboratorio de Física">
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           FICHA DE DATOS TÉCNICOS AMPLIADOS
+           ========================================================== -->
+        <section class="datos-rapidos">
+            <div class="dato-item">
+                <h2>2</h2>
+                <p>Número de laboratorios</p>
+            </div>
+            <div class="dato-item">
+                <h2>Planta alta-baja</h2>
+                <p>Ubicación (ala sureste)</p>
+            </div>
+            <div class="dato-item">
+                <h2>30</h2>
+                <p>Capacidad de personas</p>
+            </div>
+            <div class="dato-item">
+                <h2>07:00 - 23:00</h2>
+                <p>Horario de Acceso</p>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           SECCIÓN DE EQUIPAMIENTO CON TARJETAS HORIZONTALES
+           ========================================================== -->
+        <section class="seccion-equipamiento">
+            <h2>Equipamiento del Laboratorio</h2>
+            
+            <!-- Contenedor con tarjetas horizontales -->
+            <div class="contenedor-tarjetas-horizontales">
+                
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">📏</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Instrumentos de medición</h3>
+                        <p>Dispositivos para medir magnitudes como longitud, tiempo, masa y temperatura.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">⚡</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Material de electricidad</h3>
+                        <p>Fuentes de alimentación, cables y componentes para prácticas de circuitos eléctricos.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🔬</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Equipo de óptica</h3>
+                        <p>Lentes, espejos y elementos para observar fenómenos de reflexión y refracción.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">⚙️</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Material de mecánica</h3>
+                        <p>Carritos, poleas y masas para estudiar movimiento, fuerzas y equilibrio.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🔧</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Soportes y accesorios</h3>
+                        <p>Trípodes, pinzas y bases para montar y mantener estables los experimentos.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🛡️</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Equipo de protección</h3>
+                        <p>Elementos de protección personal para realizar las prácticas de forma segura.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           SECCIÓN DE DISTRIBUCIÓN Y ZONAS
+           ========================================================== -->
+        <section class="seccion-distribucion">
+            <div class="caja-distribucion">
+                <h2><i class="fa-solid fa-map-location-dot"></i> Áreas de trabajo</h2>
+                <p>El laboratorio organiza sus prácticas en áreas temáticas para facilitar el desarrollo de los experimentos:</p>
+                <ul class="lista-sectores">
+                    <li><strong>Mecánica:</strong> Espacio para prácticas de movimiento, fuerzas, energía y equilibrio.</li>
+                    <li><strong>Electricidad:</strong> Área para montar circuitos y estudiar corriente, voltaje y resistencia.</li>
+                    <li><strong>Óptica:</strong> Zona para experimentos con luz, lentes, espejos y reflexión.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           NORMAS DE USO INSTITUCIONALES
+           ========================================================== -->
+        <section class="seccion-normas">
+            <article class="articulo-normas">
+                <header class="encabezado-normas">
+                    <h2>Normas de uso del Laboratorio de Física</h2>
+                    <p>Reglas para realizar las prácticas de forma segura y cuidar los equipos</p>
+                </header>
+                <div class="contenido-normas">
+                    <p>• <strong>Supervisión:</strong> Realizar las prácticas siguiendo las indicaciones del docente o responsable del laboratorio.</p>
+                    <p>• <strong>Uso de equipos:</strong> Manipular los instrumentos con cuidado y solicitar orientación antes de utilizar equipos desconocidos.</p>
+                    <p>• <strong>Seguridad:</strong> Mantener despejadas las mesas y desconectar las fuentes eléctricas al finalizar cada práctica.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>

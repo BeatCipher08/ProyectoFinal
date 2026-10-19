@@ -1,0 +1,150 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorios de Química - Detalles del Espacio</title>
+
+    <!-- Archivos CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/style_salon_detalle.css">
+    <link rel="stylesheet" href="../css/style_salon_grande_uno.css">
+
+    <!-- Fuentes e Íconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <?php require_once __DIR__ . '/../includes/barra_superior.php'; ?>
+
+    <main>
+        <!-- ==========================================================
+           PORTADA (HERO)
+           ========================================================== -->
+        <section class="hero-salon hero-grande">
+            <div class="contenido-salon">
+                <h1>Laboratorios de Química</h1>
+                <p>Espacio especializado para experimentos y prácticas de laboratorio, equipado con instalaciones modernas y seguridad adecuada.</p>
+            </div>
+            <div class="foto-salon">
+                <img src="../imagenes/imageninstituto.png" alt="Vista interior del Auditorio Principal">
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           FICHA DE DATOS TÉCNICOS AMPLIADOS
+           ========================================================== -->
+        <section class="datos-rapidos">
+            <div class="dato-item">
+                <h2>2</h2>
+                <p>Cantidad de Laboratorios</p>
+            </div>
+            <div class="dato-item">
+                <h2>Planta Alta-Baja</h2>
+                <p>Ubicación (Ala Sur)</p>
+            </div>
+            <div class="dato-item">
+                <h2>30</h2>
+                <p>Capacidad de Personas</p>
+            </div>
+            <div class="dato-item">
+                <h2>07:00 - 23:00</h2>
+                <p>Horario Extendido</p>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           SECCIÓN DE EQUIPAMIENTO CON TARJETAS HORIZONTALES
+           ========================================================== -->
+        <section class="seccion-equipamiento">
+            <h2>Equipamiento Integral de los Laboratorios</h2>
+            
+            <!-- Contenedor con tarjetas horizontales -->
+            <div class="contenedor-tarjetas-horizontales">
+                
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🔬</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Instrumentos de Laboratorio</h3>
+                        <p>Equipo especializado para experimentos y análisis químicos.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🛡️</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Habitación de Seguridad</h3>
+                        <p>Área designada para el almacenamiento seguro de materiales químicos y equipos de protección individual.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🎭</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Pizarrones Móviles</h3>
+                        <p>Tableros de pizarra portátiles para uso en experimentos y presentaciones.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🌡️</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Climatización Central</h3>
+                        <p>Dos sistemas de aire acondicionado industrial de alta potencia.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🔌</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Conectividad Dedicada</h3>
+                        <p>Punto de red ethernet exclusivo en cabina y Wi-Fi de alta densidad.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           SECCIÓN DE DISTRIBUCIÓN Y ZONAS
+           ========================================================== -->
+        <section class="seccion-distribucion">
+            <div class="caja-distribucion">
+                <h2><i class="fa-solid fa-map-location-dot"></i> Distribución del Laboratorio</h2>
+                <p>El laboratorio se divide en tres sectores estratégicos para facilitar el flujo de asistentes:</p>
+                <ul class="lista-sectores">
+                    <li><strong>Zonea de Trabajo (Sector A):</strong> Área dedicada a la realización de experimentos y análisis químicos.</li>
+                    <li><strong>Zonea de Observación (Sector B):</strong> Área designada para la observación segura de los experimentos en curso.</li>
+                    <li><strong>Cabina Técnica:</strong> Espacio reservado para el almacenamiento y mantenimiento de equipos y materiales químicos.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           NORMAS DE USO INSTITUCIONALES
+           ========================================================== -->
+        <section class="seccion-normas">
+            <article class="articulo-normas">
+                <header class="encabezado-normas">
+                    <h2>Protocolo y Normas de Uso del Laboratorio</h2>
+                    <p>Reglas generales para mantener el laboratorio en óptimas condiciones</p>
+                </header>
+                <div class="contenido-normas">
+                    <p>• <strong>Coordinación técnica:</strong> Toda reserva de este espacio requiere un pre-soporte técnico obligatorio con 48 horas de anticipación.</p>
+                    <p>• <strong>Alimentación y bebidas:</strong> Está terminantemente prohibido el ingreso con alimentos o bebidas dentro de la zona de trabajo.</p>
+                    <p>• <strong>Capacidad máxima:</strong> Por normativas de seguridad e higiene, no se permite exceder el aforo de 30 personas bajo ninguna circunstancia.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>

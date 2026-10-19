@@ -1,0 +1,158 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio de Ciencias - Detalles del Espacio</title>
+
+    <!-- Archivos CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/style_salon_detalle.css">
+    <link rel="stylesheet" href="../css/style_salon_grande_uno.css">
+
+    <!-- Fuentes e Íconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <?php require_once __DIR__ . '/../includes/barra_superior.php'; ?>
+
+    <main>
+        <!-- ==========================================================
+           PORTADA (HERO)
+           ========================================================== -->
+        <section class="hero-salon hero-grande">
+            <div class="contenido-salon">
+                <h1>Laboratorio de Ciencias</h1>
+                <p>Espacio para realizar prácticas y experimentos de física, química y biología, con instrumentos y materiales para el aprendizaje científico.</p>
+            </div>
+            <div class="foto-salon">
+                <img src="../imagenes/imageninstituto.png" alt="Vista interior del Laboratorio de Ciencias">
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           FICHA DE DATOS TÉCNICOS AMPLIADOS
+           ========================================================== -->
+        <section class="datos-rapidos">
+            <div class="dato-item">
+                <h2>2</h2>
+                <p>Cantidad de Laboratorios</p>
+            </div>
+            <div class="dato-item">
+                <h2>Planta Alta-Baja</h2>
+                <p>Ubicación (Área de laboratorios)</p>
+            </div>
+            <div class="dato-item">
+                <h2>30</h2>
+                <p>Capacidad de Personas</p>
+            </div>
+            <div class="dato-item">
+                <h2>07:00 - 23:00</h2>
+                <p>Horario de Acceso</p>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           SECCIÓN DE EQUIPAMIENTO CON TARJETAS HORIZONTALES
+           ========================================================== -->
+        <section class="seccion-equipamiento">
+            <h2>Equipamiento Integral del Laboratorio</h2>
+            
+            <!-- Contenedor con tarjetas horizontales -->
+            <div class="contenedor-tarjetas-horizontales">
+                
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">📏</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Instrumentos de medición</h3>
+                        <p>Material para medir magnitudes como longitud, masa, tiempo y temperatura en distintas prácticas.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🔬</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Microscopios y lupas</h3>
+                        <p>Instrumentos para observar muestras y estructuras que no se distinguen a simple vista.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🧫</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Material de laboratorio</h3>
+                        <p>Recipientes, soportes y utensilios para preparar y realizar experimentos.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🔬</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Modelos científicos</h3>
+                        <p>Recursos didácticos para estudiar sistemas, organismos y fenómenos naturales.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🧪</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Material de física y química</h3>
+                        <p>Componentes y materiales para prácticas de movimiento, energía, mezclas y reacciones.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🛡️</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Equipo de protección</h3>
+                        <p>Elementos de protección personal para trabajar de manera segura durante las prácticas.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           SECCIÓN DE DISTRIBUCIÓN Y ZONAS
+           ========================================================== -->
+        <section class="seccion-distribucion">
+            <div class="caja-distribucion">
+                <h2><i class="fa-solid fa-map-location-dot"></i> Áreas de trabajo</h2>
+                <p>El laboratorio organiza sus prácticas en áreas temáticas para facilitar el aprendizaje y el uso de los materiales:</p>
+                <ul class="lista-sectores">
+                    <li><strong>Biología:</strong> Área para observar muestras y estudiar organismos y estructuras naturales.</li>
+                    <li><strong>Química:</strong> Espacio para realizar prácticas con materiales y sustancias de laboratorio bajo supervisión.</li>
+                    <li><strong>Física:</strong> Zona para experimentar con movimiento, fuerzas, energía y fenómenos eléctricos.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           NORMAS DE USO INSTITUCIONALES
+           ========================================================== -->
+        <section class="seccion-normas">
+            <article class="articulo-normas">
+                <header class="encabezado-normas">
+                    <h2>Normas de uso del Laboratorio de Ciencias</h2>
+                    <p>Reglas para realizar las prácticas de forma segura y cuidar los materiales</p>
+                </header>
+                <div class="contenido-normas">
+                    <p>• <strong>Supervisión:</strong> Realizar las prácticas siguiendo las indicaciones del docente o responsable del laboratorio.</p>
+                    <p>• <strong>Uso de materiales:</strong> Manipular los instrumentos y sustancias con cuidado, y devolverlos a su lugar al terminar.</p>
+                    <p>• <strong>Seguridad:</strong> Usar el equipo de protección indicado y no ingresar alimentos ni bebidas al área de trabajo.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>

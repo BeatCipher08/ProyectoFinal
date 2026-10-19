@@ -1,0 +1,158 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio de Mecánica - Detalles del Espacio</title>
+
+    <!-- Archivos CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/style_salon_detalle.css">
+    <link rel="stylesheet" href="../css/style_salon_grande_uno.css">
+
+    <!-- Fuentes e Íconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <?php require_once __DIR__ . '/../includes/barra_superior.php'; ?>
+
+    <main>
+        <!-- ==========================================================
+           PORTADA (HERO)
+           ========================================================== -->
+        <section class="hero-salon hero-grande">
+            <div class="contenido-salon">
+                <h1>Laboratorio de Mecánica</h1>
+                <p>Espacio dedicado al estudio experimental del movimiento, las fuerzas y la energía mediante prácticas con equipos e instrumentos de mecánica.</p>
+            </div>
+            <div class="foto-salon">
+                <img src="../imagenes/imageninstituto.png" alt="Vista interior del Laboratorio de Mecánica">
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           FICHA DE DATOS TÉCNICOS AMPLIADOS
+           ========================================================== -->
+        <section class="datos-rapidos">
+            <div class="dato-item">
+                <h2>2</h2>
+                <p>Número de laboratorios</p>
+            </div>
+            <div class="dato-item">
+                <h2>Planta alta-baja</h2>
+                <p>Ubicación (ala sureste)</p>
+            </div>
+            <div class="dato-item">
+                <h2>30</h2>
+                <p>Capacidad de personas</p>
+            </div>
+            <div class="dato-item">
+                <h2>07:00 - 23:00</h2>
+                <p>Horario de acceso</p>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           SECCIÓN DE EQUIPAMIENTO CON TARJETAS HORIZONTALES
+           ========================================================== -->
+        <section class="seccion-equipamiento">
+            <h2>Equipamiento del Laboratorio</h2>
+            
+            <!-- Contenedor con tarjetas horizontales -->
+            <div class="contenedor-tarjetas-horizontales">
+                
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">📏</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Instrumentos de medición</h3>
+                        <p>Reglas, cronómetros y otros instrumentos para medir distancias e intervalos de tiempo.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">⚙️</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Carritos y rieles</h3>
+                        <p>Material para observar y medir el movimiento en trayectorias rectas e inclinadas.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🪝</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Poleas y masas</h3>
+                        <p>Elementos para estudiar fuerzas, tensión y equilibrio en sistemas mecánicos.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🧰</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Dinamómetros</h3>
+                        <p>Instrumentos para medir fuerzas aplicadas en diferentes montajes experimentales.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">📐</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Planos inclinados</h3>
+                        <p>Superficies para analizar el movimiento, la fricción y las componentes de fuerza.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">🛡️</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Equipo de protección</h3>
+                        <p>Elementos de protección personal para trabajar de forma segura durante las prácticas.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           SECCIÓN DE DISTRIBUCIÓN Y ZONAS
+           ========================================================== -->
+        <section class="seccion-distribucion">
+            <div class="caja-distribucion">
+                <h2><i class="fa-solid fa-map-location-dot"></i> Áreas de trabajo</h2>
+                <p>El laboratorio organiza sus actividades en áreas para facilitar el montaje y análisis de los experimentos:</p>
+                <ul class="lista-sectores">
+                    <li><strong>Cinemática:</strong> Área para estudiar la posición, velocidad y aceleración de los cuerpos.</li>
+                    <li><strong>Fuerzas y equilibrio:</strong> Espacio para analizar interacciones, torque y condiciones de equilibrio.</li>
+                    <li><strong>Energía y movimiento:</strong> Zona para observar transformaciones de energía, trabajo y conservación del momento.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==========================================================
+           NORMAS DE USO INSTITUCIONALES
+           ========================================================== -->
+        <section class="seccion-normas">
+            <article class="articulo-normas">
+                <header class="encabezado-normas">
+                    <h2>Normas de uso del Laboratorio de Mecánica</h2>
+                    <p>Reglas para realizar las prácticas de forma segura y cuidar los equipos</p>
+                </header>
+                <div class="contenido-normas">
+                    <p>• <strong>Supervisión:</strong> Realizar las prácticas siguiendo las indicaciones del docente o responsable del laboratorio.</p>
+                    <p>• <strong>Montaje de equipos:</strong> Asegurar soportes, masas y piezas móviles antes de iniciar cada experimento.</p>
+                    <p>• <strong>Orden y seguridad:</strong> Mantener despejadas las mesas y devolver los instrumentos a su lugar al finalizar.</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+</body>
+</html>
