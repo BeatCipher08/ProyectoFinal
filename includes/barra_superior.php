@@ -11,8 +11,22 @@ if (session_status() === PHP_SESSION_NONE) {
         <span class="nombre_insti">Instituto tecnológico de Tacuarembó</span>
         <span class="siglas">ITT</span>
     </a>
-    
-    <a href="#">Salones</a>
+
+    <div class="dropdown-salones" style="position: relative; display: inline-block;">
+        <a href="pagina_principal.php#salones" class="dropdown-trigger" style="display: inline-block; padding: 12px 18px; color: #1d1d1d; text-decoration: none; font-weight: 600;">Salones</a>
+        <div class="dropdown-menu" style="display: none; position: absolute; top: 100%; left: 0; min-width: 240px; background: #ffffff; border: 1px solid #dfe9e1; border-radius: 12px; box-shadow: 0 12px 28px rgba(0,0,0,0.12); z-index: 50; padding: 10px 0;">
+            <a href="sala_conferencias.php" style="display: block; padding: 10px 16px; color: #173720; text-decoration: none;">Sala de conferencias</a>
+            <a href="salon_grande_uno.php" style="display: block; padding: 10px 16px; color: #173720; text-decoration: none;">Salón grande</a>
+            <a href="salon_uno.php" style="display: block; padding: 10px 16px; color: #173720; text-decoration: none;">Salón normal</a>
+            <a href="laboratorio_informatica.php" style="display: block; padding: 10px 16px; color: #173720; text-decoration: none;">Laboratorio de informática</a>
+            <a href="laboratorio_quimica.php" style="display: block; padding: 10px 16px; color: #173720; text-decoration: none;">Laboratorio de química</a>
+            <a href="laboratorio_fisica.php" style="display: block; padding: 10px 16px; color: #173720; text-decoration: none;">Laboratorio de física</a>
+            <a href="laboratorio_biologia.php" style="display: block; padding: 10px 16px; color: #173720; text-decoration: none;">Laboratorio de biología</a>
+            <a href="laboratorio_ciencias.php" style="display: block; padding: 10px 16px; color: #173720; text-decoration: none;">Laboratorio de ciencias</a>
+            <a href="laboratorio_robotica.php" style="display: block; padding: 10px 16px; color: #173720; text-decoration: none;">Laboratorio de robótica</a>
+            <a href="taller_mecanica.php" style="display: block; padding: 10px 16px; color: #173720; text-decoration: none;">Taller de mecánica</a>
+        </div>
+    </div>
     <a href="#">Novedades</a>
     <a href="#">Sobre nosotros</a>
 
@@ -45,3 +59,13 @@ if (session_status() === PHP_SESSION_NONE) {
         <button class="sesion" onclick="window.location.href='Inicio_sesion.php'">Iniciar sesion</button>
     <?php endif; ?>
 </header>
+
+<style>
+    .dropdown-salones:hover .dropdown-menu,
+    .dropdown-salones:focus-within .dropdown-menu {
+        display: block !important;
+    }
+    .dropdown-salones .dropdown-menu a:hover {
+        background: #edf7ee;
+    }
+</style>

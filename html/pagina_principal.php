@@ -108,25 +108,25 @@ error_reporting(E_ALL);
                         <div class="icono" aria-hidden="true">🧪</div>
                         <h3>Laboratorios</h3>
                         <p>Reserva laboratorios totalmente equipados para prácticas y proyectos.</p>
-                        <button>Reservar</button>
+                        <button type="button" onclick="window.location.href='laboratorio_informatica.php'">Ver laboratorio</button>
                     </div>
                     <div class="tarjeta">
                         <div class="icono" aria-hidden="true">🏫</div>
                         <h3>Salones</h3>
                         <p>Consulta la disponibilidad de aulas y realiza tu reserva fácilmente.</p>
-                        <button>Reservar</button>
+                        <button type="button" onclick="window.location.href='sala_conferencias.php'">Ver salón</button>
                     </div>
                     <div class="tarjeta">
                         <div class="icono" aria-hidden="true">📚</div>
                         <h3>Biblioteca</h3>
                         <p>Reserva espacios de estudio individuales o grupales.</p>
-                        <button>Reservar</button>
+                        <button type="button" onclick="window.location.href='pagina_principal.php'">Ver detalle</button>
                     </div>
                     <div class="tarjeta">
                         <div class="icono" aria-hidden="true">💻</div>
                         <h3>Equipamiento</h3>
                         <p>Solicita proyectores, notebooks y otros recursos tecnológicos.</p>
-                        <button>Reservar</button>
+                        <button type="button" onclick="window.location.href='laboratorio_robotica.php'">Ver equipo</button>
                     </div>
                 </div>
 
