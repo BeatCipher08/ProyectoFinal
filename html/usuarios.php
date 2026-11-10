@@ -117,8 +117,12 @@ $resultado_usuarios = $pdo->query($query);
                                     <?php else: ?>
                                         <button class="btn-editar" onclick="editarUsuario(this, <?php echo $usuario['id']; ?>)">Editar</button>
                                     <?php endif; ?>
-                                    
-                                    <button class="btn-eliminar" onclick="eliminarUsuario(this, <?php echo $usuario['id']; ?>)">Eliminar</button>
+
+                                    <?php if (strtolower((string)$usuario['rol']) === 'admin'): ?>
+                                        <button class="btn-eliminar" disabled style="opacity: 0.5; cursor: not-allowed;">Eliminar</button>
+                                    <?php else: ?>
+                                        <button class="btn-eliminar" onclick="eliminarUsuario(this, <?php echo $usuario['id']; ?>)">Eliminar</button>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endwhile; ?>

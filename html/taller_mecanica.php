@@ -24,7 +24,7 @@
                 <p>Amplio espacio industrial para prácticas de mecánica automotriz, matricería, neumática y estructuras metálicas, ubicado detrás de la sala de conferencias principal.</p>
             </div>
             <div class="foto-salon">
-                <img src="../imagenes/imageninstituto.png" alt="Taller de mecánica del instituto">
+                <img src="../imagenes/imageninstituto.jpg" alt="Taller de mecánica del instituto">
             </div>
         </section>
 

@@ -24,7 +24,7 @@
                 <p>Espacios especializados para experimentos de mecánica, óptica, electricidad y termodinámica con mesas estables e instrumental de precisión.</p>
             </div>
             <div class="foto-salon">
-                <img src="../imagenes/imageninstituto.png" alt="Laboratorio de física del instituto">
+                <img src="../imagenes/imageninstituto.jpg" alt="Laboratorio de física del instituto">
             </div>
         </section>
 

@@ -1,35 +1,88 @@
 /* BARRA DE NAVEGACIÓN PROFESOR */
 .barra-profesor {
-    background: #2c3e50;
-    color: white;
-    padding: 15px 30px;
+    height: 70px;
+    background: white;
+    padding: 0 45px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-bottom: 4px solid #8fbf8f;
+    gap: 16px;
 }
 
 .logo-profesor {
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
+    color: #5f9f5f;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.brand-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.brand-logo {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.usuario-header {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #1f3d2e;
+    white-space: nowrap;
+    margin-left: 0;
+}
+
+.logo-profesor span {
+    font-size: 14px;
+    color: #777;
+    font-weight: normal;
 }
 
 .nav-profesor {
     display: flex;
-    gap: 20px;
+    gap: 25px;
+    align-items: center;
 }
 
 .nav-profesor a {
     text-decoration: none;
-    color: white;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 5px;
 }
 
+.nav-profesor a:hover,
 .nav-profesor a.activo {
-    color: #4CAF50;
-    font-weight: bold;
+    color: #d62828;
+    border-bottom: 3px solid #d62828;
 }
 
 .nav-profesor a.peligro {
-    color: #ff6b6b;
+    background: #d62828;
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border-bottom: none;
+}
+
+.nav-profesor a.peligro:hover {
+    opacity: 0.92;
 }
 
 /* HERRAMIENTAS Y TABLA */
@@ -59,21 +112,25 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    padding: 20px;
+    padding: 18px 16px;
+    overflow-y: auto;
 }
 
 .modal-contenido {
     background: white;
-    width: 560px;
+    width: min(980px, 96vw);
     max-width: 100%;
-    padding: 28px 24px 22px;
-    border-radius: 14px;
+    max-height: min(90vh, 820px);
+    padding: 20px 24px 18px;
+    border-radius: 18px;
     position: relative;
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .modal-contenido h2 {
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     font-size: 1.7rem;
     color: #1f2937;
 }
@@ -95,15 +152,15 @@
 
 .modal-subtitulo {
     color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     font-size: 14px;
 }
 
 .grupo-opciones {
     background: #f8f9fa;
-    padding: 15px;
+    padding: 10px 12px;
     border-radius: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     border: 1px solid #e9ecef;
 }
 
@@ -111,7 +168,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     cursor: pointer;
     font-weight: bold;
 }
@@ -127,7 +184,7 @@
 
 .seccion-oculta {
     display: none;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .label-formulario {
@@ -173,24 +230,56 @@ select.input-formulario {
 }
 
 .contenedor-fecha-hora {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+    margin-bottom: 12px;
 }
 
 .columna-mitad {
-    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 640px) {
+    .contenedor-fecha-hora {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ESTADOS DEL BOTÓN */
 .btn-submit-reserva {
-    margin-top: 25px;
+    margin-top: 12px;
     width: 100%;
+    min-height: 52px;
+    background: #5d9c5d;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
+.btn-submit-reserva:hover:not(:disabled),
+.btn-submit-reserva:not(:disabled):hover {
+    background: #4e8d4e;
+    transform: translateY(-1px);
+}
+
+.btn-submit-reserva:disabled,
 .btn-deshabilitado {
-    opacity: 0.5;
-    cursor: not-allowed;
+    opacity: 0.65;
+    background: #e7ebee !important;
+    color: #6c757d !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    pointer-events: none;
+}
+
+.btn-submit-reserva:not(:disabled):hover {
+    background: #4f8850;
+    transform: translateY(-1px);
 }
 
 .error-reserva {

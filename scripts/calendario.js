@@ -1,165 +1,309 @@
-const dias = document.getElementById("dias");
-const mesActual = document.getElementById("mesActual");
-const mesAnterior = document.getElementById("mesAnterior");
-const mesSiguiente = document.getElementById("mesSiguiente");
+const monthLabel = document.getElementById('monthLabel');
+const calendarGrid = document.getElementById('calendarGrid');
+const detailHeader = document.getElementById('detailHeader');
+const detailList = document.getElementById('detailList');
+const prevMonth = document.getElementById('prevMonth');
+const nextMonth = document.getElementById('nextMonth');
+const toggleAllReservations = document.getElementById('toggleAllReservations');
+const reservationSearch = document.getElementById('reservationSearch');
+const filterPopover = document.getElementById('filterPopover');
+const openFilters = document.getElementById('openFilters');
+const closeFilters = document.getElementById('closeFilters');
+const applyFilters = document.getElementById('applyFilters');
+const clearFilters = document.getElementById('clearFilters');
+const filterEstado = document.getElementById('filterEstado');
+const filterTipoRecurso = document.getElementById('filterTipoRecurso');
+const filterFecha = document.getElementById('filterFecha');
 
-let fechaActual = new Date(2026, 7, 1);
+const now = new Date();
+const initialYear = Number.isInteger(window.calendarInitialYear) ? window.calendarInitialYear : now.getFullYear();
+const initialMonth = Number.isInteger(window.calendarInitialMonth) ? window.calendarInitialMonth : now.getMonth();
+const calendarDate = new Date(initialYear, initialMonth, 1);
+let selectedDate = typeof window.calendarInitialDate === 'string' && window.calendarInitialDate
+    ? window.calendarInitialDate
+    : formatDateKey(now);
+let showAllReservations = false;
+const today = new Date();
+today.setHours(0, 0, 0, 0);
 
-const reservas = {
-    "2026-08-27": {
-        usuario: "Juan Pérez",
-        aula: "Aula 101",
-        horario: "08:00 - 10:00",
-        motivo: "Clase"
-    },
-
-    "2026-08-29": {
-        usuario: "María González",
-        aula: "Laboratorio 1",
-        horario: "14:00 - 16:00",
-        motivo: "Trabajo práctico"
-    },
-
-    "2026-09-02": {
-        usuario: "Ana López",
-        aula: "Aula 204",
-        horario: "10:00 - 12:00",
-        motivo: "Clase de informática"
-    }
-};
-
-const meses = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre"
+const weekdayNames = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+const monthNames = [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
 ];
 
-function generarCalendario() {
+const reservaMap = (window.activityMap && typeof window.activityMap === 'object' && !Array.isArray(window.activityMap))
+    ? window.activityMap
+    : {};
 
-    dias.innerHTML = "";
+function formatDateKey(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
 
-    const año = fechaActual.getFullYear();
-    const mes = fechaActual.getMonth();
+function formatLongDate(dateKey) {
+    const [year, month, day] = dateKey.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+    return date.toLocaleDateString('es-ES', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+}
 
-    mesActual.textContent = meses[mes] + " " + año;
+function formatDateShort(dateKey) {
+    const [year, month, day] = dateKey.split('-').map(Number);
+    const date = new Date(year, month - 1, day);
+    return date.toLocaleDateString('es-ES');
+}
 
-    const primerDia = new Date(año, mes, 1).getDay();
+function getFilterState() {
+    return {
+        query: (reservationSearch?.value || '').trim().toLowerCase(),
+        estado: filterEstado?.value || 'todos',
+        tipo: filterTipoRecurso?.value || 'todos',
+        fecha: filterFecha?.value || ''
+    };
+}
 
-    const cantidadDias = new Date(
-        año,
-        mes + 1,
-        0
-    ).getDate();
+function matchesReservationFilters(item, filters) {
+    if (!item) return false;
 
-    let inicio = primerDia - 1;
+    if (filters.query) {
+        const searchable = [
+            item.titulo,
+            item.recurso,
+            item.profesor,
+            item.descripcion,
+            item.horario,
+            item.fecha,
+            formatDateShort(item.fecha || ''),
+            formatLongDate(item.fecha || '')
+        ].join(' ').toLowerCase();
 
-    if (inicio < 0) {
-        inicio = 6;
+        if (!searchable.includes(filters.query)) {
+            return false;
+        }
     }
 
-    for (let i = 0; i < inicio; i++) {
-
-        const espacio = document.createElement("div");
-
-        espacio.className = "dia vacio";
-
-        dias.appendChild(espacio);
+    if (filters.estado !== 'todos' && String(item.estado || '').toLowerCase() !== filters.estado) {
+        return false;
     }
 
-    for (let numero = 1; numero <= cantidadDias; numero++) {
+    if (filters.tipo !== 'todos' && String(item.tipo_recurso || '').toLowerCase() !== filters.tipo) {
+        return false;
+    }
 
-        const dia = document.createElement("div");
+    if (filters.fecha && String(item.fecha || '') !== filters.fecha) {
+        return false;
+    }
 
-        dia.className = "dia";
+    return true;
+}
 
-        const numeroDia = document.createElement("span");
+function getFilteredReservations() {
+    const source = showAllReservations
+        ? Object.entries(reservaMap).flatMap(([date, dayItems]) =>
+            dayItems.map((item) => ({ ...item, fecha: date }))
+        )
+        : (reservaMap[selectedDate] || []).map((item) => ({ ...item, fecha: selectedDate }));
 
-        numeroDia.className = "numero";
+    const filters = getFilterState();
+    return source.filter((item) => matchesReservationFilters(item, filters));
+}
 
-        numeroDia.textContent = numero;
+function setPopoverOpen(open) {
+    if (!filterPopover) return;
+    filterPopover.classList.toggle('open', open);
+    filterPopover.setAttribute('aria-hidden', String(!open));
+}
 
-        dia.appendChild(numeroDia);
+function renderCalendar() {
+    calendarGrid.innerHTML = '';
 
-        const mesTexto = String(mes + 1).padStart(2, "0");
+    weekdayNames.forEach((day) => {
+        const weekday = document.createElement('div');
+        weekday.className = 'weekday';
+        weekday.textContent = day;
+        calendarGrid.appendChild(weekday);
+    });
 
-        const diaTexto = String(numero).padStart(2, "0");
+    const year = calendarDate.getFullYear();
+    const month = calendarDate.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const startOffset = (firstDay.getDay() + 6) % 7;
+    const totalDays = lastDay.getDate();
 
-        const fecha =
-            año + "-" +
-            mesTexto + "-" +
-            diaTexto;
+    monthLabel.textContent = `${monthNames[month]} ${year}`;
 
-        if (reservas[fecha]) {
+    for (let i = 0; i < startOffset; i++) {
+        const filler = document.createElement('div');
+        filler.className = 'day-cell empty';
+        calendarGrid.appendChild(filler);
+    }
 
-            dia.classList.add("reservado");
+    for (let day = 1; day <= totalDays; day++) {
+        const date = new Date(year, month, day);
+        const dateKey = formatDateKey(date);
+        const cell = document.createElement('button');
+        cell.type = 'button';
+        cell.className = 'day-cell';
 
-            const evento = document.createElement("div");
-
-            evento.className = "evento";
-
-            evento.textContent =
-                reservas[fecha].aula;
-
-            dia.appendChild(evento);
-
-            dia.addEventListener("click", function () {
-
-                mostrarReserva(
-                    fecha,
-                    reservas[fecha]
-                );
-
-            });
-
-        } else {
-
-            dia.classList.add("disponible");
-
+        if (dateKey === selectedDate) {
+            cell.classList.add('selected');
         }
 
-        dias.appendChild(dia);
+        const compareDate = new Date(year, month, day);
+        compareDate.setHours(0, 0, 0, 0);
+        const isPastDay = compareDate.getTime() < today.getTime();
+        if (isPastDay) {
+            cell.classList.add('past-day');
+        }
+
+        const items = Array.isArray(reservaMap[dateKey]) ? reservaMap[dateKey] : [];
+        const estados = items
+            .map((item) => String(item.estado || '').toLowerCase())
+            .filter(Boolean);
+        const hasPending = estados.includes('pendiente');
+        const hasApproved = estados.includes('aprobada');
+        const hasActivity = hasPending || hasApproved;
+        if (hasActivity && !isPastDay) {
+            cell.classList.add('has-activity');
+        }
+
+        const badgeHtml = isPastDay
+            ? ''
+            : (hasActivity
+                ? `${hasPending ? '<span class="day-badge day-badge-warning">Solicitud</span>' : ''}${hasApproved ? '<span class="day-badge day-badge-success">Reservado</span>' : ''}`
+                : '<span class="day-empty">Libre</span>');
+
+        cell.innerHTML = `
+            <span class="day-number">${day}</span>
+            <span class="day-badge-stack">${badgeHtml}</span>
+        `;
+
+        cell.addEventListener('click', () => {
+            selectedDate = dateKey;
+            showAllReservations = false;
+            updateToggle();
+            renderCalendar();
+            renderDetail();
+        });
+
+        calendarGrid.appendChild(cell);
+    }
+
+    const totalCells = calendarGrid.children.length;
+    const remainingTiles = (7 - (totalCells % 7)) % 7;
+
+    for (let i = 0; i < remainingTiles; i++) {
+        const filler = document.createElement('div');
+        filler.className = 'day-cell empty';
+        calendarGrid.appendChild(filler);
     }
 }
 
-function mostrarReserva(fecha, reserva) {
-
-    alert(
-        "Reserva\n\n" +
-        "Fecha: " + fecha + "\n" +
-        "Usuario: " + reserva.usuario + "\n" +
-        "Aula: " + reserva.aula + "\n" +
-        "Horario: " + reserva.horario + "\n" +
-        "Motivo: " + reserva.motivo
-    );
+function updateToggle() {
+    if (!toggleAllReservations) return;
+    toggleAllReservations.classList.toggle('active', showAllReservations);
+    toggleAllReservations.setAttribute('aria-pressed', String(showAllReservations));
 }
 
-mesAnterior.addEventListener("click", function () {
+function renderDetail() {
+    const items = getFilteredReservations();
 
-    fechaActual.setMonth(
-        fechaActual.getMonth() - 1
-    );
+    if (!showAllReservations) {
+        detailHeader.textContent = formatLongDate(selectedDate).replace(/^./, (char) => char.toUpperCase());
+    } else {
+        detailHeader.textContent = 'Todas mis reservas';
+    }
 
-    generarCalendario();
+    if (!items.length) {
+        detailList.innerHTML = `
+            <div class="detail-empty">
+                <p>${showAllReservations ? 'No hay reservas que coincidan con los filtros aplicados.' : 'No hay reservas para este día con los filtros actuales.'}</p>
+            </div>
+        `;
+        return;
+    }
 
+    detailList.innerHTML = items.map((item) => {
+        const estado = String(item.estado || 'pendiente').toLowerCase();
+        const estadoLabel = estado === 'aprobada' ? 'Aprobada' : estado === 'pendiente' ? 'Pendiente' : 'Rechazada';
+        return `
+            <article class="activity-card">
+                <div class="activity-title">${item.titulo}</div>
+                <div class="activity-line"><span>Recurso:</span> ${item.recurso}</div>
+                <div class="activity-line"><span>Fecha:</span> ${showAllReservations ? formatDateShort(item.fecha) : formatLongDate(item.fecha)}</div>
+                <div class="activity-line"><span>Horario:</span> ${item.horario}</div>
+                <div class="activity-line"><span>Cantidad de clases:</span> ${item.cantidad_clases || 1}</div>
+                <div class="activity-line"><span>Estado:</span> ${estadoLabel}</div>
+                <div class="activity-line"><span>Profesor:</span> ${item.profesor || 'Profesor'}</div>
+                <div class="activity-line"><span>Descripción:</span> ${item.descripcion}</div>
+            </article>
+        `;
+    }).join('');
+}
+
+prevMonth.addEventListener('click', () => {
+    calendarDate.setMonth(calendarDate.getMonth() - 1);
+    renderCalendar();
+    renderDetail();
 });
 
-mesSiguiente.addEventListener("click", function () {
-
-    fechaActual.setMonth(
-        fechaActual.getMonth() + 1
-    );
-
-    generarCalendario();
-
+nextMonth.addEventListener('click', () => {
+    calendarDate.setMonth(calendarDate.getMonth() + 1);
+    renderCalendar();
+    renderDetail();
 });
 
-generarCalendario();
+toggleAllReservations.addEventListener('click', () => {
+    showAllReservations = !showAllReservations;
+    updateToggle();
+    renderDetail();
+    if (!showAllReservations) {
+        renderCalendar();
+    }
+});
+
+if (reservationSearch) {
+    reservationSearch.addEventListener('input', () => {
+        renderDetail();
+    });
+}
+
+if (openFilters) {
+    openFilters.addEventListener('click', () => {
+        setPopoverOpen(true);
+    });
+}
+
+if (closeFilters) {
+    closeFilters.addEventListener('click', () => {
+        setPopoverOpen(false);
+    });
+}
+
+if (applyFilters) {
+    applyFilters.addEventListener('click', () => {
+        setPopoverOpen(false);
+        renderDetail();
+    });
+}
+
+if (clearFilters) {
+    clearFilters.addEventListener('click', () => {
+        if (filterEstado) filterEstado.value = 'todos';
+        if (filterTipoRecurso) filterTipoRecurso.value = 'todos';
+        if (filterFecha) filterFecha.value = '';
+        if (reservationSearch) reservationSearch.value = '';
+        renderDetail();
+    });
+}
+
+renderCalendar();
+renderDetail();

@@ -24,7 +24,7 @@
                 <p>Espacios especializados para prácticas experimentales, análisis químicos y actividades de laboratorio con alta seguridad y equipamiento técnico.</p>
             </div>
             <div class="foto-salon">
-                <img src="../imagenes/imageninstituto.png" alt="Laboratorio de química del instituto">
+                <img src="../imagenes/imageninstituto.jpg" alt="Laboratorio de química del instituto">
             </div>
         </section>
 

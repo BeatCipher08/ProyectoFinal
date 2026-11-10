@@ -1,5 +1,18 @@
 // Manejo del Modal
 function abrirFormulario() {
+    const form = document.getElementById('formRecurso');
+    if (form) {
+        form.reset();
+    }
+
+    const tipoSelect = document.getElementById('tipoRecurso');
+    const estadoSelect = document.getElementById('estadoRecurso');
+    const cantidadInput = document.getElementById('cantidadTotalInput');
+
+    if (tipoSelect) tipoSelect.value = 'sala';
+    if (estadoSelect) estadoSelect.value = '1';
+    if (cantidadInput) cantidadInput.value = 1;
+
     document.getElementById('modalRecurso').style.display = 'flex';
     verificarTipo(); // Chequear si hay que mostrar la imagen al abrir
 }
@@ -12,45 +25,69 @@ function cerrarFormulario() {
 function verificarTipo() {
     let tipo = document.getElementById('tipoRecurso').value;
     let campoImagen = document.getElementById('campoImagen');
+    let campoCantidad = document.getElementById('campoCantidad');
+    let cantidadInput = document.getElementById('cantidadTotalInput');
+
+    if (campoImagen) {
+        campoImagen.style.display = 'block';
+    }
     
     if (tipo === 'equipo') {
-        campoImagen.style.display = 'block';
+        if (campoCantidad) campoCantidad.style.display = 'block';
+        if (cantidadInput) {
+            cantidadInput.value = Math.max(1, Number(cantidadInput.value || 1));
+            cantidadInput.readOnly = false;
+        }
     } else {
-        campoImagen.style.display = 'none';
+        if (campoCantidad) campoCantidad.style.display = 'none';
+        if (cantidadInput) {
+            cantidadInput.value = 1;
+            cantidadInput.readOnly = true;
+        }
     }
 }
 
-// Sistema de Pestañas
-function cambiarPestana(categoria, botonClickeado) {
-    // Cambiar estilos de los botones
-    let botones = document.querySelectorAll('.btn-pestana');
-    botones.forEach(btn => {
-        btn.style.background = 'transparent';
-        btn.style.color = '#777';
-        btn.classList.remove('activa');
-    });
-    
-    botonClickeado.style.background = '#e5f2e5';
-    botonClickeado.style.color = '#4f8c4f';
-    botonClickeado.classList.add('activa');
+// Filtros combinados: categoría + mostrar/ocultar desactivados
+let categoriaActiva = 'espacios';
+let mostrarDesactivados = false;
 
-    // Filtrar la tabla
-    let filas = document.querySelectorAll('#tablaRecursos tr');
+function aplicarFiltrosRecursos() {
+    const filas = document.querySelectorAll('#tablaRecursos tr');
+
     filas.forEach(fila => {
-        if (fila.getAttribute('data-categoria') === categoria) {
-            fila.style.display = '';
-        } else {
-            fila.style.display = 'none';
-        }
+        const categoria = fila.getAttribute('data-categoria');
+        const activo = fila.getAttribute('data-activo') === '1';
+
+        const coincideCategoria = categoria === categoriaActiva;
+        const visiblePorEstado = mostrarDesactivados ? true : activo;
+
+        fila.style.display = (coincideCategoria && visiblePorEstado) ? '' : 'none';
     });
 }
 
-// Cargar la pestaña de espacios por defecto al iniciar
+function cambiarPestana(categoria, botonClickeado) {
+    categoriaActiva = categoria;
+
+    const botones = document.querySelectorAll('.btn-pestana');
+    botones.forEach(btn => btn.classList.remove('activa'));
+    botonClickeado.classList.add('activa');
+
+    aplicarFiltrosRecursos();
+}
+
+function alternarDesactivados(boton) {
+    mostrarDesactivados = !mostrarDesactivados;
+    boton.setAttribute('aria-pressed', mostrarDesactivados ? 'true' : 'false');
+    boton.classList.toggle('activo', mostrarDesactivados);
+    aplicarFiltrosRecursos();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    let filas = document.querySelectorAll('#tablaRecursos tr');
-    filas.forEach(fila => {
-        if (fila.getAttribute('data-categoria') !== 'espacios') {
-            fila.style.display = 'none';
-        }
-    });
+    const botonToggle = document.getElementById('toggleDesactivados');
+    if (botonToggle) {
+        botonToggle.setAttribute('aria-pressed', 'false');
+        botonToggle.classList.remove('activo');
+    }
+
+    aplicarFiltrosRecursos();
 });

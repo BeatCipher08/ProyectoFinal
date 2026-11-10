@@ -34,7 +34,7 @@ error_reporting(E_ALL);
                 <p>Aula teórica de uso general orientada a clases magistrales, capacitaciones y reuniones académicas.</p>
             </div>
             <div class="foto-salon" style="flex: 1; display: flex; justify-content: flex-end;">
-             <img src="../imagenes/imageninstituto.png" alt="Interior del Salón 1" style="width: 560px; height: auto; border-radius: 60px; transform: translateX(30px);">
+             <img src="../imagenes/imageninstituto.jpg" alt="Interior del Salón 1" style="width: 560px; height: auto; border-radius: 60px; transform: translateX(30px);">
             </div>
             </div>
         </section>

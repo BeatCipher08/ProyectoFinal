@@ -88,9 +88,7 @@ body {
 }
 
 .links-de-pie a:hover {
-
-  font-weight: bold;
-
+  font-weight: normal;
   text-decoration: underline;
 
 }
@@ -103,13 +101,9 @@ a:focus{
 
     outline: none;
 
-    /* 2. Ponemos un borde de un color que combine con tu cuadro */
-
-  border: 2px solid rgb(170, 228, 255);
-
-/* 3. Opcional: Podemos añadir una pequeña sombra para que brille */
-
-    box-shadow: 0 0 10px rgba(170, 228, 255, 0.5)
+    /* Evitamos cambios de tamaño por borde al enfocar enlaces */
+    box-shadow: 0 0 0 2px rgba(170, 228, 255, 0.5);
+    border: none;
 
 }
 
@@ -146,6 +140,49 @@ input:focus{
 
     box-shadow: 0 0 19px  #194a4f;
 
+}
+
+.password-field {
+  position: relative;
+  width: 100%;
+}
+
+.password-field input {
+  padding-right: 44px;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  border: 1px solid #b6c0c7;
+  background: #dfe4e8;
+  color: #51606a;
+  font-size: 16px;
+  font-weight: normal;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 999px;
+  line-height: 1;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.toggle-password:focus {
+  outline: none;
+}
+
+.toggle-password.is-active {
+  background: #04e3f7;
+  border-color: #04e3f7;
+  color: #ffffff;
 }
 
 

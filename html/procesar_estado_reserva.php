@@ -2,6 +2,14 @@
 session_start();
 require_once __DIR__ . '/../includes/config.php';
 
+function obtenerRedirectDestinoProfesor(): string {
+    $destino = basename((string)($_POST['redirect_to'] ?? ''));
+    $permitidos = ['calendario_profesor.php'];
+    return in_array($destino, $permitidos, true) ? $destino : 'calendario_profesor.php';
+}
+
+$redirectProfesor = obtenerRedirectDestinoProfesor();
+
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: Inicio_sesion.php");
     exit();
@@ -11,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     if ($_SESSION['rol'] === 'admin') {
         header("Location: reservas_admin.php");
     } else {
-        header("Location: reservas_profesor.php");
+        header("Location: " . $redirectProfesor);
     }
     exit();
 }
@@ -26,7 +34,7 @@ if (!in_array($nuevo_estado, ['aprobada', 'rechazada', 'cancelada', 'pendiente']
     if ($_SESSION['rol'] === 'admin') {
         header("Location: reservas_admin.php");
     } else {
-        header("Location: reservas_profesor.php");
+        header("Location: " . $redirectProfesor);
     }
     exit();
 }
@@ -40,7 +48,7 @@ if ($_SESSION['rol'] !== 'admin') {
     $ids_propias = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
     if (count($ids_propias) !== count($ids_int)) {
-        header("Location: reservas_profesor.php");
+        header("Location: " . $redirectProfesor);
         exit();
     }
 
@@ -74,7 +82,7 @@ $stmt->execute(array_merge($updateValues, $ids_int));
 if ($_SESSION['rol'] === 'admin') {
     header("Location: reservas_admin.php");
 } else {
-    header("Location: reservas_profesor.php");
+    header("Location: " . $redirectProfesor);
 }
 exit();
 ?>

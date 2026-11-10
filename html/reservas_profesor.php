@@ -7,6 +7,12 @@ error_reporting(E_ALL);
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+if (isset($_SESSION['usuario_id']) && $_SESSION['rol'] === 'profesor') {
+    header('Location: panel_profesor.php');
+    exit();
+}
+
 require_once __DIR__ . '/../includes/config.php';
 
 // Validar seguridad antes de cargar nada
@@ -164,7 +170,7 @@ $reservasAgrupadas = array_values($reservasAgrupadas);
 
         <section class="panel">
             <div class="herramientas">
-                <input type="text" placeholder="Buscar por fecha o sala..." class="input-busqueda">
+                <input type="text" placeholder="Buscar por fecha o recurso..." class="input-busqueda">
                 <select class="select-filtro">
                     <option value="todos">Todos los estados</option>
                     <option value="Confirmada">Aprobadas</option>
@@ -230,29 +236,31 @@ $reservasAgrupadas = array_values($reservasAgrupadas);
     </main>
 
     <!-- Modal Dinámico (Conectado a la base de datos) -->
-    <div id="modalNuevaReserva" class="modal">
-        <div class="modal-contenido">
-            <span class="cerrar" onclick="cerrarFormularioReserva()">×</span>
-            <h2>Solicitar Nueva Reserva</h2>
-            <p class="modal-subtitulo">Seleccioná qué necesitás reservar. Podés elegir uno o ambos.</p>
+    <div id="modalNuevaReserva" class="modal" style="display: none;">
+        <div class="modal-contenido" style="padding: 28px 24px 22px; border-radius: 14px; position: relative; box-shadow: 0 18px 40px rgba(0,0,0,0.18); background: white;">
+            <span class="cerrar" onclick="cerrarFormularioReserva()" style="position: absolute; right: 18px; top: 10px; font-size: 32px; line-height: 1; cursor: pointer; color: #6b7280;">×</span>
+            <h2 style="margin: 0 0 8px; font-size: 1.7rem; color: #1f2937;">Solicitar Nueva Reserva</h2>
+            <p class="modal-subtitulo" style="color: #666; margin-bottom: 20px; font-size: 14px;">Seleccioná qué necesitás reservar. Podés elegir uno o ambos.</p>
             
             <form id="formReserva" action="procesar_reserva.php" method="POST">
-                
-                <div class="grupo-opciones">
-                    <label class="label-opcion">
-                        <input type="checkbox" id="checkSala" onchange="toggleCamposDinámicos()" class="input-checkbox">
+                <input type="hidden" name="redirect_to" value="panel_profesor.php">
+                <input type="hidden" name="editar_reserva" value="0">
+                <input type="hidden" name="id_reserva" value="">
+
+                <div class="grupo-opciones" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e9ecef;">
+                    <label class="label-opcion" style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; cursor: pointer; font-weight: bold;">
+                        <input type="checkbox" id="checkSala" onchange="toggleCamposDinámicos()" class="input-checkbox" style="width: 18px; height: 18px;">
                         🏫 Quiero reservar una Sala o Laboratorio
                     </label>
-                    <label class="label-opcion">
-                        <input type="checkbox" id="checkEquipo" onchange="toggleCamposDinámicos()" class="input-checkbox">
+                    <label class="label-opcion" style="display: flex; align-items: center; gap: 10px; margin-bottom: 0; cursor: pointer; font-weight: bold;">
+                        <input type="checkbox" id="checkEquipo" onchange="toggleCamposDinámicos()" class="input-checkbox" style="width: 18px; height: 18px;">
                         💻 Quiero reservar Equipamiento Móvil (Ej: Proyector)
                     </label>
                 </div>
 
-                <!-- Selectores llenados por PHP -->
-                <div id="seccionSala" class="seccion-oculta">
-                    <label class="label-formulario">Seleccionar Espacio</label>
-                    <select name="sala_id" class="input-formulario">
+                <div id="seccionSala" class="seccion-oculta" style="display: none; margin-bottom: 15px;">
+                    <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Seleccionar Espacio</label>
+                    <select name="sala_id" class="input-formulario" style="width: 100%; min-height: 46px; padding: 10px 42px 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;">
                         <option value="">-- Elegí un Aula o Laboratorio --</option>
                         <?php foreach ($salas as $sala): ?>
                             <?php $nombreSala = $sala['nombre'] ?? ('Recurso #' . ($sala['id'] ?? 0)); ?>
@@ -261,9 +269,9 @@ $reservasAgrupadas = array_values($reservasAgrupadas);
                     </select>
                 </div>
 
-                <div id="seccionEquipo" class="seccion-oculta">
-                    <label class="label-formulario">Seleccionar Equipamiento</label>
-                    <select name="equipo_id" class="input-formulario">
+                <div id="seccionEquipo" class="seccion-oculta" style="display: none; margin-bottom: 15px;">
+                    <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Seleccionar Equipamiento</label>
+                    <select name="equipo_id" class="input-formulario" style="width: 100%; min-height: 46px; padding: 10px 42px 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;">
                         <option value="">-- Elegí un equipo móvil --</option>
                         <?php foreach ($equipos as $equipo): ?>
                             <?php $nombreEquipo = $equipo['nombre'] ?? ('Recurso #' . ($equipo['id'] ?? 0)); ?>
@@ -272,14 +280,14 @@ $reservasAgrupadas = array_values($reservasAgrupadas);
                     </select>
                 </div>
 
-                <div class="contenedor-fecha-hora">
-                    <div class="columna-mitad">
-                        <label class="label-formulario">Fecha</label>
-                        <input type="date" name="fecha" required class="input-formulario" min="<?php echo date('Y-m-d'); ?>">
+                <div class="contenedor-fecha-hora" style="display: flex; gap: 15px; margin-top: 20px;">
+                    <div class="columna-mitad" style="flex: 1;">
+                        <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Fecha</label>
+                        <input type="date" name="fecha" required class="input-formulario" min="<?php echo date('Y-m-d'); ?>" style="width: 100%; min-height: 46px; padding: 10px 42px 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;">
                     </div>
-                    <div class="columna-mitad">
-                        <label class="label-formulario">Hora de inicio</label>
-                        <select name="hora_inicio" required class="input-formulario">
+                    <div class="columna-mitad" style="flex: 1;">
+                        <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Hora de inicio</label>
+                        <select name="hora_inicio" required class="input-formulario" style="width: 100%; min-height: 46px; padding: 10px 42px 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;">
                             <option value="">-- Seleccionar --</option>
                             <?php foreach ($horariosValidos as $horario): ?>
                                 <option value="<?php echo htmlspecialchars($horario['value']); ?>"><?php echo htmlspecialchars($horario['label']); ?></option>
@@ -288,10 +296,10 @@ $reservasAgrupadas = array_values($reservasAgrupadas);
                     </div>
                 </div>
 
-                <div class="contenedor-fecha-hora">
-                    <div class="columna-mitad">
-                        <label class="label-formulario">Cantidad de clases</label>
-                        <select name="cantidad_clases" required class="input-formulario">
+                <div class="contenedor-fecha-hora" style="display: flex; gap: 15px; margin-top: 20px;">
+                    <div class="columna-mitad" style="flex: 1;">
+                        <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Cantidad de clases</label>
+                        <select name="cantidad_clases" required class="input-formulario" style="width: 100%; min-height: 46px; padding: 10px 42px 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;">
                             <option value="1">1 clase (45 min)</option>
                             <option value="2">2 clases (1h 30 min)</option>
                             <option value="3">3 clases (2h 15 min)</option>
@@ -304,20 +312,20 @@ $reservasAgrupadas = array_values($reservasAgrupadas);
                             <option value="10">10 clases (7h 30 min)</option>
                         </select>
                     </div>
-                    <div class="columna-mitad">
-                        <label class="label-formulario">Horario operativo</label>
-                        <div class="input-formulario" style="display: flex; align-items: center; justify-content: center; min-height: 44px; background: #f3f5f7; color: #2c3e50; font-weight: 600;">
+                    <div class="columna-mitad" style="flex: 1;">
+                        <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Horario operativo</label>
+                        <div class="input-formulario" style="display: flex; align-items: center; justify-content: center; min-height: 44px; background: #f3f5f7; color: #2c3e50; font-weight: 600; border-radius: 8px; border: 1px solid #cbd5e1; box-sizing: border-box;">
                             07:00 - 23:55
                         </div>
                     </div>
                 </div>
 
-                <div class="contenedor-fecha-hora">
-                    <label class="label-formulario">Razón o descripción de la reserva (opcional)</label>
-                    <textarea name="motivo_profesor" class="input-formulario" style="resize: vertical; min-height: 80px;" placeholder="Explicá por qué necesitás reservar este espacio/equipamiento..."></textarea>
+                <div style="margin-top: 20px; margin-bottom: 20px;">
+                    <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Razón o descripción de la reserva (opcional)</label>
+                    <textarea name="motivo_profesor" class="input-formulario" style="width: 100%; resize: vertical; min-height: 80px; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;" placeholder="Explicá por qué necesitás reservar este espacio/equipamiento..."></textarea>
                 </div>
 
-                <button type="submit" class="btn-guardar btn-submit-reserva btn-deshabilitado" id="btnEnviarReserva" disabled>
+                <button type="submit" class="btn-guardar btn-submit-reserva btn-deshabilitado" id="btnEnviarReserva" disabled style="margin-top: 25px; width: 100%; padding: 14px; border: none; border-radius: 10px; background: #e7ebee; color: #6c757d; font-weight: 700; cursor: not-allowed;">
                     Confirmar Solicitud
                 </button>
             </form>

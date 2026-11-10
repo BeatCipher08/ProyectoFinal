@@ -12,12 +12,19 @@ require_once __DIR__ . '/../includes/config.php';
 
 // 1. ELIMINAR USUARIO
 if (isset($_GET['accion']) && $_GET['accion'] == 'eliminar' && isset($_GET['id_usuario'])) {
-    $id = $_GET['id_usuario'];
-    
-    if ($id != $_SESSION['usuario_id']) {
-        $stmt = $pdo->prepare("DELETE FROM usuarios WHERE id = ?");
-        $stmt->execute([$id]);
+    $id = (int) $_GET['id_usuario'];
+
+    if ($id > 0 && $id !== (int) $_SESSION['usuario_id']) {
+        $usuarioDestino = $pdo->prepare("SELECT id, rol FROM usuarios WHERE id = ? LIMIT 1");
+        $usuarioDestino->execute([$id]);
+        $usuarioExistente = $usuarioDestino->fetch(PDO::FETCH_ASSOC);
+
+        if ($usuarioExistente && strtolower((string)($usuarioExistente['rol'] ?? '')) !== 'admin') {
+            $stmt = $pdo->prepare("DELETE FROM usuarios WHERE id = ?");
+            $stmt->execute([$id]);
+        }
     }
+
     header("Location: usuarios.php");
     exit();
 }

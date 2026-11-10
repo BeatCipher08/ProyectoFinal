@@ -14,9 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = trim($_POST['nombre'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = trim($_POST['contraseña'] ?? '');
+    $confirmarPassword = trim($_POST['confirmar_contraseña'] ?? '');
 
-    if (empty($nombre) || empty($email) || empty($password)) {
+    if (empty($nombre) || empty($email) || empty($password) || empty($confirmarPassword)) {
         $error = "Todos los campos son obligatorios.";
+    } elseif ($password !== $confirmarPassword) {
+        $error = "La confirmación de contraseña no coincide.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Ingresa un correo electrónico válido.";
     } else {
@@ -85,8 +88,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="usuario">
                     <input type="email" id="email" name="email" required placeholder="Correo electrónico">
                 </div>
-                <div class="contraseña">
-                    <input type="password" id="contraseña" name="contraseña" required placeholder="Contraseña">
+                <div class="contraseña password-field">
+                    <input type="password" id="registro_contrasena" name="contraseña" required placeholder="Contraseña">
+                    <button type="button" class="toggle-password" data-target="registro_contrasena" aria-label="Mostrar contraseña" aria-pressed="false" title="Mostrar contraseña">👁</button>
+                </div>
+                <div class="confirmar-contraseña password-field">
+                    <input type="password" id="confirmar_contrasena" name="confirmar_contraseña" required placeholder="Confirmar contraseña">
+                    <button type="button" class="toggle-password" data-target="confirmar_contrasena" aria-label="Mostrar confirmación de contraseña" aria-pressed="false" title="Mostrar confirmación de contraseña">👁</button>
                 </div>
                 <button type="submit">Solicitar registro</button>
             </form>
@@ -96,5 +104,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </section>
     </section>
+    <script>
+        document.querySelectorAll('.toggle-password').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var input = document.getElementById(btn.dataset.target);
+                if (!input) return;
+
+                var showing = input.type === 'text';
+                input.type = showing ? 'password' : 'text';
+                btn.setAttribute('aria-pressed', String(!showing));
+                btn.setAttribute('aria-label', showing ? 'Mostrar contraseña' : 'Ocultar contraseña');
+                btn.setAttribute('title', showing ? 'Mostrar contraseña' : 'Ocultar contraseña');
+                btn.classList.toggle('is-active', !showing);
+            });
+        });
+    </script>
 </body>
 </html>

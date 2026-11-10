@@ -24,7 +24,7 @@
                 <p>Gran espacio tecnológico para armado, programación y prueba de prototipos robóticos, impresoras 3D y sistemas automatizados.</p>
             </div>
             <div class="foto-salon">
-                <img src="../imagenes/imageninstituto.png" alt="Laboratorio de robótica del instituto">
+                <img src="../imagenes/imageninstituto.jpg" alt="Laboratorio de robótica del instituto">
             </div>
         </section>
 

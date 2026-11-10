@@ -73,11 +73,16 @@ function editarUsuario(boton, id) {
 function eliminarUsuario(boton, id) {
     const fila = boton.closest("tr");
     const nombre = fila.cells[0].querySelector("strong").textContent;
+    const rol = fila.cells[2].textContent.trim().toLowerCase();
+
+    if (rol === "admin" || rol === "administrador") {
+        alert("No se puede eliminar a un usuario administrador.");
+        return;
+    }
 
     const confirmar = confirm("¿Seguro que querés eliminar al usuario " + nombre + "?");
 
     if (confirmar) {
-        // Enviar la orden de eliminar a PHP mediante la URL (método GET)
         window.location.href = "procesar_usuario.php?accion=eliminar&id_usuario=" + id;
     }
 }

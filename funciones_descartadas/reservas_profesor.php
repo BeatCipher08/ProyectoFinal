@@ -1,0 +1,337 @@
+<?php
+// Forzar a PHP a mostrar el error real en pantalla (puedes quitarlo cuando termines el proyecto)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_SESSION['usuario_id']) && $_SESSION['rol'] === 'profesor') {
+    header('Location: panel_profesor.php');
+    exit();
+}
+
+require_once __DIR__ . '/../includes/config.php';
+
+// Validar seguridad antes de cargar nada
+if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'profesor') {
+    header("Location: Inicio_sesion.php");
+    exit();
+}
+
+$usuario_id = $_SESSION['usuario_id'];
+$reservaError = $_SESSION['reserva_error'] ?? null;
+unset($_SESSION['reserva_error']);
+
+// 1. Obtener recursos activos desde la base real y normalizarlos para evitar filas vacías o sin nombre.
+$recursosActivos = $pdo->query("SELECT id, nombre, tipo FROM recursos WHERE activo = 1 ORDER BY tipo ASC, nombre ASC")->fetchAll(PDO::FETCH_ASSOC);
+$salas = [];
+$equipos = [];
+
+foreach ($recursosActivos as $recurso) {
+    $tipo = strtolower((string)($recurso['tipo'] ?? ''));
+    $nombre = trim((string)($recurso['nombre'] ?? ''));
+    $id = (int)($recurso['id'] ?? 0);
+
+    if ($id <= 0) {
+        continue;
+    }
+
+    $item = [
+        'id' => $id,
+        'nombre' => $nombre !== '' ? $nombre : 'Recurso #' . $id
+    ];
+
+    if ($tipo === 'equipo') {
+        $equipos[] = $item;
+    } elseif (in_array($tipo, ['sala', 'laboratorio'], true)) {
+        $salas[] = $item;
+    }
+}
+
+// 2. Generar todos los horarios válidos en intervalos de 45 minutos desde 07:00 hasta 23:55
+$horariosValidos = [];
+$inicioDia = strtotime('2026-01-01 07:00:00');
+$finDia = strtotime('2026-01-01 23:55:00');
+$duracionBloque = 45 * 60;
+
+for ($ts = $inicioDia; $ts + $duracionBloque <= $finDia; $ts += $duracionBloque) {
+    $inicio = date('H:i', $ts);
+    $fin = date('H:i', $ts + $duracionBloque);
+    $horariosValidos[] = [
+        'value' => $inicio,
+        'label' => $inicio . ' - ' . $fin
+    ];
+}
+
+// 3. Obtener todas las reservas de este profesor desde la base de datos
+$queryReservas = $pdo->prepare("
+    SELECT
+        r.id,
+        r.fecha,
+        r.hora_inicio,
+        r.hora_fin,
+        r.estado,
+        COALESCE(rec.nombre, 'Recurso eliminado') AS recurso_nombre,
+        COALESCE(rec.tipo, 'sala') AS recurso_tipo
+    FROM reservas r
+    LEFT JOIN recursos rec ON r.id_recurso = rec.id
+    WHERE r.id_usuario = ?
+      AND r.estado IN ('pendiente', 'aprobada')
+    ORDER BY r.fecha ASC, r.hora_inicio ASC
+");
+$queryReservas->execute([$usuario_id]);
+$reservasRaw = $queryReservas->fetchAll(PDO::FETCH_ASSOC);
+
+// 3. Agrupar reservas dobles (sala + equipo) por fecha y horario.
+// Esto evita filas duplicadas para la misma solicitud cuando el usuario
+// reserva tanto un espacio como un recurso asociado en el mismo bloque.
+$reservasAgrupadas = [];
+$total_solicitadas = 0; $aprobadas = 0; $pendientes = 0; $canceladas = 0;
+
+foreach ($reservasRaw as $res) {
+    $fecha = $res['fecha'] ?? '';
+    $horaInicio = substr((string)($res['hora_inicio'] ?? '00:00'), 0, 5);
+    $horaFin = substr((string)($res['hora_fin'] ?? '00:00'), 0, 5);
+    $estado = $res['estado'] ?? 'pendiente';
+    $grupoKey = $fecha . '|' . $horaInicio . '|' . $horaFin . '|' . $estado;
+
+    if (!isset($reservasAgrupadas[$grupoKey])) {
+        $reservasAgrupadas[$grupoKey] = [
+            'ids' => [],
+            'fecha' => $fecha,
+            'horario' => $horaInicio . ' - ' . $horaFin,
+            'estado' => $estado,
+            'sala' => null,
+            'equipo' => null,
+        ];
+
+        $total_solicitadas++;
+        if ($estado == 'aprobada') {
+            $aprobadas++;
+        } elseif ($estado == 'pendiente') {
+            $pendientes++;
+        } else {
+            $canceladas++;
+        }
+    }
+
+    $idReserva = (int)($res['id'] ?? 0);
+    if ($idReserva > 0) {
+        $reservasAgrupadas[$grupoKey]['ids'][] = $idReserva;
+    }
+
+    $tipo = strtolower((string)($res['recurso_tipo'] ?? 'sala'));
+    $nombreRecurso = trim((string)($res['recurso_nombre'] ?? ''));
+    $nombreVisible = $nombreRecurso !== '' ? $nombreRecurso : 'Recurso #' . $idReserva;
+
+    if ($tipo === 'equipo') {
+        $reservasAgrupadas[$grupoKey]['equipo'] = $nombreVisible;
+    } else {
+        $reservasAgrupadas[$grupoKey]['sala'] = $nombreVisible;
+    }
+}
+
+$reservasAgrupadas = array_values($reservasAgrupadas);
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Reservas - Profesor</title>
+    <!-- Referencias a tus CSS separados -->
+    <link rel="stylesheet" href="../css/style_reservas_admin.css">
+    <link rel="stylesheet" href="../css/style_reservas_profesor.css">
+</head>
+<body>
+
+    <!-- Llamada a la barra dinámica en el body -->
+    <?php require_once __DIR__ . '/../includes/barra_profesor.php'; ?>
+
+    <main class="contenedor">
+        <section class="encabezado">
+            <div>
+                <h1>Mis Reservas</h1>
+                <p>Gestioná tus solicitudes de salas, laboratorios y equipamiento.</p>
+            </div>
+            <button class="btn-agregar" onclick="abrirFormularioReserva()">+ Nueva reserva</button>
+        </section>
+
+        <!-- Estadísticas generadas con PHP -->
+        <section class="estadisticas">
+            <div class="tarjeta"><span class="numero"><?php echo $total_solicitadas; ?></span><span>Total solicitadas</span></div>
+            <div class="tarjeta confirmada"><span class="numero"><?php echo $aprobadas; ?></span><span>Aprobadas</span></div>
+            <div class="tarjeta pendiente"><span class="numero"><?php echo $pendientes; ?></span><span>Pendientes</span></div>
+            <div class="tarjeta cancelada"><span class="numero"><?php echo $canceladas; ?></span><span>Rechazadas/Canceladas</span></div>
+        </section>
+
+        <section class="panel">
+            <div class="herramientas">
+                <input type="text" placeholder="Buscar por fecha o recurso..." class="input-busqueda">
+                <select class="select-filtro">
+                    <option value="todos">Todos los estados</option>
+                    <option value="Confirmada">Aprobadas</option>
+                    <option value="Pendiente">Pendientes</option>
+                </select>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Espacio (Sala/Lab)</th>
+                            <th>Equipamiento Vinculado</th>
+                            <th>Fecha</th>
+                            <th>Horario</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($reservasAgrupadas)): ?>
+                            <tr><td colspan="6" style="text-align: center; padding: 20px;">No tienes reservas registradas.</td></tr>
+                        <?php else: ?>
+                            <?php foreach ($reservasAgrupadas as $reserva): ?>
+                                <?php 
+                                    $fechaFormateada = date("d/m/Y", strtotime($reserva['fecha']));
+                                    $estadoClase = strtolower($reserva['estado']);
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php if ($reserva['sala']): ?>
+                                            <strong><?php echo htmlspecialchars($reserva['sala']); ?></strong>
+                                        <?php else: ?>
+                                            <span class="texto-vacio">Uso externo / Ninguno</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php if ($reserva['equipo']): ?>
+                                            <strong><?php echo htmlspecialchars($reserva['equipo']); ?></strong>
+                                        <?php else: ?>
+                                            <span class="texto-vacio">Ninguno</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?php echo $fechaFormateada; ?></td>
+                                    <td><?php echo htmlspecialchars($reserva['horario']); ?></td>
+                                    <td><span class="estado <?php echo $estadoClase; ?>"><?php echo ucfirst($reserva['estado']); ?></span></td>
+                                    <td class="acciones">
+                                        <?php if ($estadoClase === 'pendiente' || $estadoClase === 'confirmada' || $estadoClase === 'aprobada'): ?>
+                                            <form action="procesar_estado_reserva.php" method="POST" onsubmit="return confirm('¿Seguro que querés cancelar esta reserva?');">
+                                                <input type="hidden" name="id_reserva" value="<?php echo htmlspecialchars(implode(',', $reserva['ids'])); ?>">
+                                                <input type="hidden" name="estado" value="cancelada">
+                                                <button type="submit" class="btn-cancelar">Cancelar</button>
+                                            </form>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Dinámico (Conectado a la base de datos) -->
+    <div id="modalNuevaReserva" class="modal" style="display: none;">
+        <div class="modal-contenido" style="padding: 28px 24px 22px; border-radius: 14px; position: relative; box-shadow: 0 18px 40px rgba(0,0,0,0.18); background: white;">
+            <span class="cerrar" onclick="cerrarFormularioReserva()" style="position: absolute; right: 18px; top: 10px; font-size: 32px; line-height: 1; cursor: pointer; color: #6b7280;">×</span>
+            <h2 style="margin: 0 0 8px; font-size: 1.7rem; color: #1f2937;">Solicitar Nueva Reserva</h2>
+            <p class="modal-subtitulo" style="color: #666; margin-bottom: 20px; font-size: 14px;">Seleccioná qué necesitás reservar. Podés elegir uno o ambos.</p>
+            
+            <form id="formReserva" action="procesar_reserva.php" method="POST">
+                <input type="hidden" name="redirect_to" value="panel_profesor.php">
+                <input type="hidden" name="editar_reserva" value="0">
+                <input type="hidden" name="id_reserva" value="">
+
+                <div class="grupo-opciones" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e9ecef;">
+                    <label class="label-opcion" style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px; cursor: pointer; font-weight: bold;">
+                        <input type="checkbox" id="checkSala" onchange="toggleCamposDinámicos()" class="input-checkbox" style="width: 18px; height: 18px;">
+                        🏫 Quiero reservar una Sala o Laboratorio
+                    </label>
+                    <label class="label-opcion" style="display: flex; align-items: center; gap: 10px; margin-bottom: 0; cursor: pointer; font-weight: bold;">
+                        <input type="checkbox" id="checkEquipo" onchange="toggleCamposDinámicos()" class="input-checkbox" style="width: 18px; height: 18px;">
+                        💻 Quiero reservar Equipamiento Móvil (Ej: Proyector)
+                    </label>
+                </div>
+
+                <div id="seccionSala" class="seccion-oculta" style="display: none; margin-bottom: 15px;">
+                    <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Seleccionar Espacio</label>
+                    <select name="sala_id" class="input-formulario" style="width: 100%; min-height: 46px; padding: 10px 42px 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;">
+                        <option value="">-- Elegí un Aula o Laboratorio --</option>
+                        <?php foreach ($salas as $sala): ?>
+                            <?php $nombreSala = $sala['nombre'] ?? ('Recurso #' . ($sala['id'] ?? 0)); ?>
+                            <option value="<?php echo (int)($sala['id'] ?? 0); ?>"><?php echo htmlspecialchars($nombreSala); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div id="seccionEquipo" class="seccion-oculta" style="display: none; margin-bottom: 15px;">
+                    <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Seleccionar Equipamiento</label>
+                    <select name="equipo_id" class="input-formulario" style="width: 100%; min-height: 46px; padding: 10px 42px 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;">
+                        <option value="">-- Elegí un equipo móvil --</option>
+                        <?php foreach ($equipos as $equipo): ?>
+                            <?php $nombreEquipo = $equipo['nombre'] ?? ('Recurso #' . ($equipo['id'] ?? 0)); ?>
+                            <option value="<?php echo (int)($equipo['id'] ?? 0); ?>"><?php echo htmlspecialchars($nombreEquipo); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="contenedor-fecha-hora" style="display: flex; gap: 15px; margin-top: 20px;">
+                    <div class="columna-mitad" style="flex: 1;">
+                        <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Fecha</label>
+                        <input type="date" name="fecha" required class="input-formulario" min="<?php echo date('Y-m-d'); ?>" style="width: 100%; min-height: 46px; padding: 10px 42px 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;">
+                    </div>
+                    <div class="columna-mitad" style="flex: 1;">
+                        <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Hora de inicio</label>
+                        <select name="hora_inicio" required class="input-formulario" style="width: 100%; min-height: 46px; padding: 10px 42px 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;">
+                            <option value="">-- Seleccionar --</option>
+                            <?php foreach ($horariosValidos as $horario): ?>
+                                <option value="<?php echo htmlspecialchars($horario['value']); ?>"><?php echo htmlspecialchars($horario['label']); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="contenedor-fecha-hora" style="display: flex; gap: 15px; margin-top: 20px;">
+                    <div class="columna-mitad" style="flex: 1;">
+                        <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Cantidad de clases</label>
+                        <select name="cantidad_clases" required class="input-formulario" style="width: 100%; min-height: 46px; padding: 10px 42px 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;">
+                            <option value="1">1 clase (45 min)</option>
+                            <option value="2">2 clases (1h 30 min)</option>
+                            <option value="3">3 clases (2h 15 min)</option>
+                            <option value="4">4 clases (3h)</option>
+                            <option value="5">5 clases (3h 45 min)</option>
+                            <option value="6">6 clases (4h 30 min)</option>
+                            <option value="7">7 clases (5h 15 min)</option>
+                            <option value="8">8 clases (6h)</option>
+                            <option value="9">9 clases (6h 45 min)</option>
+                            <option value="10">10 clases (7h 30 min)</option>
+                        </select>
+                    </div>
+                    <div class="columna-mitad" style="flex: 1;">
+                        <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Horario operativo</label>
+                        <div class="input-formulario" style="display: flex; align-items: center; justify-content: center; min-height: 44px; background: #f3f5f7; color: #2c3e50; font-weight: 600; border-radius: 8px; border: 1px solid #cbd5e1; box-sizing: border-box;">
+                            07:00 - 23:55
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; margin-bottom: 20px;">
+                    <label class="label-formulario" style="display: block; margin-bottom: 5px; font-weight: bold;">Razón o descripción de la reserva (opcional)</label>
+                    <textarea name="motivo_profesor" class="input-formulario" style="width: 100%; resize: vertical; min-height: 80px; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: #fff; box-sizing: border-box;" placeholder="Explicá por qué necesitás reservar este espacio/equipamiento..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-guardar btn-submit-reserva btn-deshabilitado" id="btnEnviarReserva" disabled style="margin-top: 25px; width: 100%; padding: 14px; border: none; border-radius: 10px; background: #e7ebee; color: #6c757d; font-weight: 700; cursor: not-allowed;">
+                    Confirmar Solicitud
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../scripts/reservas_profesor.js"></script>
+</body>
+</html>

@@ -24,7 +24,7 @@
                 <p>Espacio multidisciplinario ubicado en planta alta, pensado para proyectos de investigación y actividades que combinan distintas ramas científicas.</p>
             </div>
             <div class="foto-salon">
-                <img src="../imagenes/imageninstituto.png" alt="Laboratorio de ciencias del instituto">
+                <img src="../imagenes/imageninstituto.jpg" alt="Laboratorio de ciencias del instituto">
             </div>
         </section>
 

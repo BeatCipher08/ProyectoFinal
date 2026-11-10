@@ -24,7 +24,7 @@
                 <p>Espacios orientados a la observación microscópica, estudio celular y ciencias biológicas con iluminación y equipamiento técnico adecuados.</p>
             </div>
             <div class="foto-salon">
-                <img src="../imagenes/imageninstituto.png" alt="Laboratorio de biología del instituto">
+                <img src="../imagenes/imageninstituto.jpg" alt="Laboratorio de biología del instituto">
             </div>
         </section>
 

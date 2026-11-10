@@ -24,7 +24,7 @@
                 <p>Auditorio institucional de gran escala diseñado para conferencias, eventos masivos, ponencias y actividades académicas de alta concurrencia.</p>
             </div>
             <div class="foto-salon">
-                <img src="../imagenes/imageninstituto.png" alt="Sala de conferencias del instituto">
+                <img src="../imagenes/imageninstituto.jpg" alt="Sala de conferencias del instituto">
             </div>
         </section>
 

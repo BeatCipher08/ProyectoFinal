@@ -50,17 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Iniciar Sesion</title>
 </head>
     <body>
-        <header id="menusuperior">
-        <a id="menuhamburguesa" href="#" aria-label="Menú de navegación">≡</a>
-        <img src="../imagenes/logo_proyecto.png" alt="Logo del instituto">
-        <a id="nombreinsti" href="#">Instituto tecnológico de Tacuarembó</a>
-        <a href="#">Salones</a>
-        <a href="#">Novedades</a>
-        <a href="#">Sobre nosotros</a>
-        <button class="registro" onclick="window.location.href='registro.php'">Registrarse</button>
-        <button class="sesion" onclick="window.location.href='Inicio_sesion.php'">Iniciar sesion</button>
-        </button>
-        </header>
+        <?php require_once __DIR__ . '/../includes/barra_superior.php'; ?>
 
     <section class="iniciodesesion">
         <h2 class="titulo">Inicio de sesión</h2>
@@ -80,8 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="email" id="correo" name="usuario" required placeholder="Correo electrónico">
                 </div>
 
-                <div class="contraseña">
-                    <input type="password" id="contraseña" name="contraseña" required placeholder="Contraseña">
+                <div class="contraseña password-field">
+                    <input type="password" id="contrasena" name="contraseña" required placeholder="Contraseña">
+                    <button type="button" class="toggle-password" data-target="contrasena" aria-label="Mostrar contraseña" aria-pressed="false" title="Mostrar contraseña">👁</button>
                 </div>
 
                 <button class="enviar" type="submit">Iniciar Sesion</button>
@@ -89,8 +80,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
 
             <div class="links-de-pie">
-                <a href="#">Crear una cuenta nueva </a>
+                <a href="registro.php">Crear una cuenta nueva</a>
             </div>
     </section>
+    <script>
+        document.querySelectorAll('.toggle-password').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var input = document.getElementById(btn.dataset.target);
+                if (!input) return;
+
+                var showing = input.type === 'text';
+                input.type = showing ? 'password' : 'text';
+                btn.setAttribute('aria-pressed', String(!showing));
+                btn.setAttribute('aria-label', showing ? 'Mostrar contraseña' : 'Ocultar contraseña');
+                btn.setAttribute('title', showing ? 'Mostrar contraseña' : 'Ocultar contraseña');
+                btn.classList.toggle('is-active', !showing);
+            });
+        });
+    </script>
     </body>
 </html>

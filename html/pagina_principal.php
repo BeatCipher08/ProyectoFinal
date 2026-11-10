@@ -37,14 +37,10 @@ error_reporting(E_ALL);
             <div class="contenido">
                 <h1>Sistema de Gestión de Espacios y Recursos</h1>
                 <p>Reserva laboratorios, salones, biblioteca y equipamiento de manera fácil y rápida.</p>
-                <div class="botones">
-                    <button class="reserva"><i class="fa-solid fa-calendar" aria-hidden="true"></i> Hacer una reserva</button>
-                    <button class="registro_portada">Registrarse</button>
-                </div>
             </div>
             <div class="foto">
                <!-- Se mantiene sin lazy-loading por estar arriba del todo (Above the fold) -->
-               <img src="../imagenes/imageninstituto.png" alt="Vista exterior del instituto tecnológico">
+               <img src="../imagenes/imageninstituto.jpg" alt="Vista exterior del instituto tecnológico">
             </div>
         </section>
 
@@ -148,7 +144,7 @@ error_reporting(E_ALL);
             <div class="contenedor-novedades">
                 <div class="card-novedad">
                     <!-- Optimización de carga con loading="lazy" -->
-                    <img src="../imagenes/imageninstituto.png" alt="Nuevos laboratorios de informática" loading="lazy">
+                    <img src="../imagenes/imageninstituto.jpg" alt="Nuevos laboratorios de informática" loading="lazy">
                     <div class="contenido-novedad">
                        <h3>Nuevos laboratorios</h3>
                        <p>Se incorporaron nuevos equipos para las prácticas de informática.</p>
@@ -157,7 +153,7 @@ error_reporting(E_ALL);
                 </div>
                 <div class="card-novedad">
                     <!-- Optimización de carga con loading="lazy" -->
-                    <img src="../imagenes/imageninstituto.png" alt="Instalaciones de la biblioteca renovada" loading="lazy">
+                    <img src="../imagenes/imageninstituto.jpg" alt="Instalaciones de la biblioteca renovada" loading="lazy">
                     <div class="contenido-novedad">
                        <h3>Biblioteca renovada</h3>
                        <p>Ahora puedes reservar salas de estudio desde el sistema.</p>
@@ -166,7 +162,7 @@ error_reporting(E_ALL);
                 </div>
                 <div class="card-novedad">
                     <!-- Optimización de carga con loading="lazy" -->
-                    <img src="../imagenes/imageninstituto.png" alt="Participantes en la semana tecnológica" loading="lazy">
+                    <img src="../imagenes/imageninstituto.jpg" alt="Participantes en la semana tecnológica" loading="lazy">
                     <div class="contenido-novedad">
                        <h3>Semana tecnológica</h3>
                        <p>Inscripciones abiertas para talleres y conferencias.</p>

@@ -9,37 +9,75 @@ function cerrarFormularioReserva() {
     document.getElementById('modalNuevaReserva').style.display = 'none';
 }
 
+function actualizarEstadoBotonReserva() {
+    const btnEnviar = document.getElementById('btnEnviarReserva');
+    if (!btnEnviar) return;
+
+    const checkSala = document.getElementById('checkSala')?.checked;
+    const checkEquipo = document.getElementById('checkEquipo')?.checked;
+    const salaSelect = document.querySelector('select[name="sala_id"]');
+    const equipoSelect = document.querySelector('select[name="equipo_id"]');
+    const fechaInput = document.querySelector('input[name="fecha"]');
+    const horaSelect = document.querySelector('select[name="hora_inicio"]');
+    const cantidadSelect = document.querySelector('select[name="cantidad_clases"]');
+
+    const tieneReservaSeleccionada = !!(checkSala || checkEquipo);
+    const salaCompleta = !checkSala || !!(salaSelect && !salaSelect.disabled && salaSelect.value);
+    const equipoCompleta = !checkEquipo || !!(equipoSelect && !equipoSelect.disabled && equipoSelect.value);
+    const fechaCompleta = !!(fechaInput && fechaInput.value);
+    const horaCompleta = !!(horaSelect && horaSelect.value);
+    const cantidadCompleta = !!(cantidadSelect && cantidadSelect.value);
+
+    const formValido = tieneReservaSeleccionada && salaCompleta && equipoCompleta && fechaCompleta && horaCompleta && cantidadCompleta;
+
+    btnEnviar.disabled = !formValido;
+    btnEnviar.classList.toggle('btn-deshabilitado', !formValido);
+    btnEnviar.style.background = formValido ? '' : '#e7ebee';
+    btnEnviar.style.color = formValido ? '' : '#6c757d';
+    btnEnviar.style.cursor = formValido ? 'pointer' : 'not-allowed';
+    btnEnviar.style.opacity = formValido ? '1' : '0.65';
+}
+
 function toggleCamposDinámicos() {
     const checkSala = document.getElementById('checkSala').checked;
     const checkEquipo = document.getElementById('checkEquipo').checked;
     
     const seccionSala = document.getElementById('seccionSala');
     const seccionEquipo = document.getElementById('seccionEquipo');
-    const btnEnviar = document.getElementById('btnEnviarReserva');
+    const salaSelect = seccionSala?.querySelector('select');
+    const equipoSelect = seccionEquipo?.querySelector('select');
 
     if (checkSala) {
         seccionSala.style.display = 'block';
-        seccionSala.querySelector('select').setAttribute('required', 'true');
+        if (salaSelect) {
+            salaSelect.disabled = false;
+            salaSelect.setAttribute('required', 'true');
+        }
     } else {
         seccionSala.style.display = 'none';
-        seccionSala.querySelector('select').removeAttribute('required');
+        if (salaSelect) {
+            salaSelect.disabled = true;
+            salaSelect.removeAttribute('required');
+            salaSelect.value = '';
+        }
     }
 
     if (checkEquipo) {
         seccionEquipo.style.display = 'block';
-        seccionEquipo.querySelector('select').setAttribute('required', 'true');
+        if (equipoSelect) {
+            equipoSelect.disabled = false;
+            equipoSelect.setAttribute('required', 'true');
+        }
     } else {
         seccionEquipo.style.display = 'none';
-        seccionEquipo.querySelector('select').removeAttribute('required');
+        if (equipoSelect) {
+            equipoSelect.disabled = true;
+            equipoSelect.removeAttribute('required');
+            equipoSelect.value = '';
+        }
     }
 
-    if (checkSala || checkEquipo) {
-        btnEnviar.disabled = false;
-        btnEnviar.classList.remove('btn-deshabilitado');
-    } else {
-        btnEnviar.disabled = true;
-        btnEnviar.classList.add('btn-deshabilitado');
-    }
+    actualizarEstadoBotonReserva();
 }
 
 function limpiarErrorReserva() {
@@ -103,7 +141,7 @@ function enviarReservaAjax(e) {
             form.reset();
             toggleCamposDinámicos();
             setTimeout(() => {
-                window.location.href = 'reservas_profesor.php';
+                window.location.href = 'panel_profesor.php';
             }, 800);
         } else {
             console.log('Error detectado:', data.error); // Debug
@@ -143,6 +181,14 @@ document.addEventListener('DOMContentLoaded', () => {
             enviarReservaAjax(e);
             return false;
         });
+        form.addEventListener('input', actualizarEstadoBotonReserva);
+        form.addEventListener('change', actualizarEstadoBotonReserva);
         console.log('Event listener agregado al form (DOMContentLoaded)');
     }
+
+    if (window.location.hash === '#nueva-reserva') {
+        abrirFormularioReserva();
+    }
+
+    actualizarEstadoBotonReserva();
 });

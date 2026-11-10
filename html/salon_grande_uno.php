@@ -35,7 +35,7 @@ error_reporting(E_ALL);
                 <p>Espacio polivalente de gran capacidad diseñado para conferencias magistrales, eventos institucionales, graduaciones y proyecciones especiales.</p>
             </div>
             <div class="foto-salon">
-                <img src="../imagenes/imageninstituto.png" alt="Vista interior del Auditorio Principal">
+                <img src="../imagenes/imageninstituto.jpg" alt="Vista interior del Auditorio Principal">
             </div>
         </section>
 

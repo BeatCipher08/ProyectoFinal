@@ -20,13 +20,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 48px;
     padding: 70px;
     padding-top: 120px; /* Compensa el espacio de la barra fija superior */
     background: white;
 }
 
 .contenido {
-    width: 48%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .contenido h1 {
@@ -38,35 +42,8 @@ body {
 .contenido p {
     font-size: 21px;
     color: #666;
-    margin-bottom: 35px;
+    margin-bottom: 0;
     line-height: 1.7;
-}
-
-.botones {
-    display: flex;
-    gap: 20px;
-}
-
-.reserva {
-    background: #8CB326;
-    color: white;
-    border: none;
-    padding: 16px 30px;
-    border-radius: 10px;
-    font-size: 17px;
-    cursor: pointer;
-}
-
-.registro_portada {
-    background: #8CB326;
-    color: white;
-    border: none;
-    padding: 16px 30px;
-    border-radius: 10px;
-    font-size: 17px;
-    cursor: pointer;
-    margin-left: 12px;
-    margin-right: 12px;
 }
 
 .foto img {
@@ -314,7 +291,10 @@ body {
         margin-bottom: 40px;
     }
     .contenido h1 { font-size: 38px; }
-    .botones { flex-direction: column; }
+    .contenido p {
+        max-width: 680px;
+        margin: 0 auto;
+    }
     .foto img { width: 100%; }
 
     /* Estadísticas en móvil */

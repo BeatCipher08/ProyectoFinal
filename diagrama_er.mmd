@@ -1,0 +1,38 @@
+erDiagram
+    USUARIO ||--o{ RESERVA : realiza
+    RECURSO ||--o{ RESERVA : incluye
+
+    USUARIO {
+        int id PK
+        varchar nombre
+        varchar email
+        varchar password
+        enum rol
+        bool activo
+        timestamp created_at
+    }
+
+    RECURSO {
+        int id PK
+        varchar nombre
+        enum tipo
+        text descripcion
+        varchar imagen
+        int cantidad_total
+        bool activo
+    }
+
+    RESERVA {
+        int id PK
+        int id_usuario FK
+        int id_recurso FK
+        int cantidad_solicitada
+        date fecha
+        time hora_inicio
+        time hora_fin
+        text motivo_profesor
+        enum estado
+        text motivo_rechazo
+        text observaciones
+        timestamp created_at
+    }

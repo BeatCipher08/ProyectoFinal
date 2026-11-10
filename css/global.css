@@ -36,13 +36,39 @@
   border-radius: 21px;
 }
 
+#menusuperior a.logo-home {
+    padding: 0;
+    margin-left: 0;
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+}
+
+#menusuperior a.logo-home:hover {
+    background: transparent;
+    border-radius: 0;
+}
+
 .nombre-usuario {
-  color: white; 
-  text-decoration: none; 
-  font-weight: bold; 
-  transition: color 0.3s, background-color 0.3s; 
-  padding: 8px 15px;
-  margin-left: 25px;
+    display: inline-flex;
+    align-items: center;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 1;
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    white-space: nowrap;
+}
+
+.acciones-usuario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 12px;
 }
 
 #menuhamburguesa {
@@ -61,24 +87,57 @@
 .registro {
     color: #ffffff;
     background: #00a8c6;
-    border: 2px solid #00a8c6;
-    padding: 12px 24px;
-    border-radius: 10px;
-    font-size: 12px;
+    border: 1px solid #00a8c6;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
     cursor: pointer;
-    margin-left: auto;
-    margin-right: 1px;
+    margin-left: 0;
+    margin-right: 0;
+    transition: filter 0.2s ease, transform 0.2s ease;
 }
+
 .sesion {
     color: #ffffff;
     background: #8CB326;
-    border: 2px solid #8CB326;
-    padding: 12px 24px;
-    border-radius: 10px;
-    font-size: 12px;
+    border: 1px solid #8CB326;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
     cursor: pointer;
-    margin-left: 12px;
-    margin-right: 12px;
+    margin-left: 0;
+    margin-right: 0;
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.registro:hover,
+.sesion:hover {
+    filter: brightness(0.96);
+    transform: translateY(-1px);
+}
+
+.panel-admin {
+    background: #5a8f6a !important;
+    border-color: #5a8f6a !important;
+}
+
+.panel-profesor {
+    background: #5a8f6a !important;
+    border-color: #5a8f6a !important;
+}
+
+.panel-alumno {
+    background: #5a8f6a !important;
+    border-color: #5a8f6a !important;
+}
+
+.sesion.panel-cerrar {
+    background: #c95b52 !important;
+    border-color: #c95b52 !important;
 }
 
 /* ==========================================================================
@@ -132,17 +191,54 @@ footer hr {
 /* ==========================================================================
    3. MEDIA QUERIES (ESTILOS RESPONSIVOS GLOBALES)
    ========================================================================== */
+@media screen and (max-width: 1100px) {
+    #menusuperior {
+        padding: 4px 8px;
+    }
+
+    #menusuperior a {
+        padding: 7px 10px;
+        margin-left: 10px;
+        font-size: 9.5pt;
+    }
+
+    .acciones-usuario {
+        gap: 8px;
+        margin-right: 8px;
+    }
+
+    .nombre-usuario {
+        padding: 8px 11px;
+        font-size: 11px;
+    }
+
+    .registro,
+    .sesion {
+        padding: 7px 10px;
+        font-size: 10px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
 @media screen and (max-width: 768px) {
     #menusuperior {
         padding: 15px 20px;
     }
 
-    #menusuperior a:not(#menuhamburguesa):not(#nombreinsti),
+    #menusuperior a:not(#menuhamburguesa):not(#nombreinsti):not(.logo-home),
     #menusuperior .sesion {
         display: none; 
     }
     #menusuperior .registro {
         display: none; 
+    }
+    #menusuperior .acciones-usuario {
+        margin-left: auto;
+        margin-right: 0;
+    }
+    #menusuperior .nombre-usuario {
+        display: none;
     }
 
     #menuhamburguesa {

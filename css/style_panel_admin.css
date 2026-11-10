@@ -19,12 +19,41 @@ body {
     padding: 0 45px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     border-bottom: 4px solid #8fbf8f;
+    gap: 16px;
 }
 
 .logo {
     font-size: 24px;
     font-weight: bold;
     color: #5f9f5f;
+}
+
+.brand-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.brand-logo {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.usuario-header {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #1f3d2e;
+    white-space: nowrap;
+    margin-left: 0;
 }
 
 nav {

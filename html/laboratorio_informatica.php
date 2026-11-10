@@ -24,7 +24,7 @@
                 <p>Salas equipadas con estaciones de trabajo de alta velocidad, conectividad de red y recursos para programación, diseño e investigación digital.</p>
             </div>
             <div class="foto-salon">
-                <img src="../imagenes/imageninstituto.png" alt="Laboratorio de informática del instituto">
+                <img src="../imagenes/imageninstituto.jpg" alt="Laboratorio de informática del instituto">
             </div>
         </section>
 

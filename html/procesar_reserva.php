@@ -2,11 +2,18 @@
 session_start();
 require_once __DIR__ . '/../includes/config.php';
 
+function obtenerRedirectDestinoProfesorReserva(): string {
+    $destino = basename((string)($_POST['redirect_to'] ?? ''));
+    $permitidos = ['calendario_profesor.php', 'panel_profesor.php'];
+    return in_array($destino, $permitidos, true) ? $destino : 'panel_profesor.php';
+}
+
 if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'profesor') {
     die("Acceso denegado. <a href='Inicio_sesion.php'>Iniciar sesión</a>");
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $redirectProfesor = obtenerRedirectDestinoProfesorReserva();
     $isAjax = isset($_POST['ajax']) && $_POST['ajax'] === '1';
     
     if ($isAjax) {
@@ -14,6 +21,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     $id_usuario = $_SESSION['usuario_id'];
+    $modoEdicion = (isset($_POST['editar_reserva']) && $_POST['editar_reserva'] === '1');
+    $idsEdicion = [];
+
+    if ($modoEdicion) {
+        $idsEdicion = array_values(array_unique(array_filter(array_map('intval', explode(',', (string)($_POST['id_reserva'] ?? ''))))));
+        if (empty($idsEdicion)) {
+            $msg = 'No se encontró la reserva a editar.';
+            if ($isAjax) {
+                echo json_encode(['success' => false, 'error' => $msg]);
+                exit();
+            }
+            die("<script>alert('Error: $msg'); window.history.back();</script>");
+        }
+
+        $placeholders = implode(',', array_fill(0, count($idsEdicion), '?'));
+        $stmt = $pdo->prepare("SELECT id, id_recurso, id_usuario, fecha, hora_inicio, hora_fin FROM reservas WHERE id IN ($placeholders) AND id_usuario = ?");
+        $params = [...$idsEdicion, $id_usuario];
+        $stmt->execute($params);
+        $reservasExistentes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($reservasExistentes) !== count($idsEdicion)) {
+            $msg = 'No tenés permiso para editar esta reserva.';
+            if ($isAjax) {
+                echo json_encode(['success' => false, 'error' => $msg]);
+                exit();
+            }
+            die("<script>alert('Error: $msg'); window.history.back();</script>");
+        }
+    }
+
     $fecha = $_POST['fecha'] ?? null;
     $hora_inicio = $_POST['hora_inicio'] ?? null;
 
@@ -175,7 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
         $_SESSION['reserva_error'] = $errorMsg;
-        header('Location: reservas_profesor.php');
+        header('Location: ' . $redirectProfesor);
         exit();
     }
 
@@ -186,6 +223,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
         die("<script>alert('Error: $msg'); window.history.back();</script>");
+    }
+
+    if ($modoEdicion) {
+        $stmtDelete = $pdo->prepare("DELETE FROM reservas WHERE id IN ($placeholders)");
+        $stmtDelete->execute($idsEdicion);
     }
 
     if ($id_recurso_sala) {
@@ -203,10 +245,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($isAjax) {
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => true, 'mode' => $modoEdicion ? 'edit' : 'create']);
         exit();
     }
 
-    header("Location: reservas_profesor.php");
+    header("Location: " . $redirectProfesor);
     exit();
 }
