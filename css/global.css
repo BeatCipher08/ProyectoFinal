@@ -1,3 +1,37 @@
+:root {
+    --verde-oscuro: #647f19;
+    --verde-claro: #8eb82d;
+    --verde-hover: #bfe85d;
+    --fondo-suave: #f3f3f0;
+    --blanco-suave: #fafaf7;
+    --texto-principal: #222;
+    --texto-secondary: #4d4d4d;
+}
+
+body,
+main,
+.contenedor,
+.panel,
+.card,
+.tarjeta,
+.recuadro,
+.bloque,
+.filtros,
+.modal-content,
+.contenedor-tarjetas,
+.contenedor-novedades {
+    background-color: var(--blanco-suave) !important;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 /* ==========================================================================
    1. ESTILOS GLOBALES Y BARRA DE NAVEGACIÓN SUPERIOR (HEADER)
    ========================================================================== */
@@ -6,7 +40,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #AEE239; 
+  background-color: var(--verde-oscuro);
   display: flex;                
   justify-content: flex-start;  
   align-items: center;
@@ -31,8 +65,8 @@
 }
 
 #menusuperior a:hover {
-  background-color: #00a8c6; 
-  color: #ffffff; 
+  background-color: var(--verde-claro);
+  color: #1d2d12;
   border-radius: 21px;
 }
 
@@ -101,8 +135,8 @@
 
 .sesion {
     color: #ffffff;
-    background: #8CB326;
-    border: 1px solid #8CB326;
+    background: var(--verde-oscuro);
+    border: 1px solid var(--verde-oscuro);
     padding: 8px 14px;
     border-radius: 8px;
     font-size: 11px;
@@ -116,23 +150,29 @@
 
 .registro:hover,
 .sesion:hover {
-    filter: brightness(0.96);
+    filter: brightness(1.02);
+    background: var(--verde-claro);
+    border-color: var(--verde-claro);
+    color: #1d2d12;
     transform: translateY(-1px);
 }
 
 .panel-admin {
-    background: #5a8f6a !important;
-    border-color: #5a8f6a !important;
+    background: var(--verde-claro) !important;
+    border-color: var(--verde-claro) !important;
+    color: #1d2d12 !important;
 }
 
 .panel-profesor {
-    background: #5a8f6a !important;
-    border-color: #5a8f6a !important;
+    background: var(--verde-claro) !important;
+    border-color: var(--verde-claro) !important;
+    color: #1d2d12 !important;
 }
 
 .panel-alumno {
-    background: #5a8f6a !important;
-    border-color: #5a8f6a !important;
+    background: var(--verde-claro) !important;
+    border-color: var(--verde-claro) !important;
+    color: #1d2d12 !important;
 }
 
 .sesion.panel-cerrar {
@@ -170,8 +210,18 @@ footer {
     cursor: pointer;
 }
 
-.footer-grid li:hover {
-    color: #8CB326;
+.footer-grid a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.footer-grid a:hover,
+.footer-grid a:focus,
+.footer-grid a:visited,
+.footer-grid a:active {
+    color: inherit;
+    text-decoration: none;
 }
 
 footer hr {
@@ -223,7 +273,39 @@ footer hr {
 
 @media screen and (max-width: 768px) {
     #menusuperior {
-        padding: 15px 20px;
+        padding: 12px 14px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .nav-principal {
+        display: none;
+        width: 100%;
+        margin-top: 10px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        background: rgba(16, 38, 18, 0.18);
+        border-radius: 14px;
+        padding: 8px;
+    }
+
+    .nav-principal.is-open {
+        display: flex;
+    }
+
+    .nav-principal a,
+    .dropdown-salones,
+    .dropdown-salones > a {
+        width: 100%;
+        margin: 0;
+        text-align: left;
+    }
+
+    .dropdown-menu {
+        position: static !important;
+        min-width: 100% !important;
+        margin-top: 8px;
     }
 
     #menusuperior a:not(#menuhamburguesa):not(#nombreinsti):not(.logo-home),
@@ -246,6 +328,7 @@ footer hr {
         font-size: 28px;
         color: #333;
         text-decoration: none;
+        margin-left: 0;
     }
 
     #nombreinsti {
@@ -269,5 +352,39 @@ footer hr {
         grid-template-columns: 1fr;
         gap: 30px;
         text-align: center;
+    }
+
+    .registro,
+    .sesion {
+        width: auto;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 760px) {
+    .barra {
+        height: auto;
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .brand-group {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+    }
+
+    nav a {
+        padding: 8px 10px;
+        font-size: 0.8rem;
     }
 }

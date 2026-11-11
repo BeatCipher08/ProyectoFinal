@@ -15,6 +15,7 @@ error_reporting(E_ALL);
     <!-- Archivos CSS -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/style_salon_detalle.css">
+    <link rel="stylesheet" href="../css/style_salon_uno.css">
     <link rel="stylesheet" href="../css/style_salon_grande_uno.css">
 
     <!-- Fuentes e Íconos -->
@@ -31,11 +32,11 @@ error_reporting(E_ALL);
            ========================================================== -->
         <section class="hero-salon hero-grande">
             <div class="contenido-salon">
-                <h1>Salones Grandes</h1>
-                <p>Espacio polivalente de gran capacidad diseñado para conferencias magistrales, eventos institucionales, graduaciones y proyecciones especiales.</p>
+                <h1>Salón de Universidad</h1>
+                <p>Espacio de gran capacidad pensado para clases institucionales, actos académicos, reuniones universitarias y eventos con gran cantidad de asistentes.</p>
             </div>
             <div class="foto-salon">
-                <img src="../imagenes/imageninstituto.jpg" alt="Vista interior del Auditorio Principal">
+                <img src="../imagenes/imageninstituto.jpg" alt="Vista interior del salón universitario">
             </div>
         </section>
 
@@ -65,56 +66,55 @@ error_reporting(E_ALL);
            SECCIÓN DE EQUIPAMIENTO CON TARJETAS HORIZONTALES
            ========================================================== -->
         <section class="seccion-equipamiento">
-            <h2>Equipamiento Integral del los Salónes</h2>
+            <h2>Equipamiento del Salón Universitario</h2>
             
-            <!-- Contenedor con tarjetas horizontales -->
             <div class="contenedor-tarjetas-horizontales">
                 
                 <div class="tarjeta-equipo-horizontal">
                     <div class="icono-equipo-horizontal">📽️</div>
                     <div class="texto-equipo-horizontal">
-                        <h3>Proyector Láser 4K</h3>
-                        <p>Pantalla gigante retráctil automatizada para presentaciones de alto nivel.</p>
+                        <h3>Proyección central</h3>
+                        <p>Sistema de proyección para clases magistrales, presentaciones académicas y actividades con público numeroso.</p>
                     </div>
                 </div>
 
                 <div class="tarjeta-equipo-horizontal">
                     <div class="icono-equipo-horizontal">🎙️</div>
                     <div class="texto-equipo-horizontal">
-                        <h3>Sistema de Audio Profesional</h3>
-                        <p>Micrófonos inalámbricos de solapa y mano, consola de sonido y retornos.</p>
-                    </div>
-                </div>
-
-                <div class="tarjeta-equipo-horizontal">
-                    <div class="icono-equipo-horizontal">🎭</div>
-                    <div class="texto-equipo-horizontal">
-                        <h3>Escenario y Tarima</h3>
-                        <p>Espacio elevado con iluminación ambiental graduable y telón ajustable.</p>
+                        <h3>Audio de auditorio</h3>
+                        <p>Micrófonos y equipamiento de sonido para conferencias, exposiciones y intervenciones del cuerpo docente.</p>
                     </div>
                 </div>
 
                 <div class="tarjeta-equipo-horizontal">
                     <div class="icono-equipo-horizontal">💺</div>
                     <div class="texto-equipo-horizontal">
-                        <h3>Butacas Numeradas</h3>
-                        <p>150 asientos ergonómicos fijos con tablilla rebatible incorporada.</p>
+                        <h3>Capacidad para audiencia</h3>
+                        <p>Espacio pensado para recibir a un gran número de estudiantes, invitados y público institucional.</p>
                     </div>
                 </div>
 
                 <div class="tarjeta-equipo-horizontal">
                     <div class="icono-equipo-horizontal">🌡️</div>
                     <div class="texto-equipo-horizontal">
-                        <h3>Climatización Central</h3>
-                        <p>Dos sistemas de aire acondicionado industrial de alta potencia.</p>
+                        <h3>Climatización y confort</h3>
+                        <p>Ambiente acondicionado para jornadas largas de actividades académicas o institucionales.</p>
                     </div>
                 </div>
 
                 <div class="tarjeta-equipo-horizontal">
                     <div class="icono-equipo-horizontal">🔌</div>
                     <div class="texto-equipo-horizontal">
-                        <h3>Conectividad Dedicada</h3>
-                        <p>Punto de red ethernet exclusivo en cabina y Wi-Fi de alta densidad.</p>
+                        <h3>Conectividad institucional</h3>
+                        <p>Conexión para presentaciones, pantallas audiovisuales y apoyo a actividades académicas y administrativas.</p>
+                    </div>
+                </div>
+
+                <div class="tarjeta-equipo-horizontal">
+                    <div class="icono-equipo-horizontal">📚</div>
+                    <div class="texto-equipo-horizontal">
+                        <h3>Uso académico</h3>
+                        <p>Ideal para clases abiertas, actos universitarios, jornadas y actividades con alto nivel de concurrencia.</p>
                     </div>
                 </div>
 
@@ -127,11 +127,11 @@ error_reporting(E_ALL);
         <section class="seccion-distribucion">
             <div class="caja-distribucion">
                 <h2><i class="fa-solid fa-map-location-dot"></i> Distribución del Salón</h2>
-                <p>El salón se divide en tres sectores estratégicos para facilitar el flujo de asistentes:</p>
+                <p>El salón universitario está pensado para facilitar la visibilidad y el flujo de público de forma clara y ordenada:</p>
                 <ul class="lista-sectores">
-                    <li><strong>Platea Baja (Sector A):</strong> 90 butacas con acceso directo desde las puertas principales.</li>
-                    <li><strong>Balcón / Mezzanine (Sector B):</strong> 60 butacas elevadas con visibilidad panorámica completa hacia la pantalla.</li>
-                    <li><strong>Cabina Técnica:</strong> Espacio cerrado en la parte posterior para control de luces, sonido y transmisiones en streaming.</li>
+                    <li><strong>Platea principal:</strong> espacio central destinado a estudiantes, asistentes y público general.</li>
+                    <li><strong>Sector de apoyo académico:</strong> zona para presentaciones, paneles y actividades institucionales.</li>
+                    <li><strong>Cabina técnica:</strong> espacio de control para audio, video y coordinación del evento.</li>
                 </ul>
             </div>
         </section>
@@ -143,16 +143,18 @@ error_reporting(E_ALL);
             <article class="articulo-normas">
                 <header class="encabezado-normas">
                     <h2>Protocolo y Normas de Uso del Salón</h2>
-                    <p>Reglas generales para mantener el salón en óptimas condiciones</p>
+                    <p>Reglas generales para mantener el espacio en condiciones óptimas</p>
                 </header>
                 <div class="contenido-normas">
-                    <p>• <strong>Coordinación técnica:</strong> Toda reserva de este espacio requiere un pre-soporte técnico obligatorio con 48 horas de anticipación.</p>
-                    <p>• <strong>Alimentación y bebidas:</strong> Está terminantemente prohibido el ingreso con alimentos o bebidas dentro de la zona de butacas.</p>
-                    <p>• <strong>Capacidad máxima:</strong> Por normativas de seguridad e higiene, no se permite exceder el aforo de 150 personas bajo ninguna circunstancia.</p>
+                    <p>• <strong>Reserva académica:</strong> el salón está orientado a actividades de alta concurrencia y requiere coordinación previa con la institución.</p>
+                    <p>• <strong>Alimentación:</strong> está prohibido ingresar alimentos o bebidas en la zona de asientos durante eventos formales.</p>
+                    <p>• <strong>Capacidad máxima:</strong> no se permite exceder el aforo establecido por seguridad y comodidad de los asistentes.</p>
                 </div>
             </article>
         </section>
     </main>
+
+    <?php require_once __DIR__ . '/../includes/footer.php'; ?>
 
 </body>
 </html>

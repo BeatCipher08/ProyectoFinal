@@ -3,7 +3,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'alumno') {
+if (!isset($_SESSION['usuario_id'])) {
     header("Location: Inicio_sesion.php");
     exit();
 }
@@ -14,7 +14,7 @@ $fechaActual = date('Y-m-d');
 $horaActual = date('H:i:s');
 
 $recursos = $pdo->query(
-    "SELECT * FROM recursos WHERE activo = 1 ORDER BY tipo ASC, nombre ASC"
+    "SELECT * FROM recursos WHERE activo = 1 AND tipo = 'equipo' ORDER BY nombre ASC"
 )->fetchAll(PDO::FETCH_ASSOC);
 
 $ocupacionesStmt = $pdo->prepare(
@@ -50,7 +50,7 @@ function obtenerTextoEstado(string $estado): string
     return $texto[$estado] ?? 'Disponible';
 }
 
-function construirTooltip(array $detalle, int $total): string
+function construirTooltip(array $detalle): string
 {
     if (empty($detalle)) {
         return '<strong>Disponible</strong><br>Sin reservas activas en este momento.';
@@ -79,7 +79,7 @@ function construirTooltip(array $detalle, int $total): string
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de recursos</title>
+    <title>Catálogo de equipos</title>
     <link rel="stylesheet" href="../css/style_panel_alumno.css">
     <link rel="stylesheet" href="../css/style_catalogo_recursos.css">
 </head>
@@ -89,23 +89,20 @@ function construirTooltip(array $detalle, int $total): string
     <main class="catalogo-page">
         <header class="catalogo-header">
             <div>
-                <h1>Catálogo de recursos</h1>
-                <p>Consulta el inventario de salones, laboratorios y equipamiento del instituto.</p>
+                <h1>Catálogo de equipos</h1>
+                <p>Consulta el inventario disponible para reservar en el instituto.</p>
             </div>
         </header>
 
         <section class="catalogo-shell">
-            <div class="catalogo-tabs" aria-label="Pestañas de recursos">
-                <button class="catalogo-tab active" type="button" data-target="espacios">Salas y laboratorios</button>
-                <button class="catalogo-tab" type="button" data-target="equipos">Equipamiento</button>
+            <div class="catalogo-tabs" aria-label="Pestañas del catálogo">
+                <button class="catalogo-tab active" type="button" data-target="equipos">Equipos</button>
             </div>
 
             <div class="resource-grid">
                 <?php foreach ($recursos as $recurso): ?>
                     <?php
                     $idRecurso = (int) $recurso['id'];
-                    $tipoRecurso = $recurso['tipo'];
-                    $categoria = in_array($tipoRecurso, ['sala', 'laboratorio'], true) ? 'espacios' : 'equipos';
                     $cantidadTotal = max(1, (int) $recurso['cantidad_total']);
                     $usadoActual = 0;
                     $detalleUso = [];
@@ -143,16 +140,14 @@ function construirTooltip(array $detalle, int $total): string
 
                     $porcentajeUso = min(($usadoActual / $cantidadTotal) * 100, 100);
                     $textoEstado = obtenerTextoEstado($estado);
-                    $tooltipHtml = construirTooltip($detalleUso, $cantidadTotal);
-                    $icono = $tipoRecurso === 'equipo' ? '💻' : ($tipoRecurso === 'laboratorio' ? '🧪' : '🏫');
-                    $tipoEtiqueta = $tipoRecurso === 'sala' ? 'Sala' : ($tipoRecurso === 'laboratorio' ? 'Laboratorio' : 'Equipo');
+                    $tooltipHtml = construirTooltip($detalleUso);
                     ?>
-                    <article class="resource-card" data-category="<?php echo htmlspecialchars($categoria); ?>" data-state="<?php echo htmlspecialchars($estado); ?>">
+                    <article class="resource-card" data-category="equipos" data-state="<?php echo htmlspecialchars($estado); ?>">
                         <div class="resource-head">
-                            <div class="resource-icon"><?php echo $icono; ?></div>
+                            <div class="resource-icon">💻</div>
                             <div>
                                 <h3><?php echo htmlspecialchars($recurso['nombre']); ?></h3>
-                                <span class="resource-kind"><?php echo htmlspecialchars($tipoEtiqueta); ?></span>
+                                <span class="resource-kind">Equipo</span>
                             </div>
                             <span class="status-indicator <?php echo htmlspecialchars($estado); ?>" tabindex="0" aria-label="Estado de uso">
                                 <span class="status-dot"></span>
@@ -175,11 +170,8 @@ function construirTooltip(array $detalle, int $total): string
                 <?php endforeach; ?>
             </div>
 
-            <div class="empty-state" data-category="espacios">
-                No hay salas ni laboratorios activos en este momento.
-            </div>
-            <div class="empty-state" data-category="equipos">
-                No hay equipos con uso registrado en este momento.
+            <div class="empty-state visible" data-category="equipos">
+                No hay equipos disponibles para reservar en este momento.
             </div>
         </section>
     </main>

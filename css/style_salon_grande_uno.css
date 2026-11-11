@@ -13,11 +13,62 @@ body {
 }
 
 .foto-salon img {
-    border-radius: 60px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(17, 24, 39, 0.12);
+    border: 1px solid rgba(17, 24, 39, 0.05);
 }
 
 .hero-grande .contenido-salon p {
-    font-size: 24px;
+    font-size: clamp(1.08rem, 1.6vw, 1.5rem);
+}
+
+.hero-grande .conferencia-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    height: 420px;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(17, 24, 39, 0.12);
+    border: 1px solid rgba(17, 24, 39, 0.05);
+}
+
+.hero-grande .conferencia-carousel .carousel-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.hero-grande .conferencia-carousel .carousel-slide.activo {
+    opacity: 1;
+}
+
+.hero-grande .conferencia-carousel .carousel-indicadores {
+    position: absolute;
+    left: 50%;
+    bottom: 14px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+}
+
+.hero-grande .conferencia-carousel .indicador {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.hero-grande .conferencia-carousel .indicador.activo {
+    background: #ffffff;
+    transform: scale(1.2);
 }
 
 /* Ficha de datos técnicos con la misma plantilla de los salones */
@@ -123,6 +174,161 @@ body {
     color: #8CB326;
 }
 
+.seccion-documentos {
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.caja-documentos {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #e4ead8;
+    border-left: 6px solid #8CB326;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 40px 50px 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.etiqueta-documentos {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: #eef3de;
+    color: #5F8618;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.caja-documentos h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.caja-documentos p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 26px;
+}
+
+.lista-documentos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.tarjeta-documento {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 18px;
+    background: #f8faf4;
+    border: 1px solid #e4ead8;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #222;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tarjeta-documento:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(17, 24, 39, 0.06);
+}
+
+.tarjeta-libro {
+    align-items: stretch;
+    padding: 14px;
+}
+
+.portada-libro {
+    width: 88px;
+    min-width: 88px;
+    height: 120px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 10px 8px;
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.2;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+}
+
+.portada-libro span {
+    font-size: 11px;
+    opacity: 0.92;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.portada-libro strong {
+    font-size: 16px;
+    margin-top: 6px;
+}
+
+.color-bio {
+    background: linear-gradient(160deg, #3d8b6d 0%, #1d5b4c 100%);
+}
+
+.color-ciencias {
+    background: linear-gradient(160deg, #3190c6 0%, #1f5f88 100%);
+}
+
+.color-info {
+    background: linear-gradient(160deg, #6a7ff5 0%, #334bb8 100%);
+}
+
+.color-quimica {
+    background: linear-gradient(160deg, #d96a52 0%, #a73b2f 100%);
+}
+
+.color-robotica {
+    background: linear-gradient(160deg, #34a184 0%, #1c6d5d 100%);
+}
+
+.color-fisica {
+    background: linear-gradient(160deg, #d8ac3a 0%, #9f6e00 100%);
+}
+
+.icono-documento {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef3de;
+    color: #8CB326;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.texto-documento {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.texto-documento strong {
+    font-size: 18px;
+    color: #1b2d1b;
+    margin-bottom: 4px;
+}
+
+.texto-documento small {
+    color: #5F8618;
+    font-weight: 600;
+}
+
 /* Ajustes responsive para móviles */
 @media screen and (max-width: 1000px) {
     .lista-sectores {
@@ -153,6 +359,12 @@ body {
     .caja-distribucion {
         padding: 30px 20px;
         margin: 20px;
+    }
+
+    .hero-grande .conferencia-carousel {
+        height: 320px;
+        max-width: 100%;
+        border-radius: 24px;
     }
 }
 

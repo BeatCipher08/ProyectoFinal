@@ -25,6 +25,57 @@ $reservas_pendientes = $stmt->fetchColumn();
 
 $stmt = $pdo->query("SELECT COUNT(*) FROM recursos");
 $total_recursos = $stmt->fetchColumn();
+
+$reservasRecientesStmt = $pdo->query(
+    "SELECT
+        r.fecha,
+        r.hora_inicio,
+        r.hora_fin,
+        r.estado,
+        u.nombre AS usuario_nombre,
+        u.email AS usuario_email,
+        rec.nombre AS recurso_nombre,
+        rec.tipo AS recurso_tipo
+    FROM reservas r
+    LEFT JOIN usuarios u ON u.id = r.id_usuario
+    LEFT JOIN recursos rec ON rec.id = r.id_recurso
+    ORDER BY r.created_at DESC, r.id DESC
+    LIMIT 8"
+);
+
+$reservas_recientes = $reservasRecientesStmt->fetchAll(PDO::FETCH_ASSOC);
+
+function claseEstadoAdmin(string $estado): string {
+    $estadoNormalizado = strtolower(trim($estado));
+
+    if ($estadoNormalizado === 'aprobada') {
+        return 'confirmada';
+    }
+
+    if ($estadoNormalizado === 'rechazada' || $estadoNormalizado === 'cancelada') {
+        return 'cancelada';
+    }
+
+    return 'pendiente';
+}
+
+function etiquetaEstadoAdmin(string $estado): string {
+    $estadoNormalizado = strtolower(trim($estado));
+
+    if ($estadoNormalizado === 'aprobada') {
+        return 'Confirmada';
+    }
+
+    if ($estadoNormalizado === 'rechazada') {
+        return 'Rechazada';
+    }
+
+    if ($estadoNormalizado === 'cancelada') {
+        return 'Cancelada';
+    }
+
+    return 'Pendiente';
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -149,66 +200,43 @@ $total_recursos = $stmt->fetchColumn();
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <strong>Juan Pérez</strong>
-                                <small>juanperez</small>
-                            </td>
-                            <td>
-                                <strong>Aula 101</strong>
-                                <small>Aula</small>
-                            </td>
-                            <td>27/08/2026</td>
-                            <td>08:00 - 10:00</td>
-                            <td>
-                                <span class="estado confirmada">Confirmada</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>María Rodríguez</strong>
-                                <small>mrodriguez</small>
-                            </td>
-                            <td>
-                                <strong>Laboratorio 2</strong>
-                                <small>Laboratorio</small>
-                            </td>
-                            <td>27/08/2026</td>
-                            <td>10:00 - 12:00</td>
-                            <td>
-                                <span class="estado pendiente">Pendiente</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>Carlos Silva</strong>
-                                <small>csilva</small>
-                            </td>
-                            <td>
-                                <strong>Proyector 1</strong>
-                                <small>Equipamiento</small>
-                            </td>
-                            <td>28/08/2026</td>
-                            <td>09:00 - 11:00</td>
-                            <td>
-                                <span class="estado confirmada">Confirmada</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>Lucía Gómez</strong>
-                                <small>lgomez</small>
-                            </td>
-                            <td>
-                                <strong>Aula 204</strong>
-                                <small>Aula</small>
-                            </td>
-                            <td>28/08/2026</td>
-                            <td>13:00 - 15:00</td>
-                            <td>
-                                <span class="estado pendiente">Pendiente</span>
-                            </td>
-                        </tr>
+                        <?php if (empty($reservas_recientes)): ?>
+                            <tr>
+                                <td colspan="5">Aún no hay reservas registradas.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($reservas_recientes as $reserva): ?>
+                                <?php
+                                $usuarioNombre = trim((string)($reserva['usuario_nombre'] ?? 'Usuario sin nombre'));
+                                $usuarioEmail = trim((string)($reserva['usuario_email'] ?? 'sin email'));
+                                $recursoNombre = trim((string)($reserva['recurso_nombre'] ?? 'Recurso'));
+                                $recursoTipo = trim((string)($reserva['recurso_tipo'] ?? 'sala'));
+                                $fecha = trim((string)($reserva['fecha'] ?? ''));
+                                $horaInicio = trim((string)($reserva['hora_inicio'] ?? ''));
+                                $horaFin = trim((string)($reserva['hora_fin'] ?? ''));
+                                $estado = trim((string)($reserva['estado'] ?? 'pendiente'));
+
+                                $fechaFormateada = $fecha !== '' ? date('d/m/Y', strtotime($fecha)) : '-';
+                                $horaInicioFormateada = $horaInicio !== '' ? substr($horaInicio, 0, 5) : '--:--';
+                                $horaFinFormateada = $horaFin !== '' ? substr($horaFin, 0, 5) : '--:--';
+                                ?>
+                                <tr>
+                                    <td>
+                                        <strong><?php echo htmlspecialchars($usuarioNombre); ?></strong>
+                                        <small><?php echo htmlspecialchars($usuarioEmail); ?></small>
+                                    </td>
+                                    <td>
+                                        <strong><?php echo htmlspecialchars($recursoNombre); ?></strong>
+                                        <small><?php echo htmlspecialchars(ucfirst($recursoTipo)); ?></small>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($fechaFormateada); ?></td>
+                                    <td><?php echo htmlspecialchars($horaInicioFormateada . ' - ' . $horaFinFormateada); ?></td>
+                                    <td>
+                                        <span class="estado <?php echo htmlspecialchars(claseEstadoAdmin($estado)); ?>"><?php echo htmlspecialchars(etiquetaEstadoAdmin($estado)); ?></span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>

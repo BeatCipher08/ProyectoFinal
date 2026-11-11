@@ -91,7 +91,7 @@ error_reporting(E_ALL);
         <!-- ======================================================
            SECCIÓN TARJETAS DE RESERVA Y CARRUSEL
            ====================================================== -->
-        <section class="reservas">
+        <section class="reservas" id="reservas">
             <h2>¿Qué puedes reservar?</h2>
             <div class="carrusel-wrapper">
                 <!-- Botón Izquierdo con accesibilidad (Móvil) -->
@@ -143,30 +143,27 @@ error_reporting(E_ALL);
             </div>
             <div class="contenedor-novedades">
                 <div class="card-novedad">
-                    <!-- Optimización de carga con loading="lazy" -->
-                    <img src="../imagenes/imageninstituto.jpg" alt="Nuevos laboratorios de informática" loading="lazy">
+                    <img src="../imagenes/quimica_laboratorio.jpg" alt="Evento académico de química" loading="lazy">
                     <div class="contenido-novedad">
-                       <h3>Nuevos laboratorios</h3>
-                       <p>Se incorporaron nuevos equipos para las prácticas de informática.</p>
-                       <a href="#">Leer más →</a>
+                       <h3>Semana de química aplicada</h3>
+                       <p>El instituto abre una semana de actividades prácticas y charlas sobre innovación química.</p>
+                       <a href="novedad.php?id=evento-quimica">Leer más →</a>
                     </div>
                 </div>
                 <div class="card-novedad">
-                    <!-- Optimización de carga con loading="lazy" -->
-                    <img src="../imagenes/imageninstituto.jpg" alt="Instalaciones de la biblioteca renovada" loading="lazy">
+                    <img src="../imagenes/imageninstituto.jpg" alt="Nuevas PC de escritorio para laboratorio de informática" loading="lazy">
                     <div class="contenido-novedad">
-                       <h3>Biblioteca renovada</h3>
-                       <p>Ahora puedes reservar salas de estudio desde el sistema.</p>
-                       <a href="#">Leer más →</a>
+                       <h3>Llegan nuevas PCs al salón de informática</h3>
+                       <p>La próxima semana se incorporarán equipos de última generación para prácticas y talleres.</p>
+                       <a href="novedad.php?id=pc-escritorio">Leer más →</a>
                     </div>
                 </div>
                 <div class="card-novedad">
-                    <!-- Optimización de carga con loading="lazy" -->
-                    <img src="../imagenes/imageninstituto.jpg" alt="Participantes en la semana tecnológica" loading="lazy">
+                    <img src="../imagenes/imagen_conferencia.jpg" alt="Graduación del grupo de química industrial" loading="lazy">
                     <div class="contenido-novedad">
-                       <h3>Semana tecnológica</h3>
-                       <p>Inscripciones abiertas para talleres y conferencias.</p>
-                       <a href="#">Leer más →</a>
+                       <h3>Graduación del grupo de química industrial</h3>
+                       <p>Se celebrará una ceremonia de cierre para estudiantes egresados del último ciclo de la carrera.</p>
+                       <a href="novedad.php?id=graduacion-quimica">Leer más →</a>
                     </div>
                 </div>
             </div>
@@ -193,7 +190,7 @@ error_reporting(E_ALL);
             </div>
             <div>
                 <h3>Contacto</h3>
-                <p>📍 Tacuarembó</p>
+                <p>📍 Esquina Alfredo Zitarrosa y Avenida Republica Argentina, Tacuarembo, Uruguay</p>
                 <p>📞 4632-0000</p>
                 <p>📧 contacto@instituto.edu.uy</p>
             </div>

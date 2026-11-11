@@ -167,10 +167,10 @@ $equiposActivos = (int) $pdo->query("SELECT COUNT(*) FROM recursos WHERE tipo = 
                     </a>
 
                     <a href="catalogo_recursos.php" class="acceso">
-                        <div class="acceso-icono">🏫</div>
+                        <div class="acceso-icono">💻</div>
                         <div>
-                            <h3>Mirar catálogo</h3>
-                            <p>Ver salones, recursos y equipos disponibles.</p>
+                            <h3>Ver equipos</h3>
+                            <p>Consultar el inventario disponible para reservar.</p>
                         </div>
                         <span>→</span>
                     </a>

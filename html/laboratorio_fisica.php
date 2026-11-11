@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboratorios de Física</title>
     <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/style_salon_uno.css">
     <link rel="stylesheet" href="../css/style_salon_grande_uno.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -120,6 +121,57 @@
                 </div>
             </article>
         </section>
+
+        <?php
+        $rolUsuario = strtolower((string)($_SESSION['rol'] ?? ''));
+        $puedeVerMaterial = isset($_SESSION['usuario_id']) && in_array($rolUsuario, ['alumno', 'profesor', 'admin'], true);
+        ?>
+
+        <?php if ($puedeVerMaterial): ?>
+            <section class="seccion-documentos">
+                <div class="caja-documentos">
+                    <span class="etiqueta-documentos">Apoyo</span>
+                    <h2>Documentación del laboratorio</h2>
+                    <p>Material útil para preparar prácticas, ejercicios y trabajo experimental en este espacio.</p>
+
+                    <div class="lista-documentos">
+                        <a class="tarjeta-documento" href="../documentos_anexo/F%C3%ADsica%20Raymond%20A.%20Serway%20-%20Volumen%20I%20-%206ta%20Edici%C3%B3n.pdf" target="_blank" rel="noopener noreferrer" download>
+                            <span class="icono-documento"><i class="fa-solid fa-file-pdf"></i></span>
+                            <div class="texto-documento">
+                                <strong>Física - Volumen I</strong>
+                                <small>Descargar PDF</small>
+                            </div>
+                        </a>
+
+                        <a class="tarjeta-documento" href="../documentos_anexo/F%C3%ADsica%20Raymond%20A.%20Serway%20-%20Volumen%20II%20-%206ta%20Edici%C3%B3n.pdf" target="_blank" rel="noopener noreferrer" download>
+                            <span class="icono-documento"><i class="fa-solid fa-file-pdf"></i></span>
+                            <div class="texto-documento">
+                                <strong>Física - Volumen II</strong>
+                                <small>Descargar PDF</small>
+                            </div>
+                        </a>
+
+                        <a class="tarjeta-documento" href="https://www.geogebra.org/classic?lang=es" target="_blank" rel="noopener noreferrer">
+                            <span class="icono-documento"><i class="fa-solid fa-function"></i></span>
+                            <div class="texto-documento">
+                                <strong>GeoGebra</strong>
+                                <small>Abrir en otra pestaña</small>
+                            </div>
+                        </a>
+
+                        <a class="tarjeta-documento" href="https://www.desmos.com/scientific?lang=es" target="_blank" rel="noopener noreferrer">
+                            <span class="icono-documento"><i class="fa-solid fa-calculator"></i></span>
+                            <div class="texto-documento">
+                                <strong>Calculadora gráfica</strong>
+                                <small>Abrir en otra pestaña</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        <?php endif; ?>
     </main>
+
+    <?php require_once __DIR__ . '/../includes/footer.php'; ?>
 </body>
 </html>

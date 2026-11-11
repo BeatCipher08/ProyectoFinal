@@ -26,5 +26,5 @@ document.addEventListener('DOMContentLoaded', () => {
         tab.addEventListener('click', () => aplicarCategoria(tab.dataset.target));
     });
 
-    aplicarCategoria('espacios');
+    aplicarCategoria('equipos');
 });

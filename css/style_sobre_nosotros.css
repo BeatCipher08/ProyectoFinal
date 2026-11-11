@@ -1,0 +1,175 @@
+/* ==========================================================================
+   SOBRE NOSOTROS - ESTILO INSTITUCIONAL
+   ========================================================================== */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--fondo-suave);
+    color: var(--texto-principal);
+}
+
+.main-sobre {
+    padding: 110px 40px 40px;
+}
+
+.hero-sobre {
+    max-width: 1180px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #ffffff 0%, #f5faeb 100%);
+    border: 1px solid rgba(111, 143, 29, 0.14);
+    border-radius: 28px;
+    box-shadow: 0 14px 30px rgba(17, 24, 39, 0.08);
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 28px;
+    padding: 34px;
+    align-items: center;
+}
+
+.sobre-texto h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1;
+    margin-bottom: 14px;
+    color: #1d2b1d;
+}
+
+.sobre-texto p {
+    color: #4a5a4a;
+    line-height: 1.75;
+    font-size: 1.03rem;
+    margin-bottom: 14px;
+}
+
+.sobre-etiqueta {
+    display: inline-block;
+    margin-bottom: 14px;
+    background: rgba(111, 143, 29, 0.12);
+    color: #5e7d1b;
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.sobre-foto img {
+    width: 100%;
+    max-height: 430px;
+    object-fit: cover;
+    border-radius: 22px;
+    box-shadow: 0 12px 26px rgba(17, 24, 39, 0.15);
+}
+
+.bloque-sobre {
+    max-width: 1180px;
+    margin: 30px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.tarjeta-sobre {
+    background: #ffffff;
+    border: 1px solid #e7eddc;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 8px 20px rgba(17, 24, 39, 0.05);
+}
+
+.tarjeta-sobre h2 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    color: #263726;
+}
+
+.tarjeta-sobre p {
+    color: #516251;
+    line-height: 1.65;
+    font-size: 0.97rem;
+}
+
+.mision-vision {
+    max-width: 1180px;
+    margin: 24px auto 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.mision-box {
+    background: #ffffff;
+    border-radius: 20px;
+    border-left: 6px solid var(--verde-oscuro);
+    padding: 24px 24px 20px;
+    box-shadow: 0 10px 22px rgba(17, 24, 39, 0.06);
+}
+
+.mision-box h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #1f2f1f;
+}
+
+.mision-box p {
+    color: #4f5f4f;
+    line-height: 1.7;
+}
+
+.cierre-sobre {
+    max-width: 1180px;
+    margin: 24px auto 0;
+    background: var(--verde-oscuro);
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 12px 25px rgba(17, 24, 39, 0.13);
+}
+
+.cierre-sobre h3 {
+    font-size: 1.55rem;
+    margin-bottom: 8px;
+}
+
+.cierre-sobre p {
+    color: #eef7da;
+    line-height: 1.75;
+}
+
+@media (max-width: 950px) {
+    .hero-sobre {
+        grid-template-columns: 1fr;
+    }
+
+    .bloque-sobre {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .mision-vision {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .main-sobre {
+        padding: 95px 16px 30px;
+    }
+
+    .hero-sobre {
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .bloque-sobre {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 18px;
+    }
+
+    .tarjeta-sobre,
+    .mision-box,
+    .cierre-sobre {
+        border-radius: 14px;
+        padding: 18px;
+    }
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laboratorios de Informática</title>
     <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/style_salon_uno.css">
     <link rel="stylesheet" href="../css/style_salon_grande_uno.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -120,6 +121,38 @@
                 </div>
             </article>
         </section>
+
+        <section class="seccion-documentos">
+            <div class="caja-documentos">
+                <span class="etiqueta-documentos">Apoyo</span>
+                <h2>Bibliografía recomendada</h2>
+                <p>Libros clave para programación, algoritmos y diseño de software.</p>
+                <div class="lista-documentos">
+                    <div class="tarjeta-documento tarjeta-libro">
+                        <div class="portada-libro color-info">
+                            <span>Informática</span>
+                            <strong>Algoritmos</strong>
+                        </div>
+                        <div class="texto-documento">
+                            <strong>Estructuras de datos</strong>
+                            <small>Bibliografía base</small>
+                        </div>
+                    </div>
+                    <div class="tarjeta-documento tarjeta-libro">
+                        <div class="portada-libro color-info">
+                            <span>Software</span>
+                            <strong>Diseño</strong>
+                        </div>
+                        <div class="texto-documento">
+                            <strong>Diseño de software</strong>
+                            <small>Material de apoyo</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
+
+    <?php require_once __DIR__ . '/../includes/footer.php'; ?>
 </body>
 </html>
